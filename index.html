@@ -7,19 +7,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #090909;
-  --s1: #111;
-  --s2: #161616;
-  --s3: #1c1c1c;
-  --border: #242424;
-  --border2: #2e2e2e;
-  --g: #c8f035;
-  --o: #f0a500;
-  --b: #3db8f5;
-  --r: #ff5555;
-  --text: #e4e4e4;
-  --dim: #666;
-  --dim2: #444;
+  --bg: #e8e0d5;
+  --s1: #ddd5c8;
+  --s2: #d4cab9;
+  --s3: #c9bfae;
+  --border: #b8ad9e;
+  --border2: #a89e8f;
+  --g: #c96a2e;
+  --o: #a0522d;
+  --b: #6b7c5e;
+  --r: #b85c3a;
+  --text: #2c2416;
+  --dim: #4a3f33;
+  --dim2: #6b5e52;
 }
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 body {
@@ -34,7 +34,7 @@ body {
 /* ── HEADER ── */
 .header {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(9,9,9,0.96);
+  background: rgba(232,224,213,0.96);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   padding: 12px 16px 10px;
@@ -44,7 +44,7 @@ body {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 21px; letter-spacing: 0.1em; line-height: 1;
 }
-.header-left h1 span { color: var(--g); }
+.header-left h1 span { color: #9e4a18; }
 .header-left .sub {
   font-family: 'DM Mono', monospace;
   font-size: 9px; color: var(--dim); letter-spacing: 0.12em;
@@ -65,7 +65,7 @@ body {
   font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center;
   transition: border-color .15s, color .15s;
 }
-.week-btn:hover { border-color: var(--g); color: var(--g); }
+.week-btn:hover { border-color: var(--g); color: #9e4a18; }
 .week-label {
   font-family: 'DM Mono', monospace; font-size: 11px;
   color: var(--text); letter-spacing: 0.08em; min-width: 54px; text-align: center;
@@ -119,9 +119,9 @@ body {
 }
 .wo-wk-focus { font-size: 9px; color: var(--dim); line-height: 1.3; }
 .wo-wk.current { border-color: var(--g); }
-.wo-wk.current .wo-wk-num { color: var(--g); }
+.wo-wk.current .wo-wk-num { color: #9e4a18; }
 .wo-wk.current .wo-wk-focus { color: var(--text); }
-.wo-wk.deload-wk { border-color: rgba(240,165,0,.3); }
+.wo-wk.deload-wk { border-color: rgba(160,82,45,.4); }
 .wo-wk.deload-wk .wo-wk-num { color: var(--o); }
 .wo-wk.deload-wk.current { border-color: var(--o); }
 
@@ -154,10 +154,10 @@ body {
 .ex-sub { font-size: 10px; color: var(--dim); font-family: 'DM Mono', monospace; margin-top: 3px; }
 .ex-header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
 .sets-badge { font-family: 'DM Mono', monospace; font-size: 10px; padding: 3px 8px; border-radius: 2px; white-space: nowrap; }
-.sets-badge.g { background: rgba(200,240,53,.08); color: var(--g); border: 1px solid rgba(200,240,53,.2); }
-.sets-badge.o { background: rgba(240,165,0,.08); color: var(--o); border: 1px solid rgba(240,165,0,.2); }
-.sets-badge.b { background: rgba(61,184,245,.08); color: var(--b); border: 1px solid rgba(61,184,245,.2); }
-.sets-badge.r { background: rgba(255,85,85,.08); color: var(--r); border: 1px solid rgba(255,85,85,.2); }
+.sets-badge.g { background: rgba(201,106,46,.12); color: #9e4a18; border: 1px solid rgba(201,106,46,.35); }
+.sets-badge.o { background: rgba(160,82,45,.12); color: #7a3a18; border: 1px solid rgba(160,82,45,.35); }
+.sets-badge.b { background: rgba(107,124,94,.15); color: #445c38; border: 1px solid rgba(107,124,94,.4); }
+.sets-badge.r { background: rgba(184,92,58,.12); color: #8c3318; border: 1px solid rgba(184,92,58,.35); }
 .target-line { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--dim2); text-align: right; }
 .target-line .tv { color: var(--g); font-weight: 500; }
 .target-line .tv.deload { color: var(--o); }
@@ -185,7 +185,7 @@ body {
 .set-input.o:focus { border-color: var(--o); }
 .set-input.b:focus { border-color: var(--b); }
 .set-input::placeholder { color: var(--dim2); font-size: 10px; }
-.set-input[readonly] { opacity: 0.25; pointer-events: none; }
+.set-input[readonly] { opacity: 0.4; pointer-events: none; }
 .set-check {
   width: 28px; height: 28px; background: var(--s1);
   border: 1px solid var(--border); border-radius: 2px;
@@ -193,9 +193,9 @@ body {
   cursor: pointer; font-size: 12px;
   transition: background .15s, border-color .15s; flex-shrink: 0;
 }
-.set-check.done { background: rgba(200,240,53,.12); border-color: var(--g); }
-.set-check.done.o { background: rgba(240,165,0,.12); border-color: var(--o); }
-.set-check.done.b { background: rgba(61,184,245,.12); border-color: var(--b); }
+.set-check.done { background: rgba(201,106,46,.18); border-color: var(--g); }
+.set-check.done.o { background: rgba(160,82,45,.18); border-color: var(--o); }
+.set-check.done.b { background: rgba(107,124,94,.2); border-color: var(--b); }
 .save-btn {
   width: 100%; padding: 9px; background: none;
   border: 1px solid var(--border); color: var(--dim);
@@ -205,7 +205,7 @@ body {
   transition: border-color .15s, color .15s, background .15s; margin-top: 4px;
 }
 .save-btn:active { border-color: var(--g); color: var(--g); }
-.save-btn.saved { border-color: var(--g); color: var(--g); background: rgba(200,240,53,.06); }
+.save-btn.saved { border-color: var(--g); color: #9e4a18; background: rgba(201,106,46,.08); }
 
 .prev-log { margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--border); }
 .prev-log-title { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--dim2); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 5px; }
@@ -220,7 +220,7 @@ body {
 /* ── BOTTOM NAV ── */
 .bottom-nav {
   position: fixed; bottom: 0; left: 0; right: 0;
-  background: rgba(9,9,9,0.97); border-top: 1px solid var(--border);
+  background: rgba(232,224,213,0.97); border-top: 1px solid var(--border);
   display: flex; padding: 8px 12px 22px; gap: 6px; z-index: 100;
 }
 .nav-btn {
@@ -232,8 +232,8 @@ body {
   transition: border-color .15s, color .15s;
 }
 .nav-btn.new-block {
-  border-color: rgba(200,240,53,.3); color: var(--g);
-  background: rgba(200,240,53,.04);
+  border-color: rgba(201,106,46,.5); color: #9e4a18;
+  background: rgba(201,106,46,.08);
 }
 .nav-btn.export-btn { color: var(--dim); }
 .nav-btn:active { opacity: 0.7; }
@@ -243,7 +243,7 @@ body {
   position: fixed; top: 68px; left: 50%;
   transform: translateX(-50%) translateY(-8px);
   background: var(--s3); border: 1px solid var(--g);
-  color: var(--g); font-family: 'DM Mono', monospace;
+  color: #9e4a18; font-family: 'DM Mono', monospace;
   font-size: 11px; letter-spacing: 0.1em;
   padding: 7px 14px; border-radius: 2px;
   opacity: 0; pointer-events: none;
@@ -290,7 +290,7 @@ body {
   font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
   cursor: pointer; border-radius: 2px; transition: border-color .15s, color .15s;
 }
-.modal-btn.confirm-green { border-color: var(--g); color: var(--g); background: rgba(200,240,53,.06); }
+.modal-btn.confirm-green { border-color: var(--g); color: #9e4a18; background: rgba(201,106,46,.08); }
 .modal-btn.confirm-red { border-color: var(--r); color: var(--r); }
 
 /* Week source selector */
@@ -304,7 +304,7 @@ body {
   cursor: pointer; border-radius: 2px; text-align: center;
   transition: border-color .15s, color .15s;
 }
-.wk-src-btn.active { border-color: var(--g); color: var(--g); background: rgba(200,240,53,.06); }
+.wk-src-btn.active { border-color: var(--g); color: #9e4a18; background: rgba(201,106,46,.08); }
 </style>
 </head>
 <body>
@@ -394,7 +394,6 @@ body {
   <div class="blk-label"><div class="blk-bar b"></div><span class="blk-txt">Bein-Stabilität</span></div>
   <div id="exwrap-C-bss"></div>
   <div id="exwrap-C-slrdl"></div>
-  <div id="exwrap-C-nordic"></div>
   <div id="exwrap-C-calf"></div>
 
   <div class="blk-label"><div class="blk-bar r"></div><span class="blk-txt">Core</span></div>
@@ -441,27 +440,41 @@ body {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const EXERCISES = {
-  'A-cgbench':   { num:'01', name:'Close-Grip Bench Press',    sub:'Ellbogen eng · Schulterblätter zusammen', sets:4, reps:'6–8',   color:'g' },
-  'A-ohe':       { num:'02', name:'Trizeps-Pushdown (Seilzug)',  sub:'Kabel · volle Extension · Ellbogen fix am Körper', sets:3, reps:'10–12', color:'g' },
+  // Trizeps: fast-twitch dominant → schwer & niedrig (Compound), isolation etwas höher
+  'A-cgbench':   { num:'01', name:'Close-Grip Bench Press',     sub:'Ellbogen eng · Schulterblätter zusammen', sets:4, reps:'4–6',   color:'g' },
+  'A-ohe':       { num:'02', name:'Trizeps-Pushdown (Seilzug)', sub:'Kabel · volle Extension · Ellbogen fix am Körper', sets:3, reps:'8–10', color:'g' },
+  // Lateraler Deltoid: slow-twitch dominant → hohe Wdh, viel Spannung
   'A-kslat':     { num:'03', name:'Kabel-Seitheben (einseitig)',sub:'Von unten · 2–3 sec eccentric',           sets:4, reps:'12–15', color:'g' },
-  'A-incline':   { num:'04', name:'Incline Dumbbell Press',     sub:'30–45° · Erhalt-Fokus · kein PR',        sets:3, reps:'8–10',  color:'g' },
+  // Pecs: fast-twitch dominant → Erhalt, moderat
+  'A-incline':   { num:'04', name:'Incline Dumbbell Press',     sub:'30–45° · Erhalt-Fokus · kein PR',        sets:3, reps:'6–8',   color:'g' },
+  // Core: slow-twitch / stabilisierend → höhere Wdh
   'A-hlr':       { num:'05', name:'Hanging Leg Raise',          sub:'Becken kippen am Ende · kein Schwung',   sets:3, reps:'12–15', color:'r', bw:true },
-  'A-pallof':    { num:'06', name:'Pallof Press',               sub:'Kabel · Anti-Rotation · 10/Seite',       sets:3, reps:'10/S',  color:'r' },
-  'B-incurl':    { num:'01', name:'Incline Dumbbell Curl',      sub:'45° · Stretch-Mediated · 2 sec ecc.',    sets:4, reps:'8–10',  color:'o' },
+  'A-pallof':    { num:'06', name:'Pallof Press',               sub:'Kabel · Anti-Rotation · 10/Seite',       sets:3, reps:'10–12/S', color:'r' },
+  // Bizeps: fast-twitch dominant → niedrig beim Compound-Curl, Brachialis mixed
+  'B-incurl':    { num:'01', name:'Incline Dumbbell Curl',      sub:'45° · Stretch-Mediated · 2 sec ecc.',    sets:4, reps:'6–8',   color:'o' },
   'B-hammer':    { num:'02', name:'Kabel-Hammer Curl (Seil)',   sub:'Seilzug · neutraler Griff · Brachialis · konstante Spannung', sets:3, reps:'10–12', color:'o' },
-  'B-facepull':  { num:'03', name:'Face Pulls',                 sub:'Kabel Seil · Ellbogen hoch · Außenrot.', sets:4, reps:'15',   color:'o' },
-  'B-cablerow':  { num:'04', name:'Seated Cable Row',           sub:'Neutraler Griff · Schulterblätter führen', sets:3, reps:'10–12', color:'o' },
-  'B-abwheel':   { num:'05', name:'Ab Wheel Rollout',           sub:'Kniend · Hüfte stabil · volle Extension', sets:3, reps:'8–12', color:'r', bw:true },
-  'B-sideplank': { num:'06', name:'Side Plank',                 sub:'Statisch · Hüfte oben · 35 sec/Seite',  sets:3, reps:'35s/S', color:'r', bw:true },
-  'C-ezcurl':    { num:'01', name:'EZ-Bar Curl',                sub:'Frisch · sauber · kein Vorermüdungseffekt', sets:3, reps:'8–10', color:'b' },
-  'C-pushdown':  { num:'02', name:'Trizeps-Pushdown',           sub:'Kabel Seilzug · volle Extension · fix',  sets:3, reps:'10–12', color:'b' },
-  'C-landmine':  { num:'03', name:'Landmine Press (einseitig)', sub:'Frontale Schulter · schulterfreundlich',  sets:3, reps:'10/S',  color:'b' },
-  'C-bss':       { num:'04', name:'Bulgarian Split Squat',      sub:'KH · aufrechter Oberkörper · tief · 8/S', sets:4, reps:'8/S',  color:'b' },
-  'C-slrdl':     { num:'05', name:'Single-Leg RDL',             sub:'KH · Hüftscharnier · Gluteus + Hamstrings', sets:3, reps:'10/S', color:'b' },
-  'C-nordic':    { num:'06', name:'Romanian Deadlift (Barbell)', sub:'Hüftscharnier · Rücken neutral · Hamstrings + Gluteus', sets:3, reps:'8–10', color:'b' },
-  'C-calf':      { num:'07', name:'Einbeinige Calf Raise',      sub:'Erhöht · voller ROM · Achillessehne',    sets:3, reps:'15/S', color:'b' },
-  'C-copen':     { num:'08', name:'Cable Crunches',             sub:'Kabel von oben · Hüfte fix · Flexion aus dem Core', sets:3, reps:'12–15', color:'r' },
-  'C-deadbug':   { num:'09', name:'Pallof Press',               sub:'Kabel · Anti-Rotation · 10/Seite · Rumpfstabilität', sets:3, reps:'10/S',  color:'r' },
+  // Hintere Schulter / Rotatorenmanschette: slow-twitch dominant → hoch
+  'B-facepull':  { num:'03', name:'Face Pulls',                 sub:'Kabel Seil · Ellbogen hoch · Außenrot.', sets:4, reps:'12–15', color:'o' },
+  // Rücken: fast-twitch dominant → Erhalt, moderat-schwer
+  'B-cablerow':  { num:'04', name:'Seated Cable Row',           sub:'Neutraler Griff · Schulterblätter führen', sets:3, reps:'8–10', color:'o' },
+  // Core: slow-twitch
+  'B-abwheel':   { num:'05', name:'Ab Wheel Rollout',           sub:'Kniend · Hüfte stabil · volle Extension', sets:3, reps:'10–12', color:'r', bw:true },
+  'B-sideplank': { num:'06', name:'Side Plank',                 sub:'Statisch · Hüfte oben · 40 sec/Seite',  sets:3, reps:'40s/S', color:'r', bw:true },
+  // Bizeps (Tag C): fast-twitch → niedrig-moderat, frisch
+  'C-ezcurl':    { num:'01', name:'EZ-Bar Curl',                sub:'Frisch · sauber · kein Vorermüdungseffekt', sets:3, reps:'6–8',   color:'b' },
+  // Trizeps (Tag C): fast-twitch isolation → moderat
+  'C-pushdown':  { num:'02', name:'Trizeps-Pushdown',           sub:'Kabel Seilzug · volle Extension · fix',  sets:3, reps:'8–10',   color:'b' },
+  // Frontale Schulter: mixed → moderat
+  'C-landmine':  { num:'03', name:'Landmine Press (einseitig)', sub:'Frontale Schulter · schulterfreundlich',  sets:3, reps:'8–10/S', color:'b' },
+  // Quads (BSS): fast-twitch dominant → niedrig-moderat
+  'C-bss':       { num:'04', name:'Bulgarian Split Squat',      sub:'KH · aufrechter Oberkörper · tief',      sets:4, reps:'6–8/S',  color:'b' },
+  // Gluteus / Hamstrings (SL-RDL): mixed → moderat
+  'C-slrdl':     { num:'05', name:'Single-Leg RDL',             sub:'KH · Hüftscharnier · Gluteus + Hamstrings', sets:3, reps:'8–10/S', color:'b' },
+  // Waden: slow-twitch dominant → max 15
+  'C-calf':      { num:'06', name:'Einbeinige Calf Raise',      sub:'Erhöht · voller ROM · Achillessehne',    sets:4, reps:'12–15/S', color:'b' },
+  // Core: slow-twitch
+  'C-copen':     { num:'07', name:'Cable Crunches',             sub:'Kabel von oben · Hüfte fix · Flexion aus dem Core', sets:3, reps:'12–15', color:'r' },
+  'C-deadbug':   { num:'08', name:'Pallof Press',               sub:'Kabel · Anti-Rotation · 10/Seite · Rumpfstabilität', sets:3, reps:'10–12/S', color:'r' },
 };
 
 // Progression: +2.5kg each week 1→2→3→4, week 5 = deload (–20% of wk4)
