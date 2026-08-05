@@ -305,7 +305,7 @@ body::after {
 <div class="header">
   <div>
     <h1>LIFT<span>_</span>TRACKER</h1>
-    <div class="sub">Niklas · OK/OK/UK · 2× Frequenz</div>
+    <div class="sub">Niklas · OK/OK/UK · Doppelprogression</div>
   </div>
   <div class="hdr-right">
     <div class="block-badge">BLOCK <span id="block-display">1</span></div>
@@ -382,9 +382,9 @@ const EXERCISES = {
     repsS:'Top 8–10', repsP:'12–15', sets:2 },
   'OK1-kslat': {
     day:'OK1', group:'Schulter · Seite', gcolor:'a', num:'03', color:'a', step:1.25,
-    name:'Kabel-Seitheben (einseitig)',
-    subS:'Top all-out · Backoff –10%',
-    subP:'Kurze Pausen · brennen lassen',
+    name:'Kabel-Seitheben (Arm vor dem Körper)',
+    subS:'Tiefe Rolle · Last in der Dehnung · Top all-out · Backoff –10%',
+    subP:'Leicht · unten Dehnung halten · RIR 1',
     repsS:'Top 12–15', repsP:'15–20', sets:2 },
   'OK1-tbar': {
     day:'OK1', group:'Rücken · Horizontal', gcolor:'a', num:'04', color:'a', step:2.5,
@@ -431,26 +431,32 @@ const EXERCISES = {
     subS:'Max. Last in Dehnung · Top all-out',
     subP:'Leicht · sauber · brennen lassen',
     repsS:'Top 10–12/S', repsP:'15–20/S', sets:2 },
+  'OK2-kslat2': {
+    day:'OK2', group:'Schulter · Seite', gcolor:'b', num:'04', color:'b', step:1.25,
+    name:'Kabel-Seitheben (Arm vor dem Körper)',
+    subS:'Gleiche Übung wie OK1 · Top all-out · Backoff –10%',
+    subP:'Leicht · unten Dehnung halten · RIR 1',
+    repsS:'Top 12–15', repsP:'15–20', sets:2 },
   'OK2-incpress': {
-    day:'OK2', group:'Brust', gcolor:'b', num:'04', color:'b', step:2.5,
+    day:'OK2', group:'Brust', gcolor:'b', num:'05', color:'b', step:2.5,
     name:'Schrägbank-Brustpresse',
     subS:'2 Warmups · Top all-out · Backoff –12%',
     subP:'Kontrolliert ablassen · RIR 1',
     repsS:'Top 6–8', repsP:'10–12', sets:2 },
   'OK2-latzug': {
-    day:'OK2', group:'Rücken · Vertikal', gcolor:'b', num:'05', color:'b', step:2.5,
+    day:'OK2', group:'Rücken · Vertikal', gcolor:'b', num:'06', color:'b', step:2.5,
     name:'Latzug (Untergriff)',
     subS:'2 Warmups · Top all-out · Backoff –12%',
     subP:'Lat führen · Pause unten · RIR 1',
     repsS:'Top 6–8', repsP:'10–12', sets:2 },
   'OK2-crunch': {
-    day:'OK2', group:'Core', gcolor:'r', num:'06', color:'r', step:2.5,
+    day:'OK2', group:'Core', gcolor:'r', num:'07', color:'r', step:2.5,
     name:'Cable Crunches',
     subS:'Kabel von oben · Hüfte fix · Flexion aus dem Core',
     subP:'Kabel von oben · Hüfte fix · Flexion aus dem Core',
     repsS:'12–15', repsP:'15–20', sets:2 },
   'OK2-iso': {
-    day:'OK2', group:'Reha · Beuger', gcolor:'r', num:'07', color:'r', type:'time', sets:4,
+    day:'OK2', group:'Reha · Beuger', gcolor:'r', num:'08', color:'r', type:'time', sets:4,
     name:'Beuger-Isometrie',
     subS:'20–30 sek halten · komplett schmerzfrei',
     subP:'20–30 sek halten · komplett schmerzfrei',
@@ -458,12 +464,12 @@ const EXERCISES = {
     reha:'Nur Haltezeit & Winkel steigern — nie Gewicht. Bei Ziehen sofort abbrechen.' },
 
   // ── UK · Reha + Schulter/Arme ─────────────────────────────────────────────
-  'UK-landmine': {
-    day:'UK', group:'Schulter · Vorne', gcolor:'c', num:'01', color:'c', step:2.5,
-    name:'Landmine Press (einseitig)',
-    subS:'1 Warmup · frontale Schulter · Top all-out',
-    subP:'Sauber drücken · RIR 1',
-    repsS:'Top 8–10/S', repsP:'12–15/S', sets:2 },
+  'UK-frontraise': {
+    day:'UK', group:'Schulter · Vorne', gcolor:'c', num:'01', color:'c', step:1.25,
+    name:'Frontheben (Kabel, einseitig)',
+    subS:'Kabel von hinten · Last in der Dehnung · Top all-out',
+    subP:'Leicht · kein Schwung aus der Hüfte · RIR 1',
+    repsS:'Top 10–12/S', repsP:'15–20/S', sets:2 },
   'UK-hammer': {
     day:'UK', group:'Arme', gcolor:'c', num:'02', color:'c', step:1.25,
     name:'Hammer Curl',
@@ -505,9 +511,9 @@ const EXERCISES = {
 
 const WK_FOCUS = [
   { label:'Basis', deload:false },
-  { label:'+2.5%\nvs VW', deload:false },
-  { label:'+2.5%\nvs VW', deload:false },
-  { label:'+2.5%\nPeak', deload:false },
+  { label:'Doppel-\nprogr.', deload:false },
+  { label:'Doppel-\nprogr.', deload:false },
+  { label:'Peak', deload:false },
   { label:'Deload\n80% W4', deload:true },
 ];
 
@@ -550,7 +556,8 @@ function buildAllPanels() {
       </div>
       <div class="rot-hint">
         <b>Rotation:</b> OK1 → OK2 → UK → OK1 → OK2 → UK<br>
-        Erster Durchgang <span class="rr">SCHWER</span>, zweiter <span class="rp">PUMP</span>. Beide werden getrennt geloggt.
+        Erster Durchgang <span class="rr">SCHWER</span>, zweiter <span class="rp">PUMP</span> — getrennt geloggt.<br>
+        <b>Doppelprogression:</b> oberes Ende der Spanne geschafft → Gewicht rauf, Wdh zurück auf Minimum. Sonst gleiches Gewicht, eine Wdh mehr.
       </div>`;
     let lastGroup = null;
     Object.keys(EXERCISES).filter(id => EXERCISES[id].day === day).forEach(id => {
@@ -706,40 +713,60 @@ function doSave(id) {
 // TARGETS
 // ─────────────────────────────────────────────────────────────────────────────
 
+// Wdh-Spanne aus dem Reps-String lesen: 'Top 8–10' → [8,10]
+function parseRange(reps) {
+  const m = reps.match(/(\d+)\s*[–-]\s*(\d+)/);
+  return m ? [parseInt(m[1]), parseInt(m[2])] : [8, 12];
+}
+
+// DOPPELPROGRESSION:
+// Oberes Ende der Spanne erreicht → Gewicht +1 Stufe, Wdh zurück auf unteres Ende.
+// Sonst → gleiches Gewicht, eine Wiederholung mehr.
 function renderTarget(id) {
-  const ex = EXERCISES[id];
-  const el = document.getElementById(`tgt-${id}`);
+  const ex  = EXERCISES[id];
+  const el  = document.getElementById(`tgt-${id}`);
   if (!el) return;
+  const col = currentMode === 'p' ? 'p' : ex.color;
+  const [rMin, rMax] = parseRange(currentMode === 's' ? ex.repsS : ex.repsP);
+  const prev  = loadSets(currentBlock, currentWeek - 1, currentMode, id);
+  const pKg   = parseFloat(prev[1]?.kg);
+  const pReps = parseInt(prev[1]?.reps);
 
-  if (ex.type === 'time') { el.innerHTML = `SOLL <span class="tv r">ZEIT</span>`; return; }
-
-  // PUMP: kein Steigerungs-Soll — nur Referenz der Vorwoche
-  if (currentMode === 'p') {
-    const prev = loadSets(currentBlock, currentWeek - 1, 'p', id);
-    const pk = parseFloat(prev[1]?.kg);
-    el.innerHTML = (isNaN(pk) || pk <= 0)
-      ? `VW <span class="tv none">–</span>`
-      : `VW <span class="tv p">${pk}kg</span>`;
+  // Isometrie: nur Haltezeit steigern
+  if (ex.type === 'time') {
+    el.innerHTML = (isNaN(pReps) || pReps <= 0)
+      ? `SOLL <span class="tv r">${rMin}s</span>`
+      : `SOLL <span class="tv r">${Math.min(pReps + 2, rMax)}s</span>`;
     return;
   }
 
-  const isDeload = currentWeek === TOTAL_WEEKS;
-
+  // Woche 1
   if (currentWeek === 1) {
+    if (currentMode === 'p') { el.innerHTML = `SOLL <span class="tv none">frei wählen</span>`; return; }
     const raw = lsGet(targetKey(currentBlock, id));
-    if (!raw) { el.innerHTML = `SOLL <span class="tv none">–</span>`; return; }
-    el.innerHTML = `SOLL <span class="tv ${ex.color}">${JSON.parse(raw).w1}kg</span>`;
+    el.innerHTML = raw
+      ? `SOLL <span class="tv ${col}">${JSON.parse(raw).w1}kg × ${rMin}</span>`
+      : `SOLL <span class="tv none">–</span>`;
     return;
   }
 
-  const prev = loadSets(currentBlock, currentWeek - 1, 's', id);
-  const prevTop = parseFloat(prev[1]?.kg);
-  if (isNaN(prevTop) || prevTop <= 0) {
+  if (isNaN(pKg) || pKg <= 0 || isNaN(pReps)) {
     el.innerHTML = `SOLL <span class="tv none">– VW fehlt</span>`;
     return;
   }
-  const val = roundStep(prevTop * (isDeload ? 0.8 : 1.025), ex.step || 2.5);
-  el.innerHTML = `SOLL <span class="tv ${isDeload ? 'deload' : ex.color}">${val}kg</span>`;
+
+  // Deload
+  if (currentWeek === TOTAL_WEEKS) {
+    el.innerHTML = `SOLL <span class="tv deload">${roundStep(pKg * 0.8, ex.step || 2.5)}kg × ${rMin}</span>`;
+    return;
+  }
+
+  if (pReps >= rMax) {
+    const nk = roundStep(pKg + (ex.step || 2.5), ex.step || 2.5);
+    el.innerHTML = `SOLL <span class="tv ${col}">${nk}kg × ${rMin}</span> ↑`;
+  } else {
+    el.innerHTML = `SOLL <span class="tv ${col}">${pKg}kg × ${pReps + 1}</span>`;
+  }
 }
 
 function renderPrevLog(id) {
