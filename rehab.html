@@ -187,6 +187,13 @@ footer{padding:30px var(--gut) 10px;font-family:var(--mono);font-size:10px;lette
     <p id="sig-text">Trag den Morgenwert ein, dann wird ab morgen automatisch ausgewertet.</p>
   </div>
 
+  <div class="signal sig-stop" id="flareBox" hidden>
+    <div class="lbl">Plica mediopatellaris</div>
+    <div class="verdict" id="flare-verdict">Reizphase</div>
+    <p id="flare-text"></p>
+    <button class="btn warn" id="btnFlare" style="margin-top:12px">Reizphase beenden</button>
+  </div>
+
   <h2 class="eyebrow">Morgenwerte</h2>
   <div class="card">
     <div class="slider-row">
@@ -442,6 +449,18 @@ footer{padding:30px var(--gut) 10px;font-family:var(--mono);font-size:10px;lette
     <p class="hint">Gilt, solange das Gym läuft. Bei Ausfall über zwei Wochen kommen Abduction und Glute Bridge als Minimalabdeckung zurück.</p>
   </div>
 
+  <h2 class="eyebrow">Warnzeichen — Arzt kontaktieren</h2>
+  <div class="card">
+    <table>
+      <tr><td>Stechender Schmerz nach 10 Tagen Deload unverändert</td></tr>
+      <tr><td>Knie blockiert, hakt oder knickt weg</td></tr>
+      <tr><td>Neue oder zunehmende Schwellung</td></tr>
+      <tr><td>Nachtschmerz oder Ruheschmerz</td></tr>
+      <tr><td>Schmerz breitet sich aus statt sich zu lokalisieren</td></tr>
+    </table>
+    <p class="hint">Zusätzlich offen: MRT-Indikation rechtes Knie, Plica-Test beidseits.</p>
+  </div>
+
   <h2 class="eyebrow">Ernährung & Pharma</h2>
   <div class="card">
     <table>
@@ -500,6 +519,8 @@ footer{padding:30px var(--gut) 10px;font-family:var(--mono);font-size:10px;lette
       <input type="date" id="startDate">
     </div>
     <p class="hint">Steuert Wochen- und Phasenzählung.</p>
+    <button class="btn ghost" id="btnFlareSwitch" style="margin-top:16px">Reizphase starten</button>
+    <p class="hint">In der Reizphase entfallen Y-Balance, TKE und Copenhagen. Die Adhärenz rechnet gegen das reduzierte Programm.</p>
     <button class="btn warn" id="btnReset" style="margin-top:16px">Alle Daten löschen</button>
     <p class="hint">Löscht alle Einträge auf diesem Gerät unwiderruflich. Vorher sichern.</p>
   </div>
@@ -526,16 +547,25 @@ const MORNING = [
   {k:"MO3", n:"Einbeinstand Zähneputzen, Fußballen", d:"3 × 30 s/Seite · Becken waagrecht, Knie über 2. Zeh"}
 ];
 
+/* Standard-Routine (Reizphase inaktiv) */
 const MOB = [
-  {k:"MB1", n:"Patella-Mobilisation medial", d:"2 × 30 s/Seite · Bein entspannt, Patella nach medial schieben und halten"},
-  {k:"MB2", n:"Couch Stretch",               d:"2 × 45 s/Seite · Rectus-femoris-Länge senkt die Anpresskraft"},
-  {k:"MB3", n:"Knie-zur-Wand",               d:"2 × 10 Wdh./Seite · Ferse bleibt am Boden"}
+  {k:"MB1", n:"Patella-Mobilisation kranial + lateral", d:"2 × 30 s/Seite · NICHT nach medial — würde auf die Plica drücken"},
+  {k:"MB2", n:"Hüftbeuger halbkniend, Knie ≤ 90°",      d:"2 × 45 s/Seite · dickes Kissen unter dem Knie, Becken aufrichten"},
+  {k:"MB3", n:"Knie-zur-Wand im Sitzen",                d:"2 × 10 Wdh./Seite · Band um den Vorfuß, keine Gelenkkompression"},
+  {k:"MB4", n:"Plica-Ausstreichen",                     d:"60 s/Seite · Knie gestreckt, Quadrizeps entspannt, quer zum Strang. Nicht in den Schmerz"}
 ];
 
 const STA = [
   {k:"ST1", n:"Einbeinstand mit Beckenkontrolle", d:"3 × 30 s/Seite · Fuß flach, Beckenkamm waagrecht"},
-  {k:"ST2", n:"Y-Balance Reach",                  d:"3 × 5/Richtung · ant., posteromed., posterolat. · Knie über 2. Zeh"},
+  {k:"ST2", n:"Y-Balance Reach",                  d:"3 × 5/Richtung · nur posteromed. + posterolat. · Standbein unter 30° Beugung"},
   {k:"ST3", n:"Short Foot",                       d:"3 × 10 × 5 s · Pronationskontrolle"}
+];
+
+/* Reizphase — Plica gereizt, stechender Schmerz */
+const MOB_FLARE = MOB;
+const STA_FLARE = [
+  {k:"ST1", n:"Einbeinstand mit Beckenkontrolle", d:"3 × 30 s/Seite · Knie fast gestreckt"},
+  {k:"ST3", n:"Short Foot",                       d:"3 × 10 × 5 s"}
 ];
 
 const TKE = {k:"TKE", n:"TKE mit Band",                    d:"3 × 15/Seite · geschlossene Kette 0–30° · nur Phase 1"};
@@ -590,7 +620,7 @@ const blank = d => ({
   tests:{}
 });
 
-let state = {v:2, startDate:"2026-08-18", entries:{}, criteria:CRITERIA.map(()=>false)};
+let state = {v:2, startDate:"2026-08-18", entries:{}, criteria:CRITERIA.map(()=>false), flare:true, flareStart:"2026-08-19"};
 let cur = todayISO();
 
 /* ═══ Hilfen ═══════════════════════════════════════════ */
@@ -607,21 +637,26 @@ function has(iso){return !!state.entries[iso];}
 function $(s){return document.querySelector(s);}
 function num(v){const n=parseFloat(v);return isFinite(n)?n:null;}
 
+function activeMob(){return state.flare?MOB_FLARE:MOB;}
+function activeSta(){return state.flare?STA_FLARE:STA;}
+function flareDays(){return state.flareStart?diffDays(todayISO(),state.flareStart):0;}
+
 function extrasFor(iso){
   const out=[];
-  if(phaseNr(iso)===1) out.push(TKE);
+  if(state.flare) return out;                       // Reizphase: keine Zusatzbelastung
+  if(phaseNr(iso)===1 && dayNr(iso)%2===1) out.push(TKE);
   const wd=weekday(iso);
   if(wd===3||wd===6) out.push(COP);
   return out;
 }
 function requiredKeys(iso){
-  return MORNING.concat(MOB,STA,extrasFor(iso)).map(x=>x.k);
+  return MORNING.concat(activeMob(),activeSta(),extrasFor(iso)).map(x=>x.k);
 }
 
 /* ═══ Persistenz ═══════════════════════════════════════ */
 function migrate(p){
-  if(p.v===2) return p;
-  const out={v:2, startDate:p.startDate||"2026-08-18", entries:{}, criteria:p.criteria||CRITERIA.map(()=>false)};
+  if(p.v===2){ if(p.flare===undefined)p.flare=false; return p; }
+  const out={v:2, startDate:p.startDate||"2026-08-18", entries:{}, criteria:p.criteria||CRITERIA.map(()=>false), flare:false, flareStart:null};
   Object.keys(p.entries||{}).forEach(k=>{
     const o=p.entries[k], n=blank(k);
     ["painL","painR","stiff","swell","crep","sessionPain","training","gymNote","watt","rpm","mins","hr","salbu","saddle","note"]
@@ -640,6 +675,8 @@ function load(){
       state.startDate=p.startDate||state.startDate;
       state.entries=p.entries||{};
       state.criteria=(p.criteria&&p.criteria.length===CRITERIA.length)?p.criteria:CRITERIA.map(()=>false);
+      if(p.flare!==undefined) state.flare=p.flare;
+      if(p.flareStart!==undefined) state.flareStart=p.flareStart;
     }
   }catch(e){console.warn("Gespeicherte Daten nicht lesbar:",e);}
 }
@@ -715,6 +752,23 @@ function renderSignal(){
   }
 }
 
+function renderFlare(){
+  const box=$("#flareBox"), v=$("#flare-verdict"), p=$("#flare-text"), btn=$("#btnFlare");
+  const swBtn=$("#btnFlareSwitch");
+  if(state.flare){
+    const d=flareDays();
+    box.className="signal sig-stop"; box.hidden=false;
+    v.textContent="Reizphase · Tag "+(d+1);
+    p.textContent="Plica gereizt. Y-Balance, TKE und Copenhagen sind ausgesetzt, Rad auf 95–105 W. "+
+      (d>=5 ? "Ab jetzt: bei zwei schmerzfreien Morgen die Reizphase beenden und einzeln aufbauen — eine Übung alle 3 Tage."
+            : "Frühestens ab Tag 6 wieder aufbauen, und nur nach zwei schmerzfreien Morgen.");
+    btn.textContent="Reizphase beenden";
+    if(swBtn) swBtn.textContent="Reizphase beenden";
+  }else{
+    box.hidden=true;
+    if(swBtn) swBtn.textContent="Reizphase starten";
+  }
+}
 function renderProgressionHint(){
   const w=weekNr(cur);
   $("#progressionHint").textContent = w<3
@@ -763,8 +817,9 @@ function renderEntry(){
   document.querySelectorAll("[data-tr]").forEach(b=>b.setAttribute("aria-pressed", e.training===b.dataset.tr?"true":"false"));
 
   buildChecks($("#list-morning"), MORNING, "checks");
-  buildChecks($("#list-mob"), MOB, "checks");
-  buildChecks($("#list-sta"), STA, "checks");
+  buildChecks($("#list-mob"), activeMob(), "checks");
+  buildChecks($("#list-sta"), activeSta(), "checks");
+  renderFlare();
   renderExtras();
   renderProgressionHint();
   renderTrainingPanels();
@@ -1009,6 +1064,18 @@ function bind(){
   });
 
   $("#btnSave").addEventListener("click",()=>{save(false);renderStats();});
+
+  const toggleFlare=()=>{
+    if(state.flare){
+      if(!confirm("Reizphase beenden? Nur wenn der stechende Schmerz seit mindestens zwei Morgen weg ist."))return;
+      state.flare=false; state.flareStart=null;
+    }else{
+      state.flare=true; state.flareStart=todayISO();
+    }
+    save(false); renderEntry();
+  };
+  $("#btnFlare").addEventListener("click",toggleFlare);
+  $("#btnFlareSwitch").addEventListener("click",toggleFlare);
 
   $("#btnCopyMd").addEventListener("click",async()=>{
     const md=buildMarkdown(); $("#mdPreview").textContent=md;
