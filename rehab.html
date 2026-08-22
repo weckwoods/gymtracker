@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Patellofemorale Reha — Tracker</title>
+<title>Knie-Reha — Tagesplan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -18,17 +18,16 @@
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0}
-body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;padding-bottom:120px}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;padding-bottom:118px}
+.tick-rule{height:9px;background-image:repeating-linear-gradient(to right,var(--rule) 0 1px,transparent 1px 12px)}
 
-.tick-rule{height:9px;background-image:repeating-linear-gradient(to right,var(--rule) 0 1px,transparent 1px 12px);opacity:.9}
-
-header{background:var(--ink);color:var(--paper);padding:16px var(--gut) 0}
+header{background:var(--ink);color:var(--paper);padding:15px var(--gut) 0}
 .brow{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#8FA5A2;display:flex;justify-content:space-between;gap:10px}
-h1{font-family:var(--display);font-variation-settings:'wdth' 118,'wght' 700;font-size:clamp(23px,7vw,34px);line-height:.98;text-transform:uppercase;letter-spacing:-.005em;margin:8px 0 12px}
+h1{font-family:var(--display);font-variation-settings:'wdth' 118,'wght' 700;font-size:clamp(21px,6.4vw,30px);line-height:1;text-transform:uppercase;margin:7px 0 11px}
 .phaseband{display:flex;gap:3px;margin-bottom:6px}
-.phaseband i{flex:1;height:5px;background:#2C403E;border-radius:1px}
+.phaseband i{flex:1;height:5px;background:#2C403E}
 .phaseband i.on{background:var(--teal)} .phaseband i.now{background:var(--paper)}
-.phasemeta{font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:#8FA5A2;padding-bottom:14px;display:flex;justify-content:space-between}
+.phasemeta{font-family:var(--mono);font-size:11px;color:#8FA5A2;padding-bottom:13px;display:flex;justify-content:space-between;gap:8px}
 .phasemeta b{color:var(--paper);font-weight:500}
 
 nav{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--rule);display:flex;overflow-x:auto;scrollbar-width:none}
@@ -36,32 +35,36 @@ nav::-webkit-scrollbar{display:none}
 nav button{flex:1 0 auto;background:none;border:none;border-bottom:2px solid transparent;font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);padding:13px 15px;cursor:pointer;white-space:nowrap}
 nav button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--brick)}
 nav button:focus-visible{outline:2px solid var(--teal);outline-offset:-3px}
-
 main{padding:0 var(--gut)}
 section[hidden]{display:none}
 
 .card{background:var(--surface);border:1px solid var(--rule);padding:15px;margin:14px 0}
 h2.eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:500;margin:22px 0 0;display:flex;align-items:center;gap:9px}
 h2.eyebrow::after{content:"";flex:1;height:1px;background:var(--rule)}
-h2.eyebrow .tag{font-size:9px;letter-spacing:.1em;padding:2px 6px;border:1px solid var(--rule);color:var(--muted)}
+h2.eyebrow .tag{font-family:var(--mono);font-size:9px;letter-spacing:.1em;padding:2px 6px;border:1px solid var(--rule);color:var(--muted);flex:0 0 auto}
 h2.eyebrow .tag.due{color:var(--brick);border-color:var(--brick)}
-h3.cardtitle{font-family:var(--display);font-variation-settings:'wdth' 112,'wght' 650;font-size:15px;text-transform:uppercase;letter-spacing:.02em;margin:0 0 3px}
+h3.cardtitle{font-family:var(--display);font-variation-settings:'wdth' 112,'wght' 650;font-size:15px;text-transform:uppercase;margin:0 0 3px}
 .hint{font-size:12.5px;color:var(--muted);margin:4px 0 0}
 .hint.tight{margin-top:2px}
 
 .signal{border:1px solid var(--rule);border-left-width:5px;background:var(--surface);padding:14px 15px;margin:14px 0}
 .signal .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase}
 .signal .verdict{font-family:var(--display);font-variation-settings:'wdth' 116,'wght' 700;font-size:20px;text-transform:uppercase;line-height:1.05;margin:5px 0 6px}
-.signal p{margin:0;font-size:13.5px;color:var(--ink)}
+.signal p{margin:0;font-size:13.5px}
 .sig-go{border-left-color:var(--teal)}   .sig-go .lbl,.sig-go .verdict{color:var(--teal)}
 .sig-hold{border-left-color:var(--amber)}.sig-hold .lbl,.sig-hold .verdict{color:var(--amber)}
 .sig-stop{border-left-color:var(--brick)}.sig-stop .lbl,.sig-stop .verdict{color:var(--brick)}
 .sig-none{border-left-color:var(--muted)}.sig-none .lbl,.sig-none .verdict{color:var(--muted)}
+.sig-test{border-left-color:var(--plum)} .sig-test .lbl,.sig-test .verdict{color:var(--plum)}
 
 .datebar{display:flex;align-items:center;gap:8px;margin:14px 0 0}
 .datebar input[type=date]{flex:1;font-family:var(--mono);font-size:13px;padding:9px 10px;border:1px solid var(--rule);background:var(--surface);color:var(--ink)}
 .datebar button{width:40px;height:38px;border:1px solid var(--rule);background:var(--surface);font-family:var(--mono);font-size:15px;color:var(--ink);cursor:pointer}
-.datebar button:active{background:var(--rule)}
+
+.dayplan{background:var(--ink);color:var(--paper);padding:13px 15px;margin:14px 0}
+.dayplan .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8FA5A2}
+.dayplan .big{font-family:var(--display);font-variation-settings:'wdth' 116,'wght' 700;font-size:19px;text-transform:uppercase;margin:4px 0 2px;line-height:1.1}
+.dayplan .sub{font-family:var(--mono);font-size:11px;color:#8FA5A2}
 
 ul.check{list-style:none;margin:8px 0 0;padding:0}
 ul.check li{border-top:1px solid var(--rule)}
@@ -72,9 +75,8 @@ ul.check input:checked{background:var(--teal);border-color:var(--teal)}
 ul.check input:checked::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:11px;border:solid var(--surface);border-width:0 2px 2px 0;transform:rotate(43deg)}
 ul.check input:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
 .ex-name{font-size:14px;line-height:1.35}
-.ex-dose{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.02em;display:block;margin-top:2px}
+.ex-dose{font-family:var(--mono);font-size:11px;color:var(--muted);display:block;margin-top:2px}
 li.done .ex-name{color:var(--muted)}
-.ex-key{font-family:var(--mono);font-size:10px;color:var(--muted);margin-right:6px}
 
 .slider-row{margin:14px 0 0}
 .slider-head{display:flex;justify-content:space-between;align-items:baseline}
@@ -85,34 +87,23 @@ input[type=range]::-webkit-slider-runnable-track{height:3px;background:var(--rul
 input[type=range]::-moz-range-track{height:3px;background:var(--rule)}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;background:var(--ink);border:none;margin-top:-9.5px;border-radius:0}
 input[type=range]::-moz-range-thumb{width:22px;height:22px;background:var(--ink);border:none;border-radius:0}
-input[type=range]:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
-.scale{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9.5px;color:var(--muted);letter-spacing:.08em}
+.scale{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9.5px;color:var(--muted)}
 
 .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
 .chip{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:8px 11px;border:1px solid var(--rule);background:var(--surface);color:var(--muted);cursor:pointer}
 .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--surface)}
-.chip:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
 
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
 .field label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
 .field input,.field textarea,.field select{width:100%;font-family:var(--mono);font-size:14px;padding:9px 10px;border:1px solid var(--rule);background:var(--surface);color:var(--ink)}
-.field textarea{font-family:var(--body);min-height:74px;resize:vertical}
-.field input:focus,.field textarea:focus,.field select:focus{outline:2px solid var(--teal);outline-offset:-1px}
-
-.dial-wrap{background:var(--ink);color:var(--paper);padding:16px 15px 12px;margin:14px 0}
-.dial-wrap .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8FA5A2}
-.dial{width:100%;height:auto;display:block;margin:6px 0 2px}
-.dial .arc{fill:none;stroke-width:15;stroke-linecap:butt}
-.dial .a-safe{stroke:var(--teal)} .dial .a-zone{stroke:var(--plum)} .dial .a-off{stroke:#2C403E}
-.dial text{font-family:var(--mono);font-size:9px;fill:#8FA5A2;letter-spacing:.06em}
-.dial text.big{font-size:11px;fill:var(--paper)}
-.dial-legend{display:flex;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:10px;color:#8FA5A2;letter-spacing:.04em;margin-top:4px}
-.dial-legend i{display:inline-block;width:9px;height:9px;margin-right:5px;vertical-align:-1px}
+.field textarea{font-family:var(--body);min-height:70px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:2px solid var(--teal);outline-offset:-1px}
 
 table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}
 th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--rule);vertical-align:top}
 th{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:500}
 td.n{font-family:var(--mono);white-space:nowrap;font-size:12px}
+tr.today td{background:#DEE4DD}
 
 .rule-box{border-left:3px solid var(--brick);padding:2px 0 2px 13px;margin:13px 0}
 .rule-box b{font-family:var(--display);font-variation-settings:'wdth' 112,'wght' 700;text-transform:uppercase;font-size:12.5px;letter-spacing:.05em;display:block;color:var(--brick)}
@@ -127,44 +118,36 @@ td.n{font-family:var(--mono);white-space:nowrap;font-size:12px}
 .stat b{font-family:var(--mono);font-size:21px;font-weight:600;display:block;line-height:1.1}
 .stat span{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
 .sparkhead{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px}
-.sparkhead h4{margin:0;font-family:var(--display);font-variation-settings:'wdth' 110,'wght' 620;font-size:13px;text-transform:uppercase;letter-spacing:.03em}
-.sparkhead span{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.06em}
+.sparkhead h4{margin:0;font-family:var(--display);font-variation-settings:'wdth' 110,'wght' 620;font-size:13px;text-transform:uppercase}
+.sparkhead span{font-family:var(--mono);font-size:10px;color:var(--muted)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:9px;height:9px;margin-right:5px;vertical-align:-1px}
 
 .btn{display:block;width:100%;text-align:center;font-family:var(--mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;padding:14px;border:1px solid var(--ink);background:var(--ink);color:var(--surface);cursor:pointer;margin-top:10px}
 .btn.ghost{background:transparent;color:var(--ink)}
 .btn.warn{background:transparent;color:var(--brick);border-color:var(--brick)}
-.btn:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
-
 .savebar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--paper);border-top:1px solid var(--rule);padding:10px var(--gut) calc(10px + env(safe-area-inset-bottom))}
 .savebar .btn{margin:0}
 .saved{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);text-align:center;height:13px;margin-bottom:4px}
-
-pre.out{background:var(--ink);color:#D6DED9;font-family:var(--mono);font-size:10.5px;line-height:1.45;padding:12px;overflow:auto;max-height:290px;white-space:pre;margin-top:10px}
-footer{padding:30px var(--gut) 10px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center}
-
-@media (prefers-reduced-motion:no-preference){
-  .dial .arc{stroke-dasharray:1000;stroke-dashoffset:1000;animation:draw 1.1s cubic-bezier(.2,.7,.3,1) forwards}
-  .dial .a-zone{animation-delay:.35s}
-  @keyframes draw{to{stroke-dashoffset:0}}
-}
+pre.out{background:var(--ink);color:#D6DED9;font-family:var(--mono);font-size:10.5px;line-height:1.45;padding:12px;overflow:auto;max-height:280px;white-space:pre;margin-top:10px}
+footer{padding:28px var(--gut) 10px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="brow"><span>Chondromalacia patellae · med. Facette</span><span id="hdr-date">—</span></div>
-  <h1>Patellofemorale<br>Reha</h1>
+  <div class="brow"><span>Chondromalacia + Plica</span><span id="hdr-date">—</span></div>
+  <h1>Knie-Reha<br>Tagesplan</h1>
   <div class="phaseband" id="phaseband" aria-hidden="true"></div>
   <div class="phasemeta">
     <span>Tag <b id="m-day">1</b> · Woche <b id="m-week">1</b></span>
-    <span>Phase <b id="m-phase">1</b> — <b id="m-phasename">Entlastung</b></span>
+    <span>Phase <b id="m-phase">1</b> · <b id="m-mode">Reizphase</b></span>
   </div>
 </header>
 <div class="tick-rule"></div>
 
 <nav role="tablist">
   <button role="tab" aria-selected="true" data-tab="heute">Heute</button>
-  <button role="tab" aria-selected="false" data-tab="training">Training</button>
   <button role="tab" aria-selected="false" data-tab="tests">Tests</button>
   <button role="tab" aria-selected="false" data-tab="plan">Plan</button>
   <button role="tab" aria-selected="false" data-tab="verlauf">Verlauf</button>
@@ -173,7 +156,7 @@ footer{padding:30px var(--gut) 10px;font-family:var(--mono);font-size:10px;lette
 
 <main>
 
-<!-- ══ HEUTE ══════════════════════════════════════════ -->
+<!-- ══ HEUTE ══ -->
 <section id="tab-heute">
   <div class="datebar">
     <button id="prevDay" aria-label="Vorheriger Tag">‹</button>
@@ -181,10 +164,16 @@ footer{padding:30px var(--gut) 10px;font-family:var(--mono);font-size:10px;lette
     <button id="nextDay" aria-label="Nächster Tag">›</button>
   </div>
 
-  <div class="signal sig-none" id="signal">
-    <div class="lbl">24-Stunden-Regel</div>
-    <div class="verdict" id="sig-verdict">Noch keine Daten</div>
-    <p id="sig-text">Trag den Morgenwert ein, dann wird ab morgen automatisch ausgewertet.</p>
+  <div class="dayplan">
+    <div class="lbl" id="dp-weekday">—</div>
+    <div class="big" id="dp-title">—</div>
+    <div class="sub" id="dp-sub">—</div>
+  </div>
+
+  <div class="signal sig-test" id="testBox" hidden>
+    <div class="lbl">Messung fällig</div>
+    <div class="verdict" id="test-verdict">Test heute</div>
+    <p id="test-text"></p>
   </div>
 
   <div class="signal sig-stop" id="flareBox" hidden>
@@ -194,12 +183,17 @@ footer{padding:30px var(--gut) 10px;font-family:var(--mono);font-size:10px;lette
     <button class="btn warn" id="btnFlare" style="margin-top:12px">Reizphase beenden</button>
   </div>
 
+  <div class="signal sig-none" id="signal">
+    <div class="lbl">24-Stunden-Regel</div>
+    <div class="verdict" id="sig-verdict">Basiswert</div>
+    <p id="sig-text"></p>
+  </div>
+
   <h2 class="eyebrow">Morgenwerte</h2>
   <div class="card">
-    <div class="slider-row">
+    <div class="slider-row" style="margin-top:0">
       <div class="slider-head"><span>Knieschmerz links</span><b id="v-painL">0</b></div>
       <input type="range" min="0" max="10" step="1" id="painL">
-      <div class="scale"><span>0 frei</span><span>3 grenze</span><span>10 max</span></div>
     </div>
     <div class="slider-row">
       <div class="slider-head"><span>Knieschmerz rechts</span><b id="v-painR">0</b></div>
@@ -208,26 +202,35 @@ footer{padding:30px var(--gut) 10px;font-family:var(--mono);font-size:10px;lette
     </div>
     <div class="chips">
       <button class="chip" data-flag="stiff" aria-pressed="false">Steifigkeit</button>
-      <button class="chip" data-flag="swell" aria-pressed="false">Schwellung / Erguss</button>
-      <button class="chip" data-flag="crep" aria-pressed="false">Reiben mit Schmerz</button>
+      <button class="chip" data-flag="swell" aria-pressed="false">Erguss</button>
+      <button class="chip" data-flag="sting" aria-pressed="false">Stechend</button>
     </div>
-    <p class="hint">Erguss- oder Spannungsgefühl morgens ist ein Freigabekriterium für Phase&nbsp;2. Reiben ohne Schmerz ist irrelevant.</p>
   </div>
 
-  <h2 class="eyebrow">Morgens · ~5 min</h2>
+  <h2 class="eyebrow">Morgens</h2>
   <div class="card"><ul class="check" id="list-morning"></ul></div>
 
-  <h2 class="eyebrow">Abends · Block M — Mobility</h2>
-  <div class="card"><ul class="check" id="list-mob"></ul></div>
-
-  <h2 class="eyebrow">Abends · Block S — Stabilisation</h2>
-  <div class="card">
-    <ul class="check" id="list-sta"></ul>
-    <p class="hint" id="progressionHint"></p>
+  <div id="preWrap" hidden>
+    <h2 class="eyebrow">Vor der Einheit</h2>
+    <div class="card"><ul class="check" id="list-pre"></ul></div>
   </div>
 
-  <h2 class="eyebrow" id="extraHead">Zusatz heute</h2>
-  <div class="card" id="extraCard"><ul class="check" id="list-extra"></ul></div>
+  <h2 class="eyebrow"><span id="eveLabel">Abends</span></h2>
+  <div class="card"><ul class="check" id="list-evening"></ul></div>
+
+  <div id="bikeWrap" hidden>
+    <h2 class="eyebrow">Rad</h2>
+    <div class="card">
+      <p class="hint tight" id="bikeTarget"></p>
+      <div class="grid2">
+        <div class="field"><label for="watt">Ø Watt</label><input type="number" id="watt" inputmode="numeric"></div>
+        <div class="field"><label for="rpm">Ø rpm</label><input type="number" id="rpm" inputmode="numeric"></div>
+        <div class="field"><label for="mins">Dauer min</label><input type="number" id="mins" inputmode="numeric"></div>
+        <div class="field"><label for="hr">Ø HF</label><input type="number" id="hr" inputmode="numeric"></div>
+      </div>
+      <div class="chips"><button class="chip" data-flag="salbu" aria-pressed="false">Salbutamol</button></div>
+    </div>
+  </div>
 
   <h2 class="eyebrow">Belastung heute</h2>
   <div class="card">
@@ -238,102 +241,23 @@ footer{padding:30px var(--gut) 10px;font-family:var(--mono);font-size:10px;lette
     </div>
     <div class="field" style="margin-top:14px">
       <label for="note">Notiz</label>
-      <textarea id="note" placeholder="Was fiel auf? Welche Übung hat gezwickt?"></textarea>
+      <textarea id="note" placeholder="Was fiel auf?"></textarea>
     </div>
   </div>
 </section>
 
-<!-- ══ TRAINING ═══════════════════════════════════════ -->
-<section id="tab-training" hidden>
-
-  <div class="dial-wrap">
-    <div class="lbl">Belastungsfenster Kniewinkel</div>
-    <svg class="dial" viewBox="0 0 320 168" role="img" aria-label="Erlaubte Kniewinkel: geschlossene Kette 0 bis 40 Grad, offene Kette 60 bis 90 Grad, Impaktzone 30 bis 60 Grad gesperrt">
-      <path class="arc a-safe"  d="M 32 150 A 128 128 0 0 1 61.7 67.4"/>
-      <path class="arc a-zone"  d="M 61.7 67.4 A 128 128 0 0 1 160 22"/>
-      <path class="arc a-safe"  d="M 160 22 A 128 128 0 0 1 258.3 67.4"/>
-      <path class="arc a-off"   d="M 258.3 67.4 A 128 128 0 0 1 288 150"/>
-      <text x="30" y="164" text-anchor="start">0°</text>
-      <text x="160" y="14" text-anchor="middle">60°</text>
-      <text x="290" y="164" text-anchor="end">120°</text>
-      <text class="big" x="72" y="112" text-anchor="middle">0–40°</text>
-      <text x="72" y="124" text-anchor="middle">GESCHL. KETTE</text>
-      <text class="big" x="248" y="112" text-anchor="middle">90–60°</text>
-      <text x="248" y="124" text-anchor="middle">OFFENE KETTE</text>
-      <text class="big" x="160" y="60" text-anchor="middle" style="fill:#C98AA2">30–60° GESPERRT</text>
-      <text x="160" y="72" text-anchor="middle" style="fill:#C98AA2">IMPAKT + PLICA</text>
-    </svg>
-    <div class="dial-legend">
-      <span><i style="background:#16645F"></i>belastbar</span>
-      <span><i style="background:#7C2F4D"></i>Impaktzone</span>
-      <span><i style="background:#2C403E"></i>ungenutzt</span>
-    </div>
-  </div>
-
-  <h2 class="eyebrow">Einheit heute</h2>
-  <div class="card">
-    <div class="chips" id="trainingChips">
-      <button class="chip" data-tr="rest" aria-pressed="false">Ruhetag</button>
-      <button class="chip" data-tr="gymA" aria-pressed="false">Gym A</button>
-      <button class="chip" data-tr="gymB" aria-pressed="false">Gym B</button>
-      <button class="chip" data-tr="upper" aria-pressed="false">Oberkörper</button>
-      <button class="chip" data-tr="bikeShort" aria-pressed="false">Rad kurz</button>
-      <button class="chip" data-tr="bikeLong" aria-pressed="false">Rad lang</button>
-      <button class="chip" data-tr="walk" aria-pressed="false">Spaziergang</button>
-    </div>
-  </div>
-
-  <div id="prePanel" hidden>
-    <h2 class="eyebrow">Vor der Einheit</h2>
-    <div class="card">
-      <ul class="check" id="list-pre"></ul>
-      <p class="hint">Der Effekt des Ausrollens ist akut und hält etwa 10 Minuten. Deshalb direkt davor, nicht abends.</p>
-    </div>
-  </div>
-
-  <div id="gymPanel" hidden>
-    <h2 class="eyebrow"><span id="gymTitle">Gym</span></h2>
-    <div class="card">
-      <ul class="check" id="list-gym"></ul>
-      <div class="field" style="margin-top:12px">
-        <label for="gymNote">Lasten / Sätze / Auffälligkeiten</label>
-        <textarea id="gymNote" placeholder="z. B. Beinpresse 3×20 @ 60 kg, ROM 0–40°, schmerzfrei"></textarea>
-      </div>
-    </div>
-  </div>
-
-  <div id="bikePanel" hidden>
-    <h2 class="eyebrow">Rad</h2>
-    <div class="card">
-      <p class="hint tight" id="bikeTarget"></p>
-      <div class="grid2">
-        <div class="field"><label for="watt">Ø Watt</label><input type="number" id="watt" inputmode="numeric" placeholder="110"></div>
-        <div class="field"><label for="rpm">Ø Kadenz rpm</label><input type="number" id="rpm" inputmode="numeric" placeholder="98"></div>
-        <div class="field"><label for="mins">Dauer min</label><input type="number" id="mins" inputmode="numeric" placeholder="40"></div>
-        <div class="field"><label for="hr">Ø HF bpm</label><input type="number" id="hr" inputmode="numeric" placeholder="132"></div>
-      </div>
-      <div class="chips">
-        <button class="chip" data-flag="salbu" aria-pressed="false">Salbutamol genommen</button>
-        <button class="chip" data-flag="saddle" aria-pressed="false">Sattel auf Zielhöhe</button>
-      </div>
-      <p class="hint">Kein Wiegetritt, keine Widerstandsintervalle. Salbutamol 10–15 min vor Einheiten &gt; 30 min.</p>
-    </div>
-  </div>
-
-  <div class="rule-box">
-    <b>Regel 2 — 24-Stunden-Regel</b>
-    <p>Schmerz während der Einheit ≤ 3/10 <em>und</em> am Folgemorgen nicht schlechter. Sonst die letzte Progression zurücknehmen — nicht die Übung streichen.</p>
-  </div>
-</section>
-
-<!-- ══ TESTS ══════════════════════════════════════════ -->
+<!-- ══ TESTS ══ -->
 <section id="tab-tests" hidden>
-  <p class="hint" style="margin-top:16px">Drei objektive Messgrößen. Sie zeigen, ob Mobility und Stabilisation tatsächlich anschlagen — unabhängig davon, wie sich das Knie an einem einzelnen Tag anfühlt.</p>
+  <div class="signal sig-none" id="testPlan" style="margin-top:16px">
+    <div class="lbl">Nächste Messungen</div>
+    <div class="verdict" id="tp-verdict">—</div>
+    <p id="tp-text"></p>
+  </div>
 
   <h2 class="eyebrow">Knie-zur-Wand <span class="tag" id="tag-ktw">—</span></h2>
   <div class="card">
-    <h3 class="cardtitle">Dorsalextension · cm</h3>
-    <p class="hint tight">Fuß senkrecht zur Wand, Ferse bleibt am Boden, Knie berührt die Wand. Größter Zehen-Wand-Abstand mit Wandkontakt. Ziel ≥ 10 cm, Seitendifferenz &lt; 1,5 cm. Monatlich.</p>
+    <h3 class="cardtitle">Dorsalextension · cm · alle 28 Tage</h3>
+    <p class="hint tight">Fuß senkrecht zur Wand, Ferse bleibt am Boden, Knie berührt die Wand. Größter Zehen-Wand-Abstand mit Wandkontakt. Ziel ≥ 10 cm, Seitendifferenz &lt; 1,5 cm.</p>
     <div class="grid2">
       <div class="field"><label for="ktwL">Links cm</label><input type="number" step="0.5" id="ktwL" inputmode="decimal"></div>
       <div class="field"><label for="ktwR">Rechts cm</label><input type="number" step="0.5" id="ktwR" inputmode="decimal"></div>
@@ -342,8 +266,9 @@ footer{padding:30px var(--gut) 10px;font-family:var(--mono);font-size:10px;lette
 
   <h2 class="eyebrow">Y-Balance <span class="tag" id="tag-yb">—</span></h2>
   <div class="card">
-    <h3 class="cardtitle">Anteriorer Reach · cm</h3>
-    <p class="hint tight">Einbeinstand, gegenüberliegender Fuß schiebt entlang Maßband nach vorn. Bester von 3 Versuchen. Ziel: steigend, Seitendifferenz &lt; 4 cm. Alle 2 Wochen.</p>
+    <h3 class="cardtitle">Posteromedialer Reach · cm · alle 14 Tage</h3>
+    <p class="hint tight">Einbeinstand, gegenüberliegender Fuß schiebt schräg nach hinten-innen. Bester von 3 Versuchen. Standbein bleibt unter 30° Beugung. Ziel: steigend, Seitendifferenz &lt; 4 cm.</p>
+    <p class="hint"><strong>Der anteriore Reach wird in Phase 1 nicht getestet</strong> — er lädt das Standbein durch die 30–60°-Impaktzone.</p>
     <div class="grid2">
       <div class="field"><label for="ybL">Standbein links cm</label><input type="number" step="0.5" id="ybL" inputmode="decimal"></div>
       <div class="field"><label for="ybR">Standbein rechts cm</label><input type="number" step="0.5" id="ybR" inputmode="decimal"></div>
@@ -352,101 +277,72 @@ footer{padding:30px var(--gut) 10px;font-family:var(--mono);font-size:10px;lette
 
   <h2 class="eyebrow">Einbeinstand <span class="tag" id="tag-sls">—</span></h2>
   <div class="card">
-    <h3 class="cardtitle">Augen zu · Sekunden</h3>
-    <p class="hint tight">Flacher Fuß, Zeit bis zum ersten Ausweichschritt oder Beckenabsinken. Abbruch bei 60 s. Ziel &gt; 30 s. Alle 2 Wochen.</p>
+    <h3 class="cardtitle">Augen zu · Sekunden · alle 14 Tage</h3>
+    <p class="hint tight">Flacher Fuß, Zeit bis zum ersten Ausweichschritt oder Beckenabsinken. Abbruch bei 60 s. Ziel &gt; 30 s — zugleich Freigabekriterium für Phase 2.</p>
     <div class="grid2">
       <div class="field"><label for="slsL">Links s</label><input type="number" step="1" id="slsL" inputmode="numeric"></div>
       <div class="field"><label for="slsR">Rechts s</label><input type="number" step="1" id="slsR" inputmode="numeric"></div>
     </div>
-    <p class="hint">Werte werden auf das oben gewählte Datum gebucht.</p>
+    <p class="hint">Werte werden auf das im Heute-Tab gewählte Datum gebucht.</p>
   </div>
 
   <h2 class="eyebrow">Verlauf</h2>
   <div class="sparkhead"><h4>Knie-zur-Wand</h4><span id="d-ktw">—</span></div>
   <svg class="chart" id="sp-ktw" viewBox="0 0 320 80" role="img" aria-label="Verlauf Knie-zur-Wand"></svg>
-  <div class="sparkhead"><h4>Y-Balance anterior</h4><span id="d-yb">—</span></div>
+  <div class="sparkhead"><h4>Y-Balance posteromedial</h4><span id="d-yb">—</span></div>
   <svg class="chart" id="sp-yb" viewBox="0 0 320 80" role="img" aria-label="Verlauf Y-Balance"></svg>
   <div class="sparkhead"><h4>Einbeinstand Augen zu</h4><span id="d-sls">—</span></div>
   <svg class="chart" id="sp-sls" viewBox="0 0 320 80" role="img" aria-label="Verlauf Einbeinstand"></svg>
-  <div class="dial-legend" style="color:var(--muted);margin-top:8px">
-    <span><i style="background:#A93326"></i>links</span>
-    <span><i style="background:#16645F"></i>rechts</span>
-  </div>
+  <div class="legend"><span><i style="background:#A93326"></i>links</span><span><i style="background:#16645F"></i>rechts</span></div>
 
   <div class="card" style="margin-top:16px;padding:0 15px"><table id="testTable"></table></div>
 </section>
 
-<!-- ══ PLAN ═══════════════════════════════════════════ -->
+<!-- ══ PLAN ══ -->
 <section id="tab-plan" hidden>
+  <h2 class="eyebrow">Wochenraster</h2>
+  <div class="card" style="padding:0 15px">
+    <table id="weekTable"></table>
+  </div>
+  <p class="hint">Der Vollblock liegt auf Di, Do und Sa — jeweils mit 48–72 h Abstand und nie am selben Tag wie ein Unterkörper-Gymtag.</p>
 
-  <h2 class="eyebrow">Die fünf Grundregeln</h2>
-  <div class="rule-box"><b>R1 · Winkelregel</b><p>Belastete Wiederholungen nie in 30–60° Flexion. Geschlossene Kette 0–40°, offene Kette 90–60°. Unbelastete Mobility ist ausgenommen.</p></div>
-  <div class="rule-box"><b>R2 · 24-Stunden-Regel</b><p>Schmerz ≤ 3/10 während der Einheit und am Folgemorgen nicht schlechter.</p></div>
-  <div class="rule-box"><b>R3 · Kriterien schlagen Kalender</b><p>Der Phasenwechsel läuft über die Freigabekriterien, nicht über ein Datum.</p></div>
-  <div class="rule-box"><b>R4 · Knorpel braucht Bewegung</b><p>Vollentlastung schadet. Ziel: niedrig, hochfrequent, schmerzfrei.</p></div>
-  <div class="rule-box"><b>R5 · Reizschwellen-Check</b><p>Was im Gym mit Widerstand läuft, bringt zu Hause ohne Widerstand nichts und kostet trotzdem Adhärenz. Zu Hause nur, was das Gym nicht abdeckt.</p></div>
-
-  <h2 class="eyebrow">Wochenstruktur</h2>
+  <h2 class="eyebrow">Frequenzlogik</h2>
   <div class="card">
     <table>
-      <tr><th>Tag</th><th>Inhalt</th><th>Home</th></tr>
-      <tr><td class="n">Mo</td><td>Gym A + Schulter/Arme → Rad kurz 25 min</td><td class="n">Rollen</td></tr>
-      <tr><td class="n">Di</td><td>Rad lang (GA1)</td><td class="n">Rollen</td></tr>
-      <tr><td class="n">Mi</td><td>Gym Oberkörper</td><td class="n">Copenhagen</td></tr>
-      <tr><td class="n">Do</td><td>Rad lang (GA1)</td><td class="n">Rollen</td></tr>
-      <tr><td class="n">Fr</td><td>Gym B + Schulter/Arme → Rad kurz 25 min</td><td class="n">Rollen</td></tr>
-      <tr><td class="n">Sa</td><td>frei · Spaziergang mit Bandage</td><td class="n">Copenhagen</td></tr>
-      <tr><td class="n">So</td><td>frei</td><td class="n">—</td></tr>
+      <tr><th>Kategorie</th><th>Frequenz</th></tr>
+      <tr><td>Isometrie, Patella-/Plica-Mobilisation, Short Foot</td><td class="n">täglich</td></tr>
+      <tr><td>Mobility + Stabilisation (Vollblock)</td><td class="n">3×/Woche</td></tr>
+      <tr><td>Belastet: TKE, Y-Balance</td><td class="n">3×/Woche, ≥48 h</td></tr>
+      <tr><td>Gym Unterkörper A/B</td><td class="n">2×/Woche, ≥72 h</td></tr>
     </table>
-    <p class="hint">Morgen- und Abendroutine laufen an allen sieben Tagen.</p>
+    <p class="hint">Frequenz ist keine Progressionsvariable. Sie bleibt konstant — progrediert wird über Last, ROM und Schwierigkeit, immer nur eine Variable pro Schritt.</p>
   </div>
+
+  <h2 class="eyebrow">Die fünf Grundregeln</h2>
+  <div class="rule-box"><b>R1 · Winkelregel</b><p>Belastete Wiederholungen nie in 30–60° Flexion. Geschlossene Kette 0–40°, offene Kette 90–60°. Unbelastete Mobility ausgenommen.</p></div>
+  <div class="rule-box"><b>R2 · 24-Stunden-Regel</b><p>Schmerz ≤ 3/10 während der Einheit und am Folgemorgen nicht schlechter.</p></div>
+  <div class="rule-box"><b>R3 · Kriterien schlagen Kalender</b><p>Phasenwechsel über die Freigabekriterien, nicht über ein Datum.</p></div>
+  <div class="rule-box"><b>R4 · Knorpel braucht Bewegung</b><p>Vollentlastung schadet. Ziel: niedrig, hochfrequent, schmerzfrei.</p></div>
+  <div class="rule-box"><b>R5 · Reizschwellen-Check</b><p>Was im Gym mit Widerstand läuft, bringt zu Hause ohne Widerstand nichts. Zu Hause nur, was das Gym nicht abdeckt.</p></div>
 
   <h2 class="eyebrow">Freigabe Phase 2</h2>
   <div class="card">
-    <p class="hint tight">Alle fünf Punkte müssen erfüllt sein. Sonst Phase 1 um zwei Wochen verlängern.</p>
     <ul class="check" id="list-criteria"></ul>
     <div class="signal sig-none" id="gate" style="margin-bottom:0">
       <div class="lbl">Status</div>
       <div class="verdict" id="gate-verdict">Phase 1 läuft</div>
-      <p id="gate-text">0 von 5 Kriterien erfüllt.</p>
+      <p id="gate-text"></p>
     </div>
   </div>
 
   <h2 class="eyebrow">Rad-Zielwerte</h2>
   <div class="card">
     <table>
-      <tr><th>Parameter</th><th>Woche 1–2</th><th>Ab Woche 3</th></tr>
-      <tr><td>Watt</td><td class="n">100–115</td><td class="n">132–138</td></tr>
+      <tr><th>Parameter</th><th>Reizphase</th><th>Danach</th></tr>
+      <tr><td>Watt</td><td class="n">95–105</td><td class="n">132–138</td></tr>
       <tr><td>Kadenz</td><td class="n">95–105</td><td class="n">95–105</td></tr>
-      <tr><td>Frequenz</td><td class="n">4×/Wo</td><td class="n">4×/Wo</td></tr>
     </table>
-    <p class="hint">Sattel zurück auf Ausgangshöhe, ggf. +5 mm. Tieferer Sattel = mehr Kniebeugung im oberen Totpunkt = mehr retropatellarer Druck.</p>
-  </div>
-
-  <h2 class="eyebrow">Progressionsleiter Knie · Phase 2</h2>
-  <div class="card">
-    <p class="hint tight">Jede Stufe erst nach zwei beschwerdefreien Einheiten.</p>
-    <table>
-      <tr><td class="n">1</td><td>Beinpresse 0–45°, 15–20 Reps</td></tr>
-      <tr><td class="n">2</td><td>Freie Kniebeuge, Tiefe auf 45° begrenzt (Box)</td></tr>
-      <tr><td class="n">3</td><td>Beinstrecker 90–45°</td></tr>
-      <tr><td class="n">4</td><td>Split Squat statisch, ROM begrenzt</td></tr>
-      <tr><td class="n">5</td><td>Step-Down, niedrige Stufe, exzentrisch</td></tr>
-      <tr><td class="n">6</td><td>Walking Lunges</td></tr>
-      <tr><td class="n">7</td><td>Squat-Tiefe schrittweise erweitern</td></tr>
-    </table>
-  </div>
-
-  <h2 class="eyebrow">Gestrichen aus Revision 1</h2>
-  <div class="card">
-    <table>
-      <tr><th>Übung</th><th>Grund</th></tr>
-      <tr><td>Side-lying Abduction</td><td>~15–25 % MVC; Maschine deckt die Kraft belastet ab</td></tr>
-      <tr><td>Clamshell</td><td>Niedrige Glut.-med.-Aktivierung, hoher TFL-Anteil — TFL zieht die Patella lateral</td></tr>
-      <tr><td>Glute Bridge</td><td>Bei 92 kg unterhalb der Reizschwelle</td></tr>
-      <tr><td>Wadenheben einbeinig</td><td>An beiden Gym-Tagen belastet; trainiert nicht den Tibialis posterior</td></tr>
-    </table>
-    <p class="hint">Gilt, solange das Gym läuft. Bei Ausfall über zwei Wochen kommen Abduction und Glute Bridge als Minimalabdeckung zurück.</p>
+    <p class="hint">Sattel auf Ausgangshöhe. Kein Wiegetritt, keine Widerstandsintervalle. Bei Stechen während des Tretens sofort abbrechen.</p>
   </div>
 
   <h2 class="eyebrow">Warnzeichen — Arzt kontaktieren</h2>
@@ -455,80 +351,54 @@ footer{padding:30px var(--gut) 10px;font-family:var(--mono);font-size:10px;lette
       <tr><td>Stechender Schmerz nach 10 Tagen Deload unverändert</td></tr>
       <tr><td>Knie blockiert, hakt oder knickt weg</td></tr>
       <tr><td>Neue oder zunehmende Schwellung</td></tr>
-      <tr><td>Nachtschmerz oder Ruheschmerz</td></tr>
+      <tr><td>Nacht- oder Ruheschmerz</td></tr>
       <tr><td>Schmerz breitet sich aus statt sich zu lokalisieren</td></tr>
     </table>
-    <p class="hint">Zusätzlich offen: MRT-Indikation rechtes Knie, Plica-Test beidseits.</p>
-  </div>
-
-  <h2 class="eyebrow">Ernährung & Pharma</h2>
-  <div class="card">
-    <table>
-      <tr><td>Retatrutide</td><td>bei 1,2 mg halten — keine Erhöhung während der Heilung</td></tr>
-      <tr><td>Defizit</td><td class="n">300–400 kcal</td></tr>
-      <tr><td>Protein</td><td class="n">2,0–2,2 g/kg</td></tr>
-      <tr><td>Kollagen</td><td>15 g + 50 mg Vit. C, 30–60 min vor Belastung</td></tr>
-      <tr><td>NSAR</td><td>nicht dauerhaft</td></tr>
-    </table>
+    <p class="hint">Offen: Plica-Test beidseits · MRT-Indikation rechtes Knie.</p>
   </div>
 </section>
 
-<!-- ══ VERLAUF ════════════════════════════════════════ -->
+<!-- ══ VERLAUF ══ -->
 <section id="tab-verlauf" hidden>
   <h2 class="eyebrow">Kennzahlen</h2>
   <div class="stat-grid" id="stats"></div>
-
-  <h2 class="eyebrow">Schmerzverlauf · letzte 28 Tage</h2>
+  <h2 class="eyebrow">Schmerzverlauf · 28 Tage</h2>
   <svg class="chart" id="chart" viewBox="0 0 320 150" role="img" aria-label="Schmerzverlauf"></svg>
-  <div class="dial-legend" style="color:var(--muted);margin-top:8px">
-    <span><i style="background:#A93326"></i>Morgens (max L/R)</span>
-    <span><i style="background:#16645F"></i>Unter Belastung</span>
-  </div>
-
-  <h2 class="eyebrow">Adhärenz · letzte 28 Tage</h2>
-  <svg class="chart" id="bars" viewBox="0 0 320 90" role="img" aria-label="Adhärenz pro Tag"></svg>
-
+  <div class="legend"><span><i style="background:#A93326"></i>morgens (max L/R)</span><span><i style="background:#16645F"></i>unter Belastung</span></div>
+  <h2 class="eyebrow">Adhärenz · 28 Tage</h2>
+  <svg class="chart" id="bars" viewBox="0 0 320 90" role="img" aria-label="Adhärenz"></svg>
+  <p class="hint">Gerechnet gegen das, was an dem Tag tatsächlich vorgesehen war.</p>
   <h2 class="eyebrow">Letzte Einträge</h2>
   <div class="card" style="padding:0 15px"><table id="recent"></table></div>
 </section>
 
-<!-- ══ EXPORT ═════════════════════════════════════════ -->
+<!-- ══ EXPORT ══ -->
 <section id="tab-export" hidden>
   <h2 class="eyebrow">Für die Coaching-Analyse</h2>
   <div class="card">
     <h3 class="cardtitle">Bericht als Markdown</h3>
-    <p class="hint tight">Kompakter Verlaufsbericht zum Einfügen in den Chat. Enthält Kennzahlen, Schmerztrend, Adhärenz, Testwerte und alle Notizen.</p>
+    <p class="hint tight">Kennzahlen, Testverlauf, Tagesverlauf, Notizen.</p>
     <button class="btn" id="btnCopyMd">In Zwischenablage kopieren</button>
     <button class="btn ghost" id="btnDlMd">Als .md herunterladen</button>
     <pre class="out" id="mdPreview">—</pre>
   </div>
-
   <h2 class="eyebrow">Sicherung</h2>
   <div class="card">
-    <h3 class="cardtitle">Vollbackup</h3>
-    <p class="hint tight">Alle Rohdaten als JSON. Wiederherstellbar über den Import unten.</p>
-    <button class="btn ghost" id="btnDlJson">Als .json herunterladen</button>
+    <button class="btn ghost" id="btnDlJson">Backup als .json</button>
     <label class="btn ghost" for="fileIn" style="margin-top:10px">JSON importieren</label>
     <input type="file" id="fileIn" accept="application/json,.json" hidden>
   </div>
-
   <h2 class="eyebrow">Einstellungen</h2>
   <div class="card">
-    <div class="field">
-      <label for="startDate">Erster Tag des Reha-Blocks</label>
-      <input type="date" id="startDate">
-    </div>
-    <p class="hint">Steuert Wochen- und Phasenzählung.</p>
+    <div class="field"><label for="startDate">Blockstart</label><input type="date" id="startDate"></div>
     <button class="btn ghost" id="btnFlareSwitch" style="margin-top:16px">Reizphase starten</button>
-    <p class="hint">In der Reizphase entfallen Y-Balance, TKE und Copenhagen. Die Adhärenz rechnet gegen das reduzierte Programm.</p>
+    <p class="hint">In der Reizphase entfallen TKE, Y-Balance und Copenhagen.</p>
     <button class="btn warn" id="btnReset" style="margin-top:16px">Alle Daten löschen</button>
-    <p class="hint">Löscht alle Einträge auf diesem Gerät unwiderruflich. Vorher sichern.</p>
   </div>
 </section>
 
 </main>
-
-<footer>Daten liegen lokal in diesem Browser · v2.0</footer>
+<footer>Daten liegen lokal in diesem Browser · v3.0</footer>
 
 <div class="savebar">
   <div class="saved" id="savedNote"></div>
@@ -537,590 +407,430 @@ footer{padding:30px var(--gut) 10px;font-family:var(--mono);font-size:10px;lette
 
 <script>
 "use strict";
+const KEY="nw-knee-rehab-v3";
 
-/* ═══ Übungsdefinitionen ═══════════════════════════════ */
-const KEY = "nw-knee-rehab-v1";
-
-const MORNING = [
-  {k:"MO1", n:"Isometrie Beinbeuger 45°",            d:"5 × 45 s @ 70 %"},
-  {k:"MO2", n:"Isometrie Quadrizeps 20–30°",         d:"5 × 45 s @ 70 % · Rücken an Wand, nicht tiefer"},
-  {k:"MO3", n:"Einbeinstand Zähneputzen, Fußballen", d:"3 × 30 s/Seite · Becken waagrecht, Knie über 2. Zeh"}
+/* ── Übungen ───────────────────────────────────── */
+const MORNING=[
+  {k:"MO1",n:"Isometrie Beinbeuger 45°",d:"5 × 45 s @ 70 %"},
+  {k:"MO2",n:"Isometrie Quadrizeps 20–30°",d:"5 × 45 s @ 70 % · Rücken an Wand, nicht tiefer"},
+  {k:"MO3",n:"Einbeinstand Zähneputzen, Ballen",d:"3 × 30 s/Seite · Becken waagrecht"}
 ];
-
-/* Standard-Routine (Reizphase inaktiv) */
-const MOB = [
-  {k:"MB1", n:"Patella-Mobilisation kranial + lateral", d:"2 × 30 s/Seite · NICHT nach medial — würde auf die Plica drücken"},
-  {k:"MB2", n:"Hüftbeuger halbkniend, Knie ≤ 90°",      d:"2 × 45 s/Seite · dickes Kissen unter dem Knie, Becken aufrichten"},
-  {k:"MB3", n:"Knie-zur-Wand im Sitzen",                d:"2 × 10 Wdh./Seite · Band um den Vorfuß, keine Gelenkkompression"},
-  {k:"MB4", n:"Plica-Ausstreichen",                     d:"60 s/Seite · Knie gestreckt, Quadrizeps entspannt, quer zum Strang. Nicht in den Schmerz"}
+const DAILY_EVE=[
+  {k:"E1",n:"Patella-Mobilisation kranial + lateral",d:"2 × 30 s/Seite · NICHT nach medial"},
+  {k:"E2",n:"Plica-Ausstreichen",d:"60 s/Seite · Knie gestreckt, quer zum Strang, nicht in den Schmerz"},
+  {k:"E3",n:"Short Foot",d:"3 × 10 × 5 s"}
 ];
-
-const STA = [
-  {k:"ST1", n:"Einbeinstand mit Beckenkontrolle", d:"3 × 30 s/Seite · Fuß flach, Beckenkamm waagrecht"},
-  {k:"ST2", n:"Y-Balance Reach",                  d:"3 × 5/Richtung · nur posteromed. + posterolat. · Standbein unter 30° Beugung"},
-  {k:"ST3", n:"Short Foot",                       d:"3 × 10 × 5 s · Pronationskontrolle"}
+const BLOCK=[
+  {k:"B1",n:"Knie-zur-Wand im Sitzen",d:"2 × 10/Seite · Band um den Vorfuß"},
+  {k:"B2",n:"Hüftbeuger halbkniend, Knie ≤ 90°",d:"2 × 45 s/Seite · dickes Kissen unter dem Knie"},
+  {k:"B3",n:"Einbeinstand mit Beckenkontrolle",d:"3 × 30 s/Seite · Fuß flach, Beckenkamm waagrecht"}
 ];
-
-/* Reizphase — Plica gereizt, stechender Schmerz */
-const MOB_FLARE = MOB;
-const STA_FLARE = [
-  {k:"ST1", n:"Einbeinstand mit Beckenkontrolle", d:"3 × 30 s/Seite · Knie fast gestreckt"},
-  {k:"ST3", n:"Short Foot",                       d:"3 × 10 × 5 s"}
+const LOADED=[
+  {k:"L1",n:"TKE mit Band",d:"2 × 15/Seite · geschlossene Kette 0–30°"},
+  {k:"L2",n:"Y-Balance posteromedial + posterolateral",d:"3 × 5/Richtung · Standbein unter 30°"}
 ];
+const COP={k:"C1",n:"Copenhagen Plank, kurzer Hebel",d:"2 × 20 s/Seite"};
+const ROLL={k:"R1",n:"Vastus lateralis + TFL ausrollen",d:"60–90 s/Seite · Muskelbauch, nicht der ITB-Strang"};
 
-const TKE = {k:"TKE", n:"TKE mit Band",                    d:"3 × 15/Seite · geschlossene Kette 0–30° · nur Phase 1"};
-const COP = {k:"COP", n:"Copenhagen Plank, kurzer Hebel",  d:"2 × 20 s/Seite · Mi und Sa"};
-const ROLL= {k:"ROLL",n:"Vastus lateralis + TFL ausrollen",d:"60–90 s/Seite · Muskelbauch, nicht der ITB-Strang"};
-
-const GYM = {
-  1:{
-    gymA:{t:"Gym A · Phase 1", ex:[
-      {k:"g1",n:"BFR Beinstrecker",     d:"30-15-15-15 · nur 90–60° · 20–30 % 1RM"},
-      {k:"g2",n:"Abduktoren-Maschine",  d:"3 × 20"},
-      {k:"g3",n:"Adduktoren-Maschine",  d:"3 × 20"},
-      {k:"g4",n:"Wadenheben",           d:"3 × 15"}]},
-    gymB:{t:"Gym B · Phase 1", ex:[
-      {k:"g1",n:"BFR Beinpresse",             d:"30-15-15-15 · ROM 0–40° · 20–30 % 1RM"},
-      {k:"g2",n:"Glute Kickback am Kabel",    d:"3 × 15/Seite · rein aus der Hüfte, kein Hohlkreuz"},
-      {k:"g3",n:"Beinbeuger liegend, leicht", d:"3 × 20"},
-      {k:"g4",n:"Wadenheben sitzend",         d:"3 × 15"}]}
-  },
-  2:{
-    gymA:{t:"Gym A · Phase 2 — Quadrizeps", ex:[
-      {k:"g1",n:"Beinpresse, Füße hoch & breit", d:"4 × 15–20 · ROM 0–40° · Tempo 3-0-1 · RPE 7–8"},
-      {k:"g2",n:"Beinstrecker",                  d:"3 × 15–20 · nur 90–60°"},
-      {k:"g3",n:"Split Squat statisch",          d:"3 × 12/Seite · Schienbein senkrecht, Tiefe begrenzt"},
-      {k:"g4",n:"Adduktoren-Maschine",           d:"3 × 15–20"}]},
-    gymB:{t:"Gym B · Phase 2 — Hüfte/posterior", ex:[
-      {k:"g1",n:"45°-Rückenstrecker, Glute-Bias",   d:"4 × 12–15 · Ende in neutraler Hüftstreckung"},
-      {k:"g2",n:"Rumänisches Kreuzheben, leicht",   d:"3 × 12 · ~50 % Altgewicht, nie in Dehnschmerz"},
-      {k:"g3",n:"Beinbeuger sitzend",               d:"3 × 15–20"},
-      {k:"g4",n:"Abduktoren / Cable Hip Abduction", d:"3 × 15–20"}]}
-  }
+/* Wochenraster: 0=So … 6=Sa */
+const WEEK={
+  1:{t:"Gym Unterkörper A",sub:"+ Schulter/Arme → Rad kurz 25 min",bike:1,pre:1},
+  2:{t:"Rad lang GA1",sub:"Vollblock abends",bike:1,pre:1,block:1,cop:1},
+  3:{t:"Gym Oberkörper",sub:"Push/Pull — Beine frei",pre:0},
+  4:{t:"Rad lang GA1",sub:"Vollblock abends",bike:1,pre:1,block:1},
+  5:{t:"Gym Unterkörper B",sub:"+ Schulter/Arme → Rad kurz 25 min",bike:1,pre:1},
+  6:{t:"Frei",sub:"Spaziergang mit Bandage · Vollblock abends",block:1,cop:1},
+  0:{t:"Frei",sub:"nur Tagesbasis",}
 };
+const WD=["So","Mo","Di","Mi","Do","Fr","Sa"];
 
-const CRITERIA = [
+const CRITERIA=[
   "Einbeinige Kniebeuge bis 45° schmerzfrei (≤ 2/10)",
   "Treppe abwärts schmerzfrei",
   "Kein Nachschmerz > 24 h nach der intensivsten Radeinheit",
-  "Einbeinstand mit geschlossenen Augen 30 s stabil, Becken waagrecht",
+  "Einbeinstand mit geschlossenen Augen 30 s stabil",
   "Kein Erguss- oder Spannungsgefühl morgens"
 ];
-
-const TESTS = [
-  {k:"ktw", n:"Knie-zur-Wand", unit:"cm", every:28, tag:"tag-ktw", sp:"sp-ktw", delta:"d-ktw"},
-  {k:"yb",  n:"Y-Balance",     unit:"cm", every:14, tag:"tag-yb",  sp:"sp-yb",  delta:"d-yb"},
-  {k:"sls", n:"Einbeinstand",  unit:"s",  every:14, tag:"tag-sls", sp:"sp-sls", delta:"d-sls"}
+const TESTS=[
+  {k:"ktw",n:"Knie-zur-Wand",unit:"cm",every:28,tag:"tag-ktw",sp:"sp-ktw",dl:"d-ktw"},
+  {k:"yb", n:"Y-Balance",    unit:"cm",every:14,tag:"tag-yb", sp:"sp-yb", dl:"d-yb"},
+  {k:"sls",n:"Einbeinstand", unit:"s", every:14,tag:"tag-sls",sp:"sp-sls",dl:"d-sls"}
 ];
 
-const blank = d => ({
-  d, painL:0, painR:0, stiff:false, swell:false, crep:false,
-  checks:{}, sessionPain:0, training:"", gym:{}, gymNote:"",
-  watt:"", rpm:"", mins:"", hr:"", salbu:false, saddle:false, note:"",
-  tests:{}
-});
+const blank=d=>({d,painL:0,painR:0,stiff:false,swell:false,sting:false,salbu:false,
+  checks:{},sessionPain:0,watt:"",rpm:"",mins:"",hr:"",note:"",tests:{}});
 
-let state = {v:2, startDate:"2026-08-18", entries:{}, criteria:CRITERIA.map(()=>false), flare:true, flareStart:"2026-08-19"};
-let cur = todayISO();
+let state={v:3,startDate:"2026-08-18",flare:true,flareStart:"2026-08-19",
+  entries:{},criteria:CRITERIA.map(()=>false)};
+let cur=todayISO();
 
-/* ═══ Hilfen ═══════════════════════════════════════════ */
+/* ── Helfer ────────────────────────────────────── */
 function todayISO(){const t=new Date();t.setMinutes(t.getMinutes()-t.getTimezoneOffset());return t.toISOString().slice(0,10);}
-function shift(iso,n){const t=new Date(iso+"T12:00:00");t.setDate(t.getDate()+n);return t.toISOString().slice(0,10);}
-function diffDays(a,b){return Math.round((new Date(a+"T12:00:00")-new Date(b+"T12:00:00"))/864e5);}
-function dayNr(iso){return diffDays(iso,state.startDate)+1;}
-function weekNr(iso){return Math.max(1,Math.ceil(Math.max(1,dayNr(iso))/7));}
-function phaseNr(iso){return state.criteria.every(Boolean) ? 2 : 1;}
-function weekday(iso){return new Date(iso+"T12:00:00").getDay();}
-function de(iso){return new Date(iso+"T12:00:00").toLocaleDateString("de-DE",{weekday:"short",day:"2-digit",month:"2-digit",year:"numeric"});}
-function entry(iso){if(!state.entries[iso])state.entries[iso]=blank(iso);return state.entries[iso];}
-function has(iso){return !!state.entries[iso];}
+function shift(i,n){const t=new Date(i+"T12:00:00");t.setDate(t.getDate()+n);return t.toISOString().slice(0,10);}
+function dd(a,b){return Math.round((new Date(a+"T12:00:00")-new Date(b+"T12:00:00"))/864e5);}
+function dayNr(i){return dd(i,state.startDate)+1;}
+function weekNr(i){return Math.max(1,Math.ceil(Math.max(1,dayNr(i))/7));}
+function phaseNr(){return state.criteria.every(Boolean)?2:1;}
+function wd(i){return new Date(i+"T12:00:00").getDay();}
+function de(i){return new Date(i+"T12:00:00").toLocaleDateString("de-DE",{weekday:"short",day:"2-digit",month:"2-digit",year:"numeric"});}
+function shortDate(i){return i.slice(8)+"."+i.slice(5,7)+".";}
+function entry(i){if(!state.entries[i])state.entries[i]=blank(i);return state.entries[i];}
+function has(i){return !!state.entries[i];}
 function $(s){return document.querySelector(s);}
 function num(v){const n=parseFloat(v);return isFinite(n)?n:null;}
 
-function activeMob(){return state.flare?MOB_FLARE:MOB;}
-function activeSta(){return state.flare?STA_FLARE:STA;}
-function flareDays(){return state.flareStart?diffDays(todayISO(),state.flareStart):0;}
-
-function extrasFor(iso){
-  const out=[];
-  if(state.flare) return out;                       // Reizphase: keine Zusatzbelastung
-  if(phaseNr(iso)===1 && dayNr(iso)%2===1) out.push(TKE);
-  const wd=weekday(iso);
-  if(wd===3||wd===6) out.push(COP);
-  return out;
-}
-function requiredKeys(iso){
-  return MORNING.concat(activeMob(),activeSta(),extrasFor(iso)).map(x=>x.k);
-}
-
-/* ═══ Persistenz ═══════════════════════════════════════ */
-function migrate(p){
-  if(p.v===2){ if(p.flare===undefined)p.flare=false; return p; }
-  const out={v:2, startDate:p.startDate||"2026-08-18", entries:{}, criteria:p.criteria||CRITERIA.map(()=>false), flare:false, flareStart:null};
-  Object.keys(p.entries||{}).forEach(k=>{
-    const o=p.entries[k], n=blank(k);
-    ["painL","painR","stiff","swell","crep","sessionPain","training","gymNote","watt","rpm","mins","hr","salbu","saddle","note"]
-      .forEach(f=>{ if(o[f]!==undefined) n[f]=o[f]; });
-    if(Array.isArray(o.morning)) o.morning.forEach((v,i)=>{ if(v&&MORNING[i]) n.checks[MORNING[i].k]=true; });
-    if(Array.isArray(o.gym)) o.gym.forEach((v,i)=>{ if(v) n.gym["g"+(i+1)]=true; });
-    out.entries[k]=n;
-  });
-  return out;
-}
-function load(){
-  try{
-    const raw=localStorage.getItem(KEY);
-    if(raw){
-      const p=migrate(JSON.parse(raw));
-      state.startDate=p.startDate||state.startDate;
-      state.entries=p.entries||{};
-      state.criteria=(p.criteria&&p.criteria.length===CRITERIA.length)?p.criteria:CRITERIA.map(()=>false);
-      if(p.flare!==undefined) state.flare=p.flare;
-      if(p.flareStart!==undefined) state.flareStart=p.flareStart;
+function planFor(iso){
+  const w=WEEK[wd(iso)]||{}, out={morning:MORNING,pre:[],evening:DAILY_EVE.slice(),
+    label:"Abends · Tagesbasis",dayTitle:w.t||"Frei",daySub:w.sub||"",bike:!!w.bike};
+  if(w.pre) out.pre=[ROLL];
+  if(w.block){
+    out.evening=out.evening.concat(BLOCK);
+    if(!state.flare){
+      out.evening=out.evening.concat(LOADED);
+      if(w.cop) out.evening.push(COP);
     }
-  }catch(e){console.warn("Gespeicherte Daten nicht lesbar:",e);}
+    out.label = state.flare ? "Abends · Vollblock (reduziert)" : "Abends · Vollblock";
+  }
+  return out;
 }
-function save(silent){
-  try{
-    localStorage.setItem(KEY,JSON.stringify(state));
-    if(!silent){const n=$("#savedNote");n.textContent="Gespeichert · "+new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"});setTimeout(()=>{n.textContent="";},2600);}
-  }catch(e){ $("#savedNote").textContent="Speichern fehlgeschlagen — Browser-Speicher blockiert"; }
+function requiredKeys(iso){const p=planFor(iso);return p.morning.concat(p.pre,p.evening).map(x=>x.k);}
+
+/* ── Tests ─────────────────────────────────────── */
+function testDates(k){return Object.keys(state.entries).sort().filter(d=>{
+  const t=state.entries[d].tests||{};return num(t[k+"L"])!==null||num(t[k+"R"])!==null;});}
+function testStatus(T){
+  const ds=testDates(T.k);
+  if(!ds.length) return {due:true,age:null,next:todayISO(),txt:"Baseline fehlt"};
+  const last=ds[ds.length-1], age=dd(todayISO(),last), next=shift(last,T.every);
+  return {due:age>=T.every,age,next,last,txt:age>=T.every?("fällig · "+age+" T"):("in "+(T.every-age)+" T")};
 }
 
-/* ═══ Listen ═══════════════════════════════════════════ */
-function buildChecks(el, items, store){
+/* ── Persistenz ────────────────────────────────── */
+function load(){try{const r=localStorage.getItem(KEY);if(r){const p=JSON.parse(r);
+  ["startDate","flare","flareStart"].forEach(f=>{if(p[f]!==undefined)state[f]=p[f];});
+  state.entries=p.entries||{};
+  if(p.criteria&&p.criteria.length===CRITERIA.length)state.criteria=p.criteria;
+}}catch(e){console.warn("Daten nicht lesbar:",e);}}
+function save(silent){try{localStorage.setItem(KEY,JSON.stringify(state));
+  if(!silent){const n=$("#savedNote");n.textContent="Gespeichert · "+new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"});setTimeout(()=>{n.textContent="";},2500);}
+}catch(e){$("#savedNote").textContent="Speichern blockiert";}}
+
+/* ── Listen ────────────────────────────────────── */
+function buildChecks(el,items){
   el.innerHTML="";
+  if(!items.length){el.innerHTML='<li><label><span class="ex-name" style="color:var(--muted)">Heute nichts vorgesehen.</span></label></li>';return;}
+  const e=entry(cur);
   items.forEach(it=>{
     const li=document.createElement("li");
-    li.innerHTML='<label><input type="checkbox"><span class="ex-name"><span class="ex-key">'+it.k.toUpperCase()+'</span>'+it.n+
-      '<span class="ex-dose">'+it.d+'</span></span></label>';
+    li.innerHTML='<label><input type="checkbox"><span class="ex-name">'+it.n+'<span class="ex-dose">'+it.d+'</span></span></label>';
     const cb=li.querySelector("input");
-    const bag=entry(cur)[store];
-    cb.checked=!!bag[it.k];
+    cb.checked=!!e.checks[it.k];
     li.classList.toggle("done",cb.checked);
-    cb.addEventListener("change",()=>{
-      entry(cur)[store][it.k]=cb.checked;
-      li.classList.toggle("done",cb.checked);
-      save(true); renderStats();
-    });
+    cb.addEventListener("change",()=>{entry(cur).checks[it.k]=cb.checked;li.classList.toggle("done",cb.checked);save(true);renderStats();});
     el.appendChild(li);
   });
 }
 function buildCriteria(){
-  const el=$("#list-criteria"); el.innerHTML="";
+  const el=$("#list-criteria");el.innerHTML="";
   CRITERIA.forEach((c,i)=>{
     const li=document.createElement("li");
     li.innerHTML='<label><input type="checkbox"><span class="ex-name">'+c+'</span></label>';
-    const cb=li.querySelector("input");
-    cb.checked=state.criteria[i];
-    li.classList.toggle("done",cb.checked);
-    cb.addEventListener("change",()=>{
-      state.criteria[i]=cb.checked; li.classList.toggle("done",cb.checked);
-      save(true); renderGate(); renderEntry();
-    });
+    const cb=li.querySelector("input");cb.checked=state.criteria[i];li.classList.toggle("done",cb.checked);
+    cb.addEventListener("change",()=>{state.criteria[i]=cb.checked;li.classList.toggle("done",cb.checked);save(true);renderGate();renderHeader();});
     el.appendChild(li);
   });
 }
 
-/* ═══ Rendering ════════════════════════════════════════ */
+/* ── Rendering ─────────────────────────────────── */
 function renderHeader(){
-  const w=weekNr(cur), p=phaseNr(cur);
   $("#hdr-date").textContent=de(cur);
   $("#m-day").textContent=Math.max(1,dayNr(cur));
-  $("#m-week").textContent=w;
-  $("#m-phase").textContent=p;
-  $("#m-phasename").textContent=p===1?"Entlastung":"Wiederaufbau";
-  const band=$("#phaseband"); band.innerHTML="";
-  for(let i=1;i<=12;i++){const s=document.createElement("i");if(i<w)s.className="on";if(i===w)s.className="now";band.appendChild(s);}
-}
-
-function renderSignal(){
-  const y=state.entries[shift(cur,-1)], t=state.entries[cur];
-  const box=$("#signal"), v=$("#sig-verdict"), p=$("#sig-text");
-  box.className="signal sig-none";
-  if(!y){v.textContent="Basiswert";p.textContent="Für die Auswertung fehlt der Vortag. Ab morgen läuft der Abgleich automatisch.";return;}
-  const tMax=t?Math.max(t.painL,t.painR):0, yMax=Math.max(y.painL,y.painR), ySess=y.sessionPain;
-  if(tMax>yMax || (t&&t.swell)){
-    box.className="signal sig-stop"; v.textContent="Zurücknehmen";
-    p.textContent="Morgenwert schlechter als gestern"+((t&&t.swell)?" bzw. Erguss vorhanden":"")+". Letzte Progression rückgängig machen — ROM oder Last, nicht die Übung. Heute nur Home-Plan und Rad im unteren Wattbereich.";
-  }else if(ySess>3){
-    box.className="signal sig-hold"; v.textContent="Halten";
-    p.textContent="Gestern lag der Belastungsschmerz bei "+ySess+"/10, über der Grenze von 3. Der Morgenwert ist aber stabil. Heute auf demselben Niveau bleiben, nichts steigern.";
-  }else{
-    box.className="signal sig-go"; v.textContent="Freigegeben";
-    p.textContent="Morgenwert stabil, gestrige Belastung innerhalb der Grenze. Plan wie vorgesehen durchziehen, Progression zulässig.";
-  }
-}
-
-function renderFlare(){
-  const box=$("#flareBox"), v=$("#flare-verdict"), p=$("#flare-text"), btn=$("#btnFlare");
-  const swBtn=$("#btnFlareSwitch");
-  if(state.flare){
-    const d=flareDays();
-    box.className="signal sig-stop"; box.hidden=false;
-    v.textContent="Reizphase · Tag "+(d+1);
-    p.textContent="Plica gereizt. Y-Balance, TKE und Copenhagen sind ausgesetzt, Rad auf 95–105 W. "+
-      (d>=5 ? "Ab jetzt: bei zwei schmerzfreien Morgen die Reizphase beenden und einzeln aufbauen — eine Übung alle 3 Tage."
-            : "Frühestens ab Tag 6 wieder aufbauen, und nur nach zwei schmerzfreien Morgen.");
-    btn.textContent="Reizphase beenden";
-    if(swBtn) swBtn.textContent="Reizphase beenden";
-  }else{
-    box.hidden=true;
-    if(swBtn) swBtn.textContent="Reizphase starten";
-  }
-}
-function renderProgressionHint(){
+  $("#m-week").textContent=weekNr(cur);
+  $("#m-phase").textContent=phaseNr();
+  $("#m-mode").textContent=state.flare?"Reizphase":(phaseNr()===1?"Entlastung":"Wiederaufbau");
+  const b=$("#phaseband");b.innerHTML="";
   const w=weekNr(cur);
-  $("#progressionHint").textContent = w<3
-    ? "Woche 1–2: ST1 mit offenen Augen, fester Untergrund."
-    : (w<5 ? "Ab Woche 3: ST1 mit geschlossenen Augen. Danach Balancepad."
-           : "Ab Woche 5 zusätzlich: Step-Down von 10-cm-Stufe, 3 × 10/Seite, exzentrisch 3 s.");
+  for(let i=1;i<=12;i++){const s=document.createElement("i");if(i<w)s.className="on";if(i===w)s.className="now";b.appendChild(s);}
 }
-
-function renderExtras(){
-  const ex=extrasFor(cur);
-  const head=$("#extraHead"), card=$("#extraCard");
-  if(!ex.length){head.hidden=true;card.hidden=true;return;}
-  head.hidden=false;card.hidden=false;
-  buildChecks($("#list-extra"), ex, "checks");
+function renderDayPlan(){
+  const p=planFor(cur);
+  $("#dp-weekday").textContent=WD[wd(cur)]+" · Woche "+weekNr(cur);
+  $("#dp-title").textContent=p.dayTitle;
+  $("#dp-sub").textContent=p.daySub||"—";
+  $("#eveLabel").textContent=p.label;
+  $("#preWrap").hidden=!p.pre.length;
+  $("#bikeWrap").hidden=!p.bike;
+  if(p.bike) $("#bikeTarget").textContent=state.flare
+    ? "Reizphase: 95–105 W bei 95–105 rpm. Bei Stechen sofort abbrechen."
+    : "GA1 132–138 W bei 95–105 rpm.";
+  buildChecks($("#list-morning"),p.morning);
+  buildChecks($("#list-pre"),p.pre);
+  buildChecks($("#list-evening"),p.evening);
 }
-
-function renderTrainingPanels(){
-  const e=entry(cur), p=phaseNr(cur);
-  const isGym=e.training==="gymA"||e.training==="gymB";
-  const isBike=e.training==="bikeShort"||e.training==="bikeLong";
-  $("#gymPanel").hidden=!isGym;
-  $("#bikePanel").hidden=!isBike;
-  $("#prePanel").hidden=!(isGym||isBike);
-  if(isGym||isBike) buildChecks($("#list-pre"), [ROLL], "checks");
-  if(isGym){
-    const plan=GYM[p][e.training];
-    $("#gymTitle").textContent=plan.t;
-    buildChecks($("#list-gym"), plan.ex, "gym");
+function renderTestBanner(){
+  const due=TESTS.filter(T=>testStatus(T).due);
+  const box=$("#testBox");
+  if(!due.length){box.hidden=true;return;}
+  box.hidden=false;
+  $("#test-verdict").textContent=due.length===1?"1 Messung fällig":due.length+" Messungen fällig";
+  $("#test-text").textContent=due.map(T=>T.n).join(" · ")+". Vor dem Abendblock messen, nicht danach — Ermüdung verfälscht beide Balancetests.";
+}
+function renderFlare(){
+  const box=$("#flareBox"),sw=$("#btnFlareSwitch");
+  if(state.flare){
+    const d=state.flareStart?dd(todayISO(),state.flareStart):0;
+    box.hidden=false;
+    $("#flare-verdict").textContent="Reizphase · Tag "+(d+1);
+    $("#flare-text").textContent=(d>=5)
+      ? "Ab jetzt beenden, sobald der Morgenwert an zwei aufeinanderfolgenden Tagen schmerzfrei war. Danach startet der Vollblock direkt mit 3×/Woche — kein Aufbau von unten."
+      : "TKE, Y-Balance und Copenhagen ausgesetzt, Rad bei 95–105 W. Frühestens ab Tag 6 beenden, und nur nach zwei schmerzfreien Morgen.";
+    if(sw)sw.textContent="Reizphase beenden";
+  }else{box.hidden=true;if(sw)sw.textContent="Reizphase starten";}
+}
+function renderSignal(){
+  const y=state.entries[shift(cur,-1)],t=state.entries[cur],box=$("#signal");
+  box.className="signal sig-none";
+  if(!y){$("#sig-verdict").textContent="Basiswert";$("#sig-text").textContent="Für die Auswertung fehlt der Vortag.";return;}
+  const tM=t?Math.max(t.painL,t.painR):0,yM=Math.max(y.painL,y.painR);
+  if(tM>yM||(t&&(t.swell||t.sting))){
+    box.className="signal sig-stop";$("#sig-verdict").textContent="Zurücknehmen";
+    $("#sig-text").textContent="Morgenwert schlechter als gestern"+((t&&t.sting)?" bzw. stechender Schmerz":"")+". Letzte Progression rückgängig machen — ROM oder Last, nicht die Übung streichen. Heute nur Tagesbasis.";
+  }else if(y.sessionPain>3){
+    box.className="signal sig-hold";$("#sig-verdict").textContent="Halten";
+    $("#sig-text").textContent="Gestern Belastungsschmerz "+y.sessionPain+"/10, über der Grenze von 3. Morgenwert stabil. Heute nichts steigern.";
+  }else{
+    box.className="signal sig-go";$("#sig-verdict").textContent="Freigegeben";
+    $("#sig-text").textContent="Morgenwert stabil, gestrige Belastung innerhalb der Grenze. Plan wie vorgesehen.";
   }
-  if(isBike){
-    $("#bikeTarget").textContent = weekNr(cur)<3
-      ? "Ziel Woche 1–2: 100–115 W bei 95–105 rpm. Sattel auf Ausgangshöhe."
-      : "Ziel ab Woche 3 (bei Schmerzfreiheit): GA1 132–138 W bei 95–105 rpm.";
-  }
 }
-
 function renderEntry(){
   const e=entry(cur);
   $("#dateSel").value=cur;
-  $("#painL").value=e.painL; $("#v-painL").textContent=e.painL;
-  $("#painR").value=e.painR; $("#v-painR").textContent=e.painR;
-  $("#sessionPain").value=e.sessionPain; $("#v-sess").textContent=e.sessionPain;
-  $("#note").value=e.note; $("#gymNote").value=e.gymNote;
+  $("#painL").value=e.painL;$("#v-painL").textContent=e.painL;
+  $("#painR").value=e.painR;$("#v-painR").textContent=e.painR;
+  $("#sessionPain").value=e.sessionPain;$("#v-sess").textContent=e.sessionPain;
+  $("#note").value=e.note;
   ["watt","rpm","mins","hr"].forEach(k=>{$("#"+k).value=e[k];});
-  document.querySelectorAll("[data-flag]").forEach(b=>b.setAttribute("aria-pressed", e[b.dataset.flag]?"true":"false"));
-  document.querySelectorAll("[data-tr]").forEach(b=>b.setAttribute("aria-pressed", e.training===b.dataset.tr?"true":"false"));
-
-  buildChecks($("#list-morning"), MORNING, "checks");
-  buildChecks($("#list-mob"), activeMob(), "checks");
-  buildChecks($("#list-sta"), activeSta(), "checks");
-  renderFlare();
-  renderExtras();
-  renderProgressionHint();
-  renderTrainingPanels();
-  renderTests();
-  renderSignal();
-  renderHeader();
-  renderStats();
+  document.querySelectorAll("[data-flag]").forEach(b=>b.setAttribute("aria-pressed",e[b.dataset.flag]?"true":"false"));
+  renderHeader();renderFlare();renderDayPlan();renderTestBanner();renderSignal();renderTests();renderStats();
 }
-
 function renderGate(){
   const n=state.criteria.filter(Boolean).length;
-  const g=$("#gate"), v=$("#gate-verdict"), t=$("#gate-text");
-  if(n===5){g.className="signal sig-go";v.textContent="Phase 2 offen";
-    t.textContent="Alle Kriterien erfüllt. Gym-Pläne sind auf Phase 2 umgestellt, TKE entfällt aus der Abendroutine.";}
-  else{g.className="signal sig-none";v.textContent="Phase 1 läuft";
-    t.textContent=n+" von 5 Kriterien erfüllt. Ohne alle fünf bleibt Phase 1 aktiv — auch nach Woche 4.";}
+  const g=$("#gate");
+  if(n===5){g.className="signal sig-go";$("#gate-verdict").textContent="Phase 2 offen";
+    $("#gate-text").textContent="Alle Kriterien erfüllt. Gym wechselt auf Phase 2, TKE entfällt.";}
+  else{g.className="signal sig-none";$("#gate-verdict").textContent="Phase 1 läuft";
+    $("#gate-text").textContent=n+" von 5 Kriterien erfüllt. Ohne alle fünf bleibt Phase 1 aktiv — auch nach Woche 4.";}
 }
-
-/* ═══ Tests ════════════════════════════════════════════ */
-function testDates(k){
-  return Object.keys(state.entries).sort().filter(d=>{
-    const t=state.entries[d].tests||{};
-    return num(t[k+"L"])!==null || num(t[k+"R"])!==null;
+function renderWeekTable(){
+  let s='<tr><th>Tag</th><th>Einheit</th><th>Abends</th></tr>';
+  [1,2,3,4,5,6,0].forEach(d=>{
+    const w=WEEK[d]||{};
+    const eve=w.block?(state.flare?"Vollblock (red.)":"Vollblock"+(w.cop?" + Copenhagen":"")):"Tagesbasis";
+    s+='<tr'+(d===wd(cur)?' class="today"':'')+'><td class="n">'+WD[d]+'</td><td>'+(w.t||"Frei")+'</td><td class="n">'+eve+'</td></tr>';
   });
+  $("#weekTable").innerHTML=s;
 }
 function renderTests(){
-  const e=entry(cur), t=e.tests||{};
-  ["ktwL","ktwR","ybL","ybR","slsL","slsR"].forEach(f=>{ $("#"+f).value = (t[f]!==undefined?t[f]:""); });
+  const t=entry(cur).tests||{};
+  ["ktwL","ktwR","ybL","ybR","slsL","slsR"].forEach(f=>{$("#"+f).value=(t[f]!==undefined?t[f]:"");});
+  const lines=[];
   TESTS.forEach(T=>{
-    const ds=testDates(T.k);
-    const tag=$("#"+T.tag);
-    if(!ds.length){tag.textContent="noch kein Wert";tag.className="tag due";return;}
-    const last=ds[ds.length-1], age=diffDays(todayISO(),last);
-    const due=age>=T.every;
-    tag.textContent = due ? ("fällig · "+age+" T") : ("vor "+age+" T");
-    tag.className = due ? "tag due" : "tag";
+    const st=testStatus(T),tag=$("#"+T.tag);
+    tag.textContent=st.txt;tag.className=st.due?"tag due":"tag";
+    lines.push(T.n+": "+(st.due?"jetzt":shortDate(st.next)));
   });
+  const due=TESTS.filter(T=>testStatus(T).due);
+  const tp=$("#testPlan");
+  tp.className=due.length?"signal sig-test":"signal sig-none";
+  $("#tp-verdict").textContent=due.length?(due.length+" fällig"):"Alles aktuell";
+  $("#tp-text").textContent=lines.join(" · ");
   drawSparks();
 }
 function drawSparks(){
   TESTS.forEach(T=>{
     const ds=testDates(T.k);
-    const L=ds.map(d=>num(state.entries[d].tests[T.k+"L"]));
-    const R=ds.map(d=>num(state.entries[d].tests[T.k+"R"]));
+    const L=ds.map(d=>num(state.entries[d].tests[T.k+"L"])),R=ds.map(d=>num(state.entries[d].tests[T.k+"R"]));
     const all=L.concat(R).filter(v=>v!==null);
-    const el=$("#"+T.sp), dl=$("#"+T.delta);
-    if(all.length<1){el.innerHTML='<text x="10" y="44">Noch keine Messung erfasst.</text>';dl.textContent="—";return;}
-    const min=Math.min.apply(null,all), max=Math.max.apply(null,all);
-    const lo=min-(max-min||2)*0.25, hi=max+(max-min||2)*0.25;
-    const W=320,H=80,pl=30,pr=10,pt=10,pb=16;
+    const el=$("#"+T.sp),dl=$("#"+T.dl);
+    if(!all.length){el.innerHTML='<text x="10" y="44">Noch keine Messung.</text>';dl.textContent="—";return;}
+    const mn=Math.min.apply(null,all),mx=Math.max.apply(null,all),sp=(mx-mn)||2;
+    const lo=mn-sp*0.25,hi=mx+sp*0.25,W=320,H=80,pl=30,pr=10,pt=10,pb=16;
     const x=i=>ds.length===1?(pl+(W-pl-pr)/2):pl+i*(W-pl-pr)/(ds.length-1);
     const y=v=>pt+(hi-v)*(H-pt-pb)/(hi-lo);
     let s='<line class="gl" x1="'+pl+'" y1="'+(H-pb)+'" x2="'+(W-pr)+'" y2="'+(H-pb)+'"/>';
-    s+='<text x="4" y="'+(pt+6)+'">'+hi.toFixed(0)+'</text><text x="4" y="'+(H-pb)+'">'+lo.toFixed(0)+'</text>';
-    const path=(arr,col)=>{
-      let d="",open=false,pts="";
-      arr.forEach((v,i)=>{ if(v===null){open=false;return;}
-        d+=(open?" L ":" M ")+x(i).toFixed(1)+" "+y(v).toFixed(1); open=true;
-        pts+='<circle cx="'+x(i).toFixed(1)+'" cy="'+y(v).toFixed(1)+'" r="2.5" fill="'+col+'"/>';
-      });
-      return (d?'<path class="lp" stroke="'+col+'" d="'+d+'"/>':"")+pts;
-    };
+    s+='<text x="3" y="'+(pt+6)+'">'+hi.toFixed(0)+'</text><text x="3" y="'+(H-pb)+'">'+lo.toFixed(0)+'</text>';
+    const path=(a,c)=>{let d="",o=false,p="";a.forEach((v,i)=>{if(v===null){o=false;return;}
+      d+=(o?" L ":" M ")+x(i).toFixed(1)+" "+y(v).toFixed(1);o=true;
+      p+='<circle cx="'+x(i).toFixed(1)+'" cy="'+y(v).toFixed(1)+'" r="2.5" fill="'+c+'"/>';});
+      return (d?'<path class="lp" stroke="'+c+'" d="'+d+'"/>':"")+p;};
     s+=path(L,"#A93326")+path(R,"#16645F");
-    s+='<text x="'+pl+'" y="'+(H-4)+'">'+ds[0].slice(8)+"."+ds[0].slice(5,7)+'</text>';
-    s+='<text x="'+(W-pr)+'" y="'+(H-4)+'" text-anchor="end">'+ds[ds.length-1].slice(8)+"."+ds[ds.length-1].slice(5,7)+'</text>';
+    s+='<text x="'+pl+'" y="'+(H-4)+'">'+shortDate(ds[0])+'</text>';
+    s+='<text x="'+(W-pr)+'" y="'+(H-4)+'" text-anchor="end">'+shortDate(ds[ds.length-1])+'</text>';
     el.innerHTML=s;
-    const lastL=L[L.length-1], lastR=R[R.length-1];
-    const firstL=L.find(v=>v!==null), firstR=R.find(v=>v!==null);
-    const dL=(lastL!==null&&firstL!==undefined)?(lastL-firstL):null;
-    const dR=(lastR!==null&&firstR!==undefined)?(lastR-firstR):null;
-    const diff=(lastL!==null&&lastR!==null)?Math.abs(lastL-lastR).toFixed(1):"—";
-    dl.textContent="Δ L "+(dL===null?"—":(dL>0?"+":"")+dL.toFixed(1))+" · Δ R "+(dR===null?"—":(dR>0?"+":"")+dR.toFixed(1))+" · Diff "+diff+" "+T.unit;
+    const fL=L.find(v=>v!==null),fR=R.find(v=>v!==null),lL=L[L.length-1],lR=R[R.length-1];
+    const g=(f,l)=>(f===undefined||l===null)?"—":((l-f>0?"+":"")+(l-f).toFixed(1));
+    const diff=(lL!==null&&lR!==null)?Math.abs(lL-lR).toFixed(1):"—";
+    dl.textContent="Δ L "+g(fL,lL)+" · Δ R "+g(fR,lR)+" · Diff "+diff+" "+T.unit;
   });
   renderTestTable();
 }
 function renderTestTable(){
-  const ds=Array.from(new Set(TESTS.flatMap(T=>testDates(T.k)))).sort().reverse();
+  const ds=Array.from(new Set(TESTS.reduce((a,T)=>a.concat(testDates(T.k)),[]))).sort().reverse();
+  if(!ds.length){$("#testTable").innerHTML='<tr><td>Noch keine Messwerte.</td></tr>';return;}
   let s='<tr><th>Datum</th><th>KTW L/R</th><th>YB L/R</th><th>SLS L/R</th></tr>';
-  if(!ds.length){$("#testTable").innerHTML='<tr><td>Noch keine Messwerte erfasst.</td></tr>';return;}
-  ds.forEach(d=>{const t=state.entries[d].tests||{};
-    const c=k=>((t[k+"L"]||"–")+"/"+(t[k+"R"]||"–"));
-    s+='<tr><td class="n">'+d.slice(8)+"."+d.slice(5,7)+'</td><td class="n">'+c("ktw")+'</td><td class="n">'+c("yb")+'</td><td class="n">'+c("sls")+'</td></tr>';
-  });
+  ds.forEach(d=>{const t=state.entries[d].tests||{},c=k=>((t[k+"L"]||"–")+"/"+(t[k+"R"]||"–"));
+    s+='<tr><td class="n">'+shortDate(d)+'</td><td class="n">'+c("ktw")+'</td><td class="n">'+c("yb")+'</td><td class="n">'+c("sls")+'</td></tr>';});
   $("#testTable").innerHTML=s;
 }
 
-/* ═══ Kennzahlen & Charts ══════════════════════════════ */
+/* ── Kennzahlen ────────────────────────────────── */
 function lastDays(n){const a=[];for(let i=n-1;i>=0;i--)a.push(shift(todayISO(),-i));return a;}
-function adherence(iso){
-  const e=state.entries[iso]; if(!e)return null;
-  const req=requiredKeys(iso);
-  const done=req.filter(k=>e.checks&&e.checks[k]).length;
-  return Math.round(done/req.length*100);
-}
+function adherence(iso){if(!has(iso))return null;
+  const e=state.entries[iso],r=requiredKeys(iso);
+  return Math.round(r.filter(k=>e.checks[k]).length/r.length*100);}
 function stat(v,l){return '<div class="stat"><b>'+v+'</b><span>'+l+'</span></div>';}
-
 function renderStats(){
   const days=lastDays(28).filter(has);
-  const adh=days.map(adherence).filter(v=>v!==null);
-  const avgAdh=adh.length?Math.round(adh.reduce((a,b)=>a+b,0)/adh.length):0;
-  const pains=days.map(d=>Math.max(state.entries[d].painL,state.entries[d].painR));
-  const avgPain=pains.length?(pains.reduce((a,b)=>a+b,0)/pains.length).toFixed(1):"—";
-  const f7=pains.slice(0,7), l7=pains.slice(-7);
-  const trend=(f7.length&&l7.length)?(l7.reduce((a,b)=>a+b,0)/l7.length-f7.reduce((a,b)=>a+b,0)/f7.length):0;
-  let streak=0,d=todayISO();
-  while(has(d)&&adherence(d)>=70){streak++;d=shift(d,-1);}
-  const flagged=days.filter(x=>state.entries[x].sessionPain>3).length;
-  $("#stats").innerHTML=stat(streak,"Streak ≥70 %")+stat(avgAdh+"%","Ø Adhärenz")+stat(avgPain,"Ø Schmerz")+
-    stat((trend>0?"+":"")+trend.toFixed(1),"Trend 28 T")+stat(flagged,"Tage > 3/10")+stat(Object.keys(state.entries).length,"Einträge");
-  drawChart(); drawBars(); renderRecent();
+  const adh=days.map(adherence),pains=days.map(d=>Math.max(state.entries[d].painL,state.entries[d].painR));
+  const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
+  const f7=pains.slice(0,7),l7=pains.slice(-7);
+  const trend=(f7.length&&l7.length)?(avg(l7)-avg(f7)):0;
+  let streak=0,d=todayISO();while(has(d)&&adherence(d)>=70){streak++;d=shift(d,-1);}
+  $("#stats").innerHTML=stat(streak,"Streak ≥70 %")+stat(Math.round(avg(adh))+"%","Ø Adhärenz")+
+    stat(pains.length?avg(pains).toFixed(1):"—","Ø Schmerz")+stat((trend>0?"+":"")+trend.toFixed(1),"Trend 28 T")+
+    stat(days.filter(x=>state.entries[x].sessionPain>3).length,"Tage > 3/10")+stat(Object.keys(state.entries).length,"Einträge");
+  drawChart();drawBars();renderRecent();renderWeekTable();
 }
-
 function drawChart(){
-  const days=lastDays(28), W=320,H=150,pl=22,pr=8,pt=10,pb=18;
-  const x=i=>pl+i*(W-pl-pr)/(days.length-1), y=v=>pt+(10-v)*(H-pt-pb)/10;
+  const days=lastDays(28),W=320,H=150,pl=22,pr=8,pt=10,pb=18;
+  const x=i=>pl+i*(W-pl-pr)/(days.length-1),y=v=>pt+(10-v)*(H-pt-pb)/10;
   let s="";
-  for(let g=0;g<=10;g+=2) s+='<line class="gl" x1="'+pl+'" y1="'+y(g)+'" x2="'+(W-pr)+'" y2="'+y(g)+'"/><text x="4" y="'+(y(g)+3)+'">'+g+'</text>';
-  const line=(key,col)=>{let d="",open=false;
-    days.forEach((dd,i)=>{const e=state.entries[dd]; if(!e){open=false;return;}
-      const v=key==="m"?Math.max(e.painL,e.painR):e.sessionPain;
-      d+=(open?" L ":" M ")+x(i).toFixed(1)+" "+y(v).toFixed(1); open=true;});
-    return d?'<path class="lp" stroke="'+col+'" d="'+d+'"/>':"";};
+  for(let g=0;g<=10;g+=2)s+='<line class="gl" x1="'+pl+'" y1="'+y(g)+'" x2="'+(W-pr)+'" y2="'+y(g)+'"/><text x="4" y="'+(y(g)+3)+'">'+g+'</text>';
+  const line=(m,c)=>{let d="",o=false;days.forEach((dd2,i)=>{const e=state.entries[dd2];if(!e){o=false;return;}
+    const v=m==="m"?Math.max(e.painL,e.painR):e.sessionPain;
+    d+=(o?" L ":" M ")+x(i).toFixed(1)+" "+y(v).toFixed(1);o=true;});
+    return d?'<path class="lp" stroke="'+c+'" d="'+d+'"/>':"";};
   s+=line("m","#A93326")+line("s","#16645F");
   s+='<line class="gl" x1="'+pl+'" y1="'+y(3)+'" x2="'+(W-pr)+'" y2="'+y(3)+'" stroke-dasharray="3 3" stroke="#8A6600"/>';
   s+='<text x="'+(W-pr)+'" y="'+(y(3)-3)+'" text-anchor="end" fill="#8A6600">Grenze 3</text>';
-  s+='<text x="'+pl+'" y="'+(H-5)+'">'+days[0].slice(8)+"."+days[0].slice(5,7)+'</text>';
-  s+='<text x="'+(W-pr)+'" y="'+(H-5)+'" text-anchor="end">heute</text>';
+  s+='<text x="'+pl+'" y="'+(H-5)+'">'+shortDate(days[0])+'</text><text x="'+(W-pr)+'" y="'+(H-5)+'" text-anchor="end">heute</text>';
   $("#chart").innerHTML=s;
 }
 function drawBars(){
-  const days=lastDays(28), W=320,H=90,pl=22,pr=8,pt=8,pb=16, bw=(W-pl-pr)/days.length;
+  const days=lastDays(28),W=320,H=90,pl=22,pr=8,pt=8,pb=16,bw=(W-pl-pr)/days.length;
   let s='<line class="gl" x1="'+pl+'" y1="'+(H-pb)+'" x2="'+(W-pr)+'" y2="'+(H-pb)+'"/>';
   s+='<text x="4" y="'+(pt+6)+'">100</text><text x="4" y="'+(H-pb)+'">0</text>';
-  days.forEach((d,i)=>{const a=adherence(d); if(a===null)return;
-    const h=(a/100)*(H-pt-pb);
+  days.forEach((d,i)=>{const a=adherence(d);if(a===null)return;const h=(a/100)*(H-pt-pb);
     s+='<rect x="'+(pl+i*bw+.7).toFixed(1)+'" y="'+(H-pb-h).toFixed(1)+'" width="'+(bw-1.4).toFixed(1)+'" height="'+h.toFixed(1)+'" fill="'+(a>=70?"#16645F":"#C7CDC5")+'"/>';});
   $("#bars").innerHTML=s;
 }
-const TRNAMES={rest:"Ruhe",gymA:"Gym A",gymB:"Gym B",upper:"Oberkörper",bikeShort:"Rad kurz",bikeLong:"Rad lang",walk:"Gehen","":"—"};
 function renderRecent(){
   const days=lastDays(28).filter(has).reverse().slice(0,10);
-  let s='<tr><th>Datum</th><th>Schmerz</th><th>Bel.</th><th>Adh.</th><th>Einheit</th></tr>';
+  if(!days.length){$("#recent").innerHTML='<tr><td>Noch keine Einträge.</td></tr>';return;}
+  let s='<tr><th>Datum</th><th>Schmerz</th><th>Bel.</th><th>Adh.</th><th>Tag</th></tr>';
   days.forEach(d=>{const e=state.entries[d];
-    s+='<tr><td class="n">'+d.slice(8)+"."+d.slice(5,7)+'</td><td class="n">'+e.painL+"/"+e.painR+'</td><td class="n">'+e.sessionPain+'</td><td class="n">'+adherence(d)+'%</td><td>'+(TRNAMES[e.training]||"—")+'</td></tr>';});
-  $("#recent").innerHTML=days.length?s:'<tr><td>Noch keine Einträge. Der erste Tag zählt ab dem ersten Speichern.</td></tr>';
+    s+='<tr><td class="n">'+shortDate(d)+'</td><td class="n">'+e.painL+"/"+e.painR+'</td><td class="n">'+e.sessionPain+'</td><td class="n">'+adherence(d)+'%</td><td class="n">'+WD[wd(d)]+'</td></tr>';});
+  $("#recent").innerHTML=s;
 }
 
-/* ═══ Export ═══════════════════════════════════════════ */
+/* ── Export ────────────────────────────────────── */
 function buildMarkdown(){
   const keys=Object.keys(state.entries).sort();
-  if(!keys.length) return "# Reha-Bericht\n\nNoch keine Einträge.";
-  let m="# Reha-Bericht — Patellofemorale Reha\n\n";
-  m+="**Athlet:** Niklas · **Export:** "+de(todayISO())+"\n";
-  m+="**Blockstart:** "+de(state.startDate)+" · **Aktuell:** Tag "+dayNr(todayISO())+", Woche "+weekNr(todayISO())+", Phase "+phaseNr(todayISO())+"\n\n";
-
+  if(!keys.length)return "# Reha-Bericht\n\nNoch keine Einträge.";
+  let m="# Reha-Bericht — Knie\n\n**Export:** "+de(todayISO())+"\n";
+  m+="**Blockstart:** "+de(state.startDate)+" · Tag "+dayNr(todayISO())+", Woche "+weekNr(todayISO())+", Phase "+phaseNr();
+  m+=state.flare?" · **Reizphase aktiv**\n\n":"\n\n";
   m+="## Freigabekriterien Phase 2\n\n";
   CRITERIA.forEach((c,i)=>{m+="- ["+(state.criteria[i]?"x":" ")+"] "+c+"\n";});
-
   const pains=keys.map(k=>Math.max(state.entries[k].painL,state.entries[k].painR));
-  const adhs=keys.map(adherence);
-  const avg=a=>a.length?(a.reduce((x,y)=>x+y,0)/a.length):0;
+  const adhs=keys.map(adherence),avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
   m+="\n## Kennzahlen\n\n| Kennzahl | Wert |\n|---|---|\n";
-  m+="| Erfasste Tage | "+keys.length+" |\n";
-  m+="| Ø Morgenschmerz (max L/R) | "+avg(pains).toFixed(1)+" |\n";
-  m+="| Ø Adhärenz Home-Plan | "+Math.round(avg(adhs))+" % |\n";
-  m+="| Tage mit Belastungsschmerz > 3 | "+keys.filter(k=>state.entries[k].sessionPain>3).length+" |\n";
-  m+="| Tage mit Erguss/Schwellung | "+keys.filter(k=>state.entries[k].swell).length+" |\n";
-
-  const td=Array.from(new Set(TESTS.flatMap(T=>testDates(T.k)))).sort();
-  if(td.length){
-    m+="\n## Messwerte\n\n| Datum | Knie-zur-Wand L/R (cm) | Y-Balance L/R (cm) | Einbeinstand L/R (s) |\n|---|---|---|---|\n";
-    td.forEach(d=>{const t=state.entries[d].tests||{};
-      const c=k=>((t[k+"L"]||"–")+" / "+(t[k+"R"]||"–"));
-      m+="| "+d+" | "+c("ktw")+" | "+c("yb")+" | "+c("sls")+" |\n";});
-  }
-
-  m+="\n## Tagesverlauf\n\n| Datum | Wo | Schmerz L/R | Belastung | Flags | Adh. | Einheit | Rad (W/rpm/min/HF) |\n|---|---|---|---|---|---|---|---|\n";
+  m+="| Erfasste Tage | "+keys.length+" |\n| Ø Morgenschmerz | "+avg(pains).toFixed(1)+" |\n";
+  m+="| Ø Adhärenz | "+Math.round(avg(adhs))+" % |\n";
+  m+="| Tage Belastungsschmerz > 3 | "+keys.filter(k=>state.entries[k].sessionPain>3).length+" |\n";
+  m+="| Tage mit Erguss | "+keys.filter(k=>state.entries[k].swell).length+" |\n";
+  m+="| Tage mit stechendem Schmerz | "+keys.filter(k=>state.entries[k].sting).length+" |\n";
+  const td=Array.from(new Set(TESTS.reduce((a,T)=>a.concat(testDates(T.k)),[]))).sort();
+  if(td.length){m+="\n## Messwerte\n\n| Datum | Knie-zur-Wand L/R (cm) | Y-Balance postmed. L/R (cm) | Einbeinstand L/R (s) |\n|---|---|---|---|\n";
+    td.forEach(d=>{const t=state.entries[d].tests||{},c=k=>((t[k+"L"]||"–")+" / "+(t[k+"R"]||"–"));
+      m+="| "+d+" | "+c("ktw")+" | "+c("yb")+" | "+c("sls")+" |\n";});}
+  m+="\n## Tagesverlauf\n\n| Datum | Tag | Wo | Schmerz L/R | Bel. | Flags | Adh. | Rad W/rpm/min/HF |\n|---|---|---|---|---|---|---|---|\n";
   keys.forEach(k=>{const e=state.entries[k];
-    const flags=[e.stiff?"steif":"",e.swell?"Erguss":"",e.crep?"Reiben":"",e.salbu?"Salb.":""].filter(Boolean).join(", ")||"—";
-    const bike=(e.watt||e.rpm||e.mins||e.hr)?[e.watt||"–",e.rpm||"–",e.mins||"–",e.hr||"–"].join("/"):"—";
-    m+="| "+k+" | "+weekNr(k)+" | "+e.painL+"/"+e.painR+" | "+e.sessionPain+" | "+flags+" | "+adherence(k)+" % | "+(TRNAMES[e.training]||"—")+" | "+bike+" |\n";});
-
-  const notes=keys.filter(k=>state.entries[k].note||state.entries[k].gymNote);
-  if(notes.length){m+="\n## Notizen\n\n";
-    notes.forEach(k=>{const e=state.entries[k];
-      m+="**"+k+"** — "+[e.note,e.gymNote].filter(Boolean).join(" · ")+"\n\n";});}
-
-  m+="\n---\n*Export aus dem Reha-Tracker. Bitte Schmerztrend, Adhärenz, Testverlauf und 24-h-Regel-Verstöße prüfen und die Progression anpassen.*\n";
+    const fl=[e.stiff?"steif":"",e.swell?"Erguss":"",e.sting?"stechend":"",e.salbu?"Salb.":""].filter(Boolean).join(", ")||"—";
+    const bk=(e.watt||e.rpm||e.mins||e.hr)?[e.watt||"–",e.rpm||"–",e.mins||"–",e.hr||"–"].join("/"):"—";
+    m+="| "+k+" | "+WD[wd(k)]+" | "+weekNr(k)+" | "+e.painL+"/"+e.painR+" | "+e.sessionPain+" | "+fl+" | "+adherence(k)+" % | "+bk+" |\n";});
+  const nt=keys.filter(k=>state.entries[k].note);
+  if(nt.length){m+="\n## Notizen\n\n";nt.forEach(k=>{m+="**"+k+"** — "+state.entries[k].note+"\n\n";});}
+  m+="\n---\n*Bitte prüfen: Schmerztrend, Testverlauf und Seitendifferenzen, 24-h-Regel-Verstöße, Adhärenz gegen das jeweilige Tagesprogramm.*\n";
   return m;
 }
-function download(name,text,type){
-  const b=new Blob([text],{type:type}), a=document.createElement("a");
-  a.href=URL.createObjectURL(b); a.download=name;
-  document.body.appendChild(a); a.click();
-  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},400);
-}
+function download(n,t,ty){const b=new Blob([t],{type:ty}),a=document.createElement("a");
+  a.href=URL.createObjectURL(b);a.download=n;document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},400);}
 
-/* ═══ Events ═══════════════════════════════════════════ */
+/* ── Events ────────────────────────────────────── */
 function bind(){
-  const tabs=["heute","training","tests","plan","verlauf","export"];
+  const tabs=["heute","tests","plan","verlauf","export"];
   document.querySelectorAll("nav button").forEach(b=>{
     b.addEventListener("click",()=>{
       document.querySelectorAll("nav button").forEach(o=>o.setAttribute("aria-selected",o===b?"true":"false"));
       tabs.forEach(t=>{$("#tab-"+t).hidden=(t!==b.dataset.tab);});
       if(b.dataset.tab==="verlauf")renderStats();
       if(b.dataset.tab==="tests")renderTests();
+      if(b.dataset.tab==="plan"){renderWeekTable();renderGate();}
       if(b.dataset.tab==="export")$("#mdPreview").textContent=buildMarkdown();
       window.scrollTo(0,0);
     });
   });
-
   $("#dateSel").addEventListener("change",e=>{cur=e.target.value||todayISO();renderEntry();});
   $("#prevDay").addEventListener("click",()=>{cur=shift(cur,-1);renderEntry();});
   $("#nextDay").addEventListener("click",()=>{cur=shift(cur,1);renderEntry();});
-
-  [["painL","v-painL"],["painR","v-painR"],["sessionPain","v-sess"]].forEach(([id,out])=>{
-    $("#"+id).addEventListener("input",e=>{
-      entry(cur)[id]=+e.target.value; $("#"+out).textContent=e.target.value;
-      if(id!=="sessionPain")renderSignal(); save(true);});
-  });
-
+  [["painL","v-painL"],["painR","v-painR"],["sessionPain","v-sess"]].forEach(([id,o])=>{
+    $("#"+id).addEventListener("input",e=>{entry(cur)[id]=+e.target.value;$("#"+o).textContent=e.target.value;
+      if(id!=="sessionPain")renderSignal();save(true);});});
   $("#note").addEventListener("input",e=>{entry(cur).note=e.target.value;save(true);});
-  $("#gymNote").addEventListener("input",e=>{entry(cur).gymNote=e.target.value;save(true);});
   ["watt","rpm","mins","hr"].forEach(k=>{$("#"+k).addEventListener("input",e=>{entry(cur)[k]=e.target.value;save(true);});});
   ["ktwL","ktwR","ybL","ybR","slsL","slsR"].forEach(k=>{
-    $("#"+k).addEventListener("input",e=>{
-      const e2=entry(cur); if(!e2.tests)e2.tests={};
-      if(e.target.value==="") delete e2.tests[k]; else e2.tests[k]=e.target.value;
-      save(true);});
-    $("#"+k).addEventListener("change",()=>{renderTests();});
-  });
-
+    $("#"+k).addEventListener("input",e=>{const en=entry(cur);if(!en.tests)en.tests={};
+      if(e.target.value==="")delete en.tests[k];else en.tests[k]=e.target.value;save(true);});
+    $("#"+k).addEventListener("change",()=>{renderTests();renderTestBanner();});});
   document.querySelectorAll("[data-flag]").forEach(b=>{
     b.addEventListener("click",()=>{const e=entry(cur),f=b.dataset.flag;e[f]=!e[f];
-      b.setAttribute("aria-pressed",e[f]?"true":"false");renderSignal();save(true);});
-  });
-  document.querySelectorAll("[data-tr]").forEach(b=>{
-    b.addEventListener("click",()=>{const e=entry(cur);
-      e.training=(e.training===b.dataset.tr)?"":b.dataset.tr;
-      document.querySelectorAll("[data-tr]").forEach(o=>o.setAttribute("aria-pressed",e.training===o.dataset.tr?"true":"false"));
-      renderTrainingPanels();save(true);});
-  });
-
+      b.setAttribute("aria-pressed",e[f]?"true":"false");renderSignal();save(true);});});
   $("#btnSave").addEventListener("click",()=>{save(false);renderStats();});
-
-  const toggleFlare=()=>{
-    if(state.flare){
-      if(!confirm("Reizphase beenden? Nur wenn der stechende Schmerz seit mindestens zwei Morgen weg ist."))return;
-      state.flare=false; state.flareStart=null;
-    }else{
-      state.flare=true; state.flareStart=todayISO();
-    }
-    save(false); renderEntry();
-  };
-  $("#btnFlare").addEventListener("click",toggleFlare);
-  $("#btnFlareSwitch").addEventListener("click",toggleFlare);
-
-  $("#btnCopyMd").addEventListener("click",async()=>{
-    const md=buildMarkdown(); $("#mdPreview").textContent=md;
+  const tf=()=>{
+    if(state.flare){if(!confirm("Reizphase beenden? Nur wenn der Morgenwert an zwei aufeinanderfolgenden Tagen schmerzfrei war."))return;
+      state.flare=false;state.flareStart=null;}
+    else{state.flare=true;state.flareStart=todayISO();}
+    save(false);renderEntry();};
+  $("#btnFlare").addEventListener("click",tf);
+  $("#btnFlareSwitch").addEventListener("click",tf);
+  $("#btnCopyMd").addEventListener("click",async()=>{const md=buildMarkdown();$("#mdPreview").textContent=md;
     try{await navigator.clipboard.writeText(md);$("#btnCopyMd").textContent="Kopiert";}
     catch(err){$("#btnCopyMd").textContent="Kopieren blockiert — Text unten markieren";}
-    setTimeout(()=>{$("#btnCopyMd").textContent="In Zwischenablage kopieren";},2600);
-  });
+    setTimeout(()=>{$("#btnCopyMd").textContent="In Zwischenablage kopieren";},2500);});
   $("#btnDlMd").addEventListener("click",()=>download("reha-bericht-"+todayISO()+".md",buildMarkdown(),"text/markdown"));
   $("#btnDlJson").addEventListener("click",()=>download("reha-backup-"+todayISO()+".json",JSON.stringify(state,null,2),"application/json"));
-
-  $("#fileIn").addEventListener("change",ev=>{
-    const f=ev.target.files[0]; if(!f)return;
-    const r=new FileReader();
-    r.onload=()=>{
-      try{
-        const p=migrate(JSON.parse(r.result));
-        if(!p.entries)throw new Error("Feld 'entries' fehlt");
-        state.startDate=p.startDate||state.startDate;
-        state.entries=p.entries;
-        state.criteria=(p.criteria&&p.criteria.length===CRITERIA.length)?p.criteria:state.criteria;
-        save(false); buildCriteria(); renderGate(); renderEntry();
-        $("#savedNote").textContent="Import übernommen · "+Object.keys(state.entries).length+" Tage";
-      }catch(err){$("#savedNote").textContent="Datei nicht lesbar: "+err.message;}
-      ev.target.value="";
-    };
-    r.readAsText(f);
-  });
-
+  $("#fileIn").addEventListener("change",ev=>{const f=ev.target.files[0];if(!f)return;const r=new FileReader();
+    r.onload=()=>{try{const p=JSON.parse(r.result);if(!p.entries)throw new Error("Feld 'entries' fehlt");
+      ["startDate","flare","flareStart"].forEach(k=>{if(p[k]!==undefined)state[k]=p[k];});
+      state.entries=p.entries;
+      if(p.criteria&&p.criteria.length===CRITERIA.length)state.criteria=p.criteria;
+      save(false);buildCriteria();renderGate();renderEntry();
+      $("#savedNote").textContent="Import übernommen · "+Object.keys(state.entries).length+" Tage";
+    }catch(err){$("#savedNote").textContent="Datei nicht lesbar: "+err.message;}ev.target.value="";};
+    r.readAsText(f);});
   $("#btnReset").addEventListener("click",()=>{
-    if(!confirm("Alle Einträge auf diesem Gerät löschen? Das lässt sich nicht rückgängig machen."))return;
-    state={v:2,startDate:state.startDate,entries:{},criteria:CRITERIA.map(()=>false)};
-    save(false); buildCriteria(); renderGate(); renderEntry();
-  });
-
-  $("#startDate").addEventListener("change",e=>{
-    state.startDate=e.target.value||state.startDate; save(false); renderEntry();});
+    if(!confirm("Alle Einträge auf diesem Gerät löschen?"))return;
+    state={v:3,startDate:state.startDate,flare:state.flare,flareStart:state.flareStart,entries:{},criteria:CRITERIA.map(()=>false)};
+    save(false);buildCriteria();renderGate();renderEntry();});
+  $("#startDate").addEventListener("change",e=>{state.startDate=e.target.value||state.startDate;save(false);renderEntry();});
 }
 
-/* ═══ Start ════════════════════════════════════════════ */
-load();
-buildCriteria();
-bind();
+load();buildCriteria();bind();
 $("#startDate").value=state.startDate;
-renderGate();
-renderEntry();
+renderGate();renderEntry();
 </script>
 </body>
 </html>
