@@ -210,11 +210,6 @@ footer{padding:28px var(--gut) 10px;font-family:var(--mono);font-size:10px;lette
   <h2 class="eyebrow">Morgens</h2>
   <div class="card"><ul class="check" id="list-morning"></ul></div>
 
-  <div id="preWrap" hidden>
-    <h2 class="eyebrow">Vor der Einheit</h2>
-    <div class="card"><ul class="check" id="list-pre"></ul></div>
-  </div>
-
   <h2 class="eyebrow"><span id="eveLabel">Abends</span></h2>
   <div class="card"><ul class="check" id="list-evening"></ul></div>
 
@@ -292,7 +287,7 @@ footer{padding:28px var(--gut) 10px;font-family:var(--mono);font-size:10px;lette
   <div class="card" style="padding:0 15px">
     <table id="weekTable"></table>
   </div>
-  <p class="hint">Der Vollblock liegt auf Di, Do und Sa — jeweils mit 48–72 h Abstand und nie am selben Tag wie ein Unterkörper-Gymtag.</p>
+  <p class="hint">Der Vollblock liegt auf Di, Do und Sa — jeweils mit 48–72 h Abstand. Die Gymplanung läuft separat im Lift Tracker.</p>
 
   <h2 class="eyebrow">Frequenzlogik</h2>
   <div class="card">
@@ -301,7 +296,6 @@ footer{padding:28px var(--gut) 10px;font-family:var(--mono);font-size:10px;lette
       <tr><td>Isometrie, Patella-/Plica-Mobilisation, Short Foot</td><td class="n">täglich</td></tr>
       <tr><td>Mobility + Stabilisation (Vollblock)</td><td class="n">3×/Woche</td></tr>
       <tr><td>Belastet: TKE, Y-Balance</td><td class="n">3×/Woche, ≥48 h</td></tr>
-      <tr><td>Gym Unterkörper A/B</td><td class="n">2×/Woche, ≥72 h</td></tr>
     </table>
     <p class="hint">Frequenz ist keine Progressionsvariable. Sie bleibt konstant — progrediert wird über Last, ROM und Schwierigkeit, immer nur eine Variable pro Schritt.</p>
   </div>
@@ -417,17 +411,16 @@ const LOADED=[
   {k:"L2",n:"Y-Balance posteromedial + posterolateral",d:"3 × 5/Richtung · Standbein unter 30°"}
 ];
 const COP={k:"C1",n:"Copenhagen Plank, kurzer Hebel",d:"2 × 20 s/Seite"};
-const ROLL={k:"R1",n:"Vastus lateralis + TFL ausrollen",d:"60–90 s/Seite · Muskelbauch, nicht der ITB-Strang"};
 
 /* Wochenraster: 0=So … 6=Sa */
 const WEEK={
-  1:{t:"Gym Unterkörper A",sub:"+ Schulter/Arme → Rad kurz 25 min",bike:1,pre:1},
-  2:{t:"Rad lang GA1",sub:"Vollblock abends",bike:1,pre:1,block:1,cop:1},
-  3:{t:"Gym Oberkörper",sub:"Push/Pull — Beine frei",pre:0},
-  4:{t:"Rad lang GA1",sub:"Vollblock abends",bike:1,pre:1,block:1},
-  5:{t:"Gym Unterkörper B",sub:"+ Schulter/Arme → Rad kurz 25 min",bike:1,pre:1},
-  6:{t:"Frei",sub:"Spaziergang mit Bandage · Vollblock abends",block:1,cop:1},
-  0:{t:"Frei",sub:"nur Tagesbasis",}
+  1:{},
+  2:{block:1,cop:1},
+  3:{},
+  4:{block:1},
+  5:{},
+  6:{block:1,cop:1},
+  0:{}
 };
 const WD=["So","Mo","Di","Mi","Do","Fr","Sa"];
 
@@ -466,10 +459,11 @@ function $(s){return document.querySelector(s);}
 function num(v){const n=parseFloat(v);return isFinite(n)?n:null;}
 
 function planFor(iso){
-  const w=WEEK[wd(iso)]||{}, out={morning:MORNING,pre:[],evening:DAILY_EVE.slice(),
-    label:"Abends · Tagesbasis",dayTitle:w.t||"Frei",daySub:w.sub||"",bike:!!w.bike};
-  if(w.pre) out.pre=[ROLL];
+  const w=WEEK[wd(iso)]||{}, out={morning:MORNING,evening:DAILY_EVE.slice(),
+    label:"Abends · Tagesbasis",dayTitle:"Tagesbasis",daySub:"Morgens + Abendbasis",bike:true};
   if(w.block){
+    out.dayTitle="Vollblock";
+    out.daySub=state.flare?"Mobility + Stabilisation, reduziert":"Mobility + Stabilisation"+(w.cop?" + Copenhagen":"");
     out.evening=out.evening.concat(BLOCK);
     if(!state.flare){
       out.evening=out.evening.concat(LOADED);
@@ -479,7 +473,7 @@ function planFor(iso){
   }
   return out;
 }
-function requiredKeys(iso){const p=planFor(iso);return p.morning.concat(p.pre,p.evening).map(x=>x.k);}
+function requiredKeys(iso){const p=planFor(iso);return p.morning.concat(p.evening).map(x=>x.k);}
 
 /* ── Tests ─────────────────────────────────────── */
 function testDates(k){return Object.keys(state.entries).sort().filter(d=>{
@@ -544,13 +538,11 @@ function renderDayPlan(){
   $("#dp-title").textContent=p.dayTitle;
   $("#dp-sub").textContent=p.daySub||"—";
   $("#eveLabel").textContent=p.label;
-  $("#preWrap").hidden=!p.pre.length;
-  $("#bikeWrap").hidden=!p.bike;
+  $("#bikeWrap").hidden=false;
   if(p.bike) $("#bikeTarget").textContent=state.flare
     ? "Reizphase: 95–105 W bei 95–105 rpm. Bei Stechen sofort abbrechen."
     : "GA1 132–138 W bei 95–105 rpm.";
   buildChecks($("#list-morning"),p.morning);
-  buildChecks($("#list-pre"),p.pre);
   buildChecks($("#list-evening"),p.evening);
 }
 function renderTestBanner(){
@@ -609,11 +601,11 @@ function renderGate(){
     $("#gate-text").textContent=n+" von 5 Kriterien erfüllt. Ohne alle fünf bleibt Phase 1 aktiv — auch nach Woche 4.";}
 }
 function renderWeekTable(){
-  let s='<tr><th>Tag</th><th>Einheit</th><th>Abends</th></tr>';
+  let s='<tr><th>Tag</th><th>Abends</th></tr>';
   [1,2,3,4,5,6,0].forEach(d=>{
     const w=WEEK[d]||{};
     const eve=w.block?(state.flare?"Vollblock (red.)":"Vollblock"+(w.cop?" + Copenhagen":"")):"Tagesbasis";
-    s+='<tr'+(d===wd(cur)?' class="today"':'')+'><td class="n">'+WD[d]+'</td><td>'+(w.t||"Frei")+'</td><td class="n">'+eve+'</td></tr>';
+    s+='<tr'+(d===wd(cur)?' class="today"':'')+'><td class="n">'+WD[d]+'</td><td class="n">'+eve+'</td></tr>';
   });
   $("#weekTable").innerHTML=s;
 }
