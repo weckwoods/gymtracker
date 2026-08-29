@@ -1,613 +1,822 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>REHAB LIFT · 12 Wochen</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Knie-Reha — Tagesplan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#07080a; --panel:#0e1013; --panel2:#14171c; --panel3:#1a1e24;
-  --border:#22262e; --border2:#2e333d; --text:#e8eaed; --dim:#8b919c; --dim2:#565c66;
-  --neon-a:#c8ff00; --neon-b:#ffaa00; --neon-c:#00e5ff; --neon-r:#ff3d5a; --neon-p:#b96cff;
+  --paper:#E7EAE5; --surface:#F6F7F4; --ink:#101C1B; --muted:#5C6A68; --rule:#C7CDC5;
+  --teal:#16645F; --brick:#A93326; --amber:#8A6600; --plum:#7C2F4D;
+  --display:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --body:'Public Sans','Helvetica Neue',Arial,sans-serif;
+  --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+  --gut:18px;
 }
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;font-weight:300;min-height:100vh;padding-bottom:96px}
-body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent 0 2px,rgba(255,255,255,.012) 2px 4px);pointer-events:none;z-index:0}
-body::after{content:'';position:fixed;top:-30%;left:50%;transform:translateX(-50%);width:140%;height:50%;background:radial-gradient(ellipse at center,rgba(200,255,0,.04),transparent 65%);pointer-events:none;z-index:0}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;padding-bottom:118px}
+.tick-rule{height:9px;background-image:repeating-linear-gradient(to right,var(--rule) 0 1px,transparent 1px 12px)}
 
-.header{position:sticky;top:0;z-index:100;background:rgba(7,8,10,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:14px 16px 11px;display:flex;align-items:center;justify-content:space-between}
-.header h1{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.1em;line-height:1}
-.header h1 span{color:var(--neon-a);text-shadow:0 0 12px rgba(200,255,0,.6)}
-.header .sub{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--dim2);letter-spacing:.14em;margin-top:4px;text-transform:uppercase}
-.hdr-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
-.block-badge{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim);letter-spacing:.14em;border:1px solid var(--border2);padding:2px 7px}
-.block-badge.ph2{color:var(--neon-c);border-color:rgba(0,229,255,.4)}
-.week-selector{display:flex;align-items:center;gap:5px}
-.week-btn{background:var(--panel2);border:1px solid var(--border2);color:var(--dim);width:26px;height:26px;font-size:13px;cursor:pointer;font-family:'JetBrains Mono',monospace}
-.week-btn:active{opacity:.5}
-.week-label{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);letter-spacing:.1em;min-width:56px;text-align:center}
-.week-label .wnum{color:var(--neon-a);font-weight:700;font-size:13px;text-shadow:0 0 10px rgba(200,255,0,.6)}
-.week-label .dl{color:var(--neon-b);font-weight:700}
+header{background:var(--ink);color:var(--paper);padding:15px var(--gut) 0}
+.brow{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#8FA5A2;display:flex;justify-content:space-between;gap:10px}
+h1{font-family:var(--display);font-variation-settings:'wdth' 118,'wght' 700;font-size:clamp(21px,6.4vw,30px);line-height:1;text-transform:uppercase;margin:7px 0 11px}
+.phaseband{display:flex;gap:3px;margin-bottom:6px}
+.phaseband i{flex:1;height:5px;background:#2C403E}
+.phaseband i.on{background:var(--teal)} .phaseband i.now{background:var(--paper)}
+.phasemeta{font-family:var(--mono);font-size:11px;color:#8FA5A2;padding-bottom:13px;display:flex;justify-content:space-between;gap:8px}
+.phasemeta b{color:var(--paper);font-weight:500}
 
-.day-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--panel);position:sticky;top:60px;z-index:99}
-.day-tab{flex:1;padding:12px 6px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--dim2);font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
-.day-tab.active[data-day="A"]{color:var(--neon-a);border-bottom-color:var(--neon-a);text-shadow:0 0 10px rgba(200,255,0,.5)}
-.day-tab.active[data-day="B"]{color:var(--neon-b);border-bottom-color:var(--neon-b);text-shadow:0 0 10px rgba(255,170,0,.5)}
-.content{padding:14px 12px;position:relative;z-index:1}
-.day-panel{display:none}.day-panel.active{display:block}
+nav{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--rule);display:flex;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:1 0 auto;background:none;border:none;border-bottom:2px solid transparent;font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);padding:13px 15px;cursor:pointer;white-space:nowrap}
+nav button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--brick)}
+nav button:focus-visible{outline:2px solid var(--teal);outline-offset:-3px}
+main{padding:0 var(--gut)}
+section[hidden]{display:none}
 
-.week-overview{background:var(--panel);border:1px solid var(--border);padding:12px;margin-bottom:14px}
-.wo-title{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--dim2);letter-spacing:.18em;text-transform:uppercase;margin-bottom:9px}
-.wo-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
-.wo-wk{background:var(--panel2);border:1px solid var(--border);padding:6px 2px;text-align:center}
-.wo-wk-num{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim2);letter-spacing:.06em}
-.wo-wk-focus{font-family:'JetBrains Mono',monospace;font-size:7px;color:var(--dim2);line-height:1.35;margin-top:3px}
-.wo-wk.p1{border-color:rgba(255,61,90,.25)}
-.wo-wk.p1 .wo-wk-num{color:var(--neon-r)}
-.wo-wk.p2{border-color:rgba(0,229,255,.25)}
-.wo-wk.p2 .wo-wk-num{color:var(--neon-c)}
-.wo-wk.gate{border-color:rgba(185,108,255,.5)}
-.wo-wk.gate .wo-wk-num{color:var(--neon-p)}
-.wo-wk.deload-wk{border-color:rgba(255,170,0,.4)}
-.wo-wk.deload-wk .wo-wk-num{color:var(--neon-b)}
-.wo-wk.current{background:var(--panel3);box-shadow:inset 0 0 0 1px var(--neon-a)}
-.wo-wk.current .wo-wk-num{color:var(--neon-a);text-shadow:0 0 8px rgba(200,255,0,.7)}
+.card{background:var(--surface);border:1px solid var(--rule);padding:15px;margin:14px 0}
+h2.eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:500;margin:22px 0 0;display:flex;align-items:center;gap:9px}
+h2.eyebrow::after{content:"";flex:1;height:1px;background:var(--rule)}
+h2.eyebrow .tag{font-family:var(--mono);font-size:9px;letter-spacing:.1em;padding:2px 6px;border:1px solid var(--rule);color:var(--muted);flex:0 0 auto}
+h2.eyebrow .tag.due{color:var(--brick);border-color:var(--brick)}
+h3.cardtitle{font-family:var(--display);font-variation-settings:'wdth' 112,'wght' 650;font-size:15px;text-transform:uppercase;margin:0 0 3px}
+.hint{font-size:12.5px;color:var(--muted);margin:4px 0 0}
+.hint.tight{margin-top:2px}
 
-.banner{border:1px solid;border-left-width:3px;padding:11px 13px;margin-bottom:14px;font-family:'JetBrains Mono',monospace;font-size:9.5px;line-height:1.65}
-.banner .bt{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.08em;display:block;margin-bottom:3px}
-.banner.gate{border-color:rgba(185,108,255,.45);color:var(--dim);background:rgba(185,108,255,.05)}
-.banner.gate .bt{color:var(--neon-p)}
-.banner.warn{border-color:rgba(255,61,90,.5);color:var(--dim);background:rgba(255,61,90,.05)}
-.banner.warn .bt{color:var(--neon-r)}
-.banner.rule{border-color:var(--border2);color:var(--dim2)}
-.banner.rule .bt{color:var(--dim)}
-.banner b{color:var(--text);font-weight:500}
+.signal{border:1px solid var(--rule);border-left-width:5px;background:var(--surface);padding:14px 15px;margin:14px 0}
+.signal .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase}
+.signal .verdict{font-family:var(--display);font-variation-settings:'wdth' 116,'wght' 700;font-size:20px;text-transform:uppercase;line-height:1.05;margin:5px 0 6px}
+.signal p{margin:0;font-size:13.5px}
+.sig-go{border-left-color:var(--teal)}   .sig-go .lbl,.sig-go .verdict{color:var(--teal)}
+.sig-hold{border-left-color:var(--amber)}.sig-hold .lbl,.sig-hold .verdict{color:var(--amber)}
+.sig-stop{border-left-color:var(--brick)}.sig-stop .lbl,.sig-stop .verdict{color:var(--brick)}
+.sig-none{border-left-color:var(--muted)}.sig-none .lbl,.sig-none .verdict{color:var(--muted)}
+.sig-test{border-left-color:var(--plum)} .sig-test .lbl,.sig-test .verdict{color:var(--plum)}
 
-.blk-label{display:flex;align-items:center;gap:8px;margin:16px 0 8px}
-.blk-bar{width:3px;height:13px}
-.blk-bar.a{background:var(--neon-a);box-shadow:0 0 8px rgba(200,255,0,.6)}
-.blk-bar.b{background:var(--neon-b);box-shadow:0 0 8px rgba(255,170,0,.6)}
-.blk-bar.c{background:var(--neon-c);box-shadow:0 0 8px rgba(0,229,255,.6)}
-.blk-txt{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);letter-spacing:.18em;text-transform:uppercase}
+.datebar{display:flex;align-items:center;gap:8px;margin:14px 0 0}
+.datebar input[type=date]{flex:1;font-family:var(--mono);font-size:13px;padding:9px 10px;border:1px solid var(--rule);background:var(--surface);color:var(--ink)}
+.datebar button{width:40px;height:38px;border:1px solid var(--rule);background:var(--surface);font-family:var(--mono);font-size:15px;color:var(--ink);cursor:pointer}
 
-.ex-card{background:var(--panel);border:1px solid var(--border);margin-bottom:8px;overflow:hidden}
-.ex-card.locked{opacity:.42}
-.ex-header{padding:13px 14px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;cursor:pointer;user-select:none}
-.ex-num{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim2);letter-spacing:.15em;margin-bottom:4px}
-.ex-name{font-size:14px;font-weight:500;line-height:1.2}
-.ex-sub{font-size:10px;color:var(--dim2);font-family:'JetBrains Mono',monospace;margin-top:4px;line-height:1.5}
-.ex-header-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0}
-.sets-badge{font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 9px;white-space:nowrap;border:1px solid;background:transparent}
-.sets-badge.a{color:var(--neon-a);border-color:rgba(200,255,0,.3)}
-.sets-badge.b{color:var(--neon-b);border-color:rgba(255,170,0,.3)}
-.sets-badge.c{color:var(--neon-c);border-color:rgba(0,229,255,.3)}
-.sets-badge.r{color:var(--neon-r);border-color:rgba(255,61,90,.3)}
-.rom-badge{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--neon-r);border:1px solid rgba(255,61,90,.35);padding:2px 7px;white-space:nowrap}
-.target-line{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim2)}
-.target-line .tv{font-weight:700;font-size:11px;letter-spacing:.05em}
-.tv.a{color:var(--neon-a);text-shadow:0 0 10px rgba(200,255,0,.7)}
-.tv.b{color:var(--neon-b);text-shadow:0 0 10px rgba(255,170,0,.7)}
-.tv.c{color:var(--neon-c);text-shadow:0 0 10px rgba(0,229,255,.7)}
-.tv.r{color:var(--neon-r);text-shadow:0 0 10px rgba(255,61,90,.7)}
-.tv.deload{color:var(--neon-b)!important;text-shadow:0 0 10px rgba(255,170,0,.7)!important}
-.chevron{font-size:9px;color:var(--dim2);transition:transform .2s;font-family:'JetBrains Mono',monospace}
-.ex-card.open .chevron{transform:rotate(180deg)}
+.dayplan{background:var(--ink);color:var(--paper);padding:13px 15px;margin:14px 0}
+.dayplan .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8FA5A2}
+.dayplan .big{font-family:var(--display);font-variation-settings:'wdth' 116,'wght' 700;font-size:19px;text-transform:uppercase;margin:4px 0 2px;line-height:1.1}
+.dayplan .sub{font-family:var(--mono);font-size:11px;color:#8FA5A2}
 
-.ex-log{display:none;border-top:1px solid var(--border);padding:13px 14px;background:var(--panel2)}
-.ex-card.open .ex-log{display:block}
-.log-week-label{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim2);letter-spacing:.2em;text-transform:uppercase;margin-bottom:9px;display:flex;justify-content:space-between;align-items:center}
-.autosave-dot{width:6px;height:6px;border-radius:50%;background:var(--dim2);transition:all .3s}
-.autosave-dot.on{background:var(--neon-a);box-shadow:0 0 8px rgba(200,255,0,.8)}
-.sets-grid{display:grid;gap:6px}
-.set-row{display:grid;grid-template-columns:42px 1fr 1fr;gap:6px;align-items:center}
-.set-num{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim2);text-align:center;letter-spacing:.1em;font-weight:700}
-.set-row.top-row .set-num.a{color:var(--neon-a);text-shadow:0 0 8px rgba(200,255,0,.6)}
-.set-row.top-row .set-num.b{color:var(--neon-b);text-shadow:0 0 8px rgba(255,170,0,.6)}
-.set-row.top-row .set-num.c{color:var(--neon-c);text-shadow:0 0 8px rgba(0,229,255,.6)}
-.input-labels{display:grid;grid-template-columns:42px 1fr 1fr;gap:6px;margin-bottom:4px}
-.input-label{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim2);text-align:center;text-transform:uppercase;letter-spacing:.12em}
-.set-input{background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:14px;padding:8px 6px;text-align:center;width:100%;outline:none;-webkit-appearance:none;appearance:none}
-.set-input:focus{border-color:var(--neon-a);box-shadow:0 0 10px rgba(200,255,0,.2)}
-.rom-row{display:grid;grid-template-columns:42px 1fr;gap:6px;align-items:center;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border2)}
-.rom-row .set-num{color:var(--neon-r)}
-.prev-log{margin-top:11px;padding-top:9px;border-top:1px solid var(--border)}
-.prev-log-title{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim2);letter-spacing:.18em;text-transform:uppercase;margin-bottom:6px}
-.prev-entry{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim2);padding:3px 0}
-.prev-entry .pw{color:var(--dim)}
+ul.check{list-style:none;margin:8px 0 0;padding:0}
+ul.check li{border-top:1px solid var(--rule)}
+ul.check li:first-child{border-top:none}
+ul.check label{display:flex;gap:11px;align-items:flex-start;padding:10px 0;cursor:pointer}
+ul.check input{appearance:none;-webkit-appearance:none;width:20px;height:20px;flex:0 0 20px;margin-top:1px;border:1.5px solid var(--muted);background:transparent;cursor:pointer;position:relative}
+ul.check input:checked{background:var(--teal);border-color:var(--teal)}
+ul.check input:checked::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:11px;border:solid var(--surface);border-width:0 2px 2px 0;transform:rotate(43deg)}
+ul.check input:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.ex-name{font-size:14px;line-height:1.35}
+.ex-dose{font-family:var(--mono);font-size:11px;color:var(--muted);display:block;margin-top:2px}
+li.done .ex-name{color:var(--muted)}
 
-.session-card{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--neon-r);padding:13px 14px;margin-top:16px}
-.session-title{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.08em;color:var(--neon-r);margin-bottom:3px}
-.session-sub{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim2);line-height:1.6;margin-bottom:11px}
-.sess-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.sess-f label{display:block;font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim2);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
-.sess-f input,.sess-note textarea{width:100%;background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:14px;padding:8px 6px;text-align:center;outline:none;-webkit-appearance:none;appearance:none}
-.sess-note{margin-top:8px}
-.sess-note textarea{font-family:'Space Grotesk',sans-serif;font-size:13px;text-align:left;min-height:58px;resize:vertical}
-.sess-f input:focus,.sess-note textarea:focus{border-color:var(--neon-r);box-shadow:0 0 10px rgba(255,61,90,.2)}
-.flag24{margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:9px;padding:8px 10px;border:1px solid var(--border2);color:var(--dim2);line-height:1.6}
-.flag24.bad{border-color:rgba(255,61,90,.5);color:var(--neon-r)}
-.flag24.ok{border-color:rgba(200,255,0,.35);color:var(--neon-a)}
+.slider-row{margin:14px 0 0}
+.slider-head{display:flex;justify-content:space-between;align-items:baseline}
+.slider-head span{font-size:13px}
+.slider-head b{font-family:var(--mono);font-size:19px;font-weight:600}
+input[type=range]{width:100%;appearance:none;-webkit-appearance:none;background:transparent;margin:6px 0 0;height:26px}
+input[type=range]::-webkit-slider-runnable-track{height:3px;background:var(--rule)}
+input[type=range]::-moz-range-track{height:3px;background:var(--rule)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;background:var(--ink);border:none;margin-top:-9.5px;border-radius:0}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;background:var(--ink);border:none;border-radius:0}
+.scale{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9.5px;color:var(--muted)}
 
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(7,8,10,.96);border-top:1px solid var(--border);display:flex;padding:8px 12px 22px;gap:6px;z-index:100;backdrop-filter:blur(14px)}
-.nav-btn{flex:1;padding:10px 4px;background:var(--panel2);border:1px solid var(--border2);color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
-.nav-btn.hi{border-color:rgba(185,108,255,.4);color:var(--neon-p)}
-.nav-btn:active{opacity:.6}
-.toast{position:fixed;top:70px;left:50%;transform:translateX(-50%) translateY(-8px);background:var(--panel3);border:1px solid var(--neon-a);color:var(--neon-a);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;padding:7px 14px;opacity:0;pointer-events:none;transition:all .2s;z-index:200;white-space:nowrap;box-shadow:0 0 20px rgba(200,255,0,.15)}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:300;align-items:flex-end;justify-content:center}
-.modal-overlay.show{display:flex}
-.modal{background:var(--panel);border:1px solid var(--border2);border-bottom:none;padding:24px 20px 36px;width:100%;max-width:480px;max-height:88vh;overflow-y:auto}
-.modal h3{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.08em;margin-bottom:6px;color:var(--neon-p)}
-.modal-sub{font-size:11px;color:var(--dim);font-family:'JetBrains Mono',monospace;line-height:1.7;margin-bottom:18px}
-.crit-row{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--border)}
-.crit-row:first-of-type{border-top:none}
-.crit-row input{appearance:none;-webkit-appearance:none;width:19px;height:19px;flex:0 0 19px;border:1.5px solid var(--dim2);background:transparent;position:relative;cursor:pointer;margin-top:1px}
-.crit-row input:checked{background:var(--neon-p);border-color:var(--neon-p)}
-.crit-row input:checked::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid var(--bg);border-width:0 2px 2px 0;transform:rotate(43deg)}
-.crit-row span{font-size:12.5px;color:var(--text);line-height:1.4}
-.modal-btn{width:100%;padding:13px;background:var(--panel2);border:1px solid var(--border2);color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;margin-top:9px}
-.modal-btn.go{border-color:var(--neon-p);color:var(--neon-p)}
-.modal-btn.warnb{border-color:rgba(255,61,90,.5);color:var(--neon-r)}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.chip{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:8px 11px;border:1px solid var(--rule);background:var(--surface);color:var(--muted);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.field label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.field input,.field textarea,.field select{width:100%;font-family:var(--mono);font-size:14px;padding:9px 10px;border:1px solid var(--rule);background:var(--surface);color:var(--ink)}
+.field textarea{font-family:var(--body);min-height:70px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:2px solid var(--teal);outline-offset:-1px}
+
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td.n{font-family:var(--mono);white-space:nowrap;font-size:12px}
+tr.today td{background:#DEE4DD}
+
+.rule-box{border-left:3px solid var(--brick);padding:2px 0 2px 13px;margin:13px 0}
+.rule-box b{font-family:var(--display);font-variation-settings:'wdth' 112,'wght' 700;text-transform:uppercase;font-size:12.5px;letter-spacing:.05em;display:block;color:var(--brick)}
+.rule-box p{margin:3px 0 0;font-size:13.5px}
+
+.chart{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--rule);margin-top:10px}
+.chart .gl{stroke:var(--rule);stroke-width:1}
+.chart .lp{fill:none;stroke-width:2}
+.chart text{font-family:var(--mono);font-size:8px;fill:var(--muted)}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(88px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:12px}
+.stat{background:var(--surface);padding:11px 10px}
+.stat b{font-family:var(--mono);font-size:21px;font-weight:600;display:block;line-height:1.1}
+.stat span{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+.sparkhead{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px}
+.sparkhead h4{margin:0;font-family:var(--display);font-variation-settings:'wdth' 110,'wght' 620;font-size:13px;text-transform:uppercase}
+.sparkhead span{font-family:var(--mono);font-size:10px;color:var(--muted)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:9px;height:9px;margin-right:5px;vertical-align:-1px}
+
+.btn{display:block;width:100%;text-align:center;font-family:var(--mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;padding:14px;border:1px solid var(--ink);background:var(--ink);color:var(--surface);cursor:pointer;margin-top:10px}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.warn{background:transparent;color:var(--brick);border-color:var(--brick)}
+.savebar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--paper);border-top:1px solid var(--rule);padding:10px var(--gut) calc(10px + env(safe-area-inset-bottom))}
+.savebar .btn{margin:0}
+.saved{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);text-align:center;height:13px;margin-bottom:4px}
+pre.out{background:var(--ink);color:#D6DED9;font-family:var(--mono);font-size:10.5px;line-height:1.45;padding:12px;overflow:auto;max-height:280px;white-space:pre;margin-top:10px}
+footer{padding:28px var(--gut) 10px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div>
-    <h1>REHAB<span>_</span>LIFT</h1>
-    <div class="sub">Niklas · 12 Wochen · Knie</div>
+<header>
+  <div class="brow"><span>Chondromalacia + Plica</span><span id="hdr-date">—</span></div>
+  <h1>Knie-Reha<br>Tagesplan</h1>
+  <div class="phaseband" id="phaseband" aria-hidden="true"></div>
+  <div class="phasemeta">
+    <span>Tag <b id="m-day">1</b> · Woche <b id="m-week">1</b></span>
+    <span>Phase <b id="m-phase">1</b> · <b id="m-mode">Reizphase</b></span>
   </div>
-  <div class="hdr-right">
-    <div class="block-badge" id="phase-badge">PHASE 1</div>
-    <div class="week-selector">
-      <button class="week-btn" onclick="changeWeek(-1)">‹</button>
-      <div class="week-label" id="wk-label">WK <span class="wnum">1</span></div>
-      <button class="week-btn" onclick="changeWeek(1)">›</button>
+</header>
+<div class="tick-rule"></div>
+
+<nav role="tablist">
+  <button role="tab" aria-selected="true" data-tab="heute">Heute</button>
+  <button role="tab" aria-selected="false" data-tab="tests">Tests</button>
+  <button role="tab" aria-selected="false" data-tab="plan">Plan</button>
+  <button role="tab" aria-selected="false" data-tab="verlauf">Verlauf</button>
+  <button role="tab" aria-selected="false" data-tab="export">Export</button>
+</nav>
+
+<main>
+
+<!-- ══ HEUTE ══ -->
+<section id="tab-heute">
+  <div class="datebar">
+    <button id="prevDay" aria-label="Vorheriger Tag">‹</button>
+    <input type="date" id="dateSel">
+    <button id="nextDay" aria-label="Nächster Tag">›</button>
+  </div>
+
+  <div class="dayplan">
+    <div class="lbl" id="dp-weekday">—</div>
+    <div class="big" id="dp-title">—</div>
+    <div class="sub" id="dp-sub">—</div>
+  </div>
+
+  <div class="signal sig-test" id="testBox" hidden>
+    <div class="lbl">Messung fällig</div>
+    <div class="verdict" id="test-verdict">Test heute</div>
+    <p id="test-text"></p>
+  </div>
+
+  <div class="signal sig-stop" id="flareBox" hidden>
+    <div class="lbl">Plica mediopatellaris</div>
+    <div class="verdict" id="flare-verdict">Reizphase</div>
+    <p id="flare-text"></p>
+    <button class="btn warn" id="btnFlare" style="margin-top:12px">Reizphase beenden</button>
+  </div>
+
+  <div class="signal sig-none" id="signal">
+    <div class="lbl">24-Stunden-Regel</div>
+    <div class="verdict" id="sig-verdict">Basiswert</div>
+    <p id="sig-text"></p>
+  </div>
+
+  <h2 class="eyebrow">Morgenwerte</h2>
+  <div class="card">
+    <div class="slider-row" style="margin-top:0">
+      <div class="slider-head"><span>Knieschmerz links</span><b id="v-painL">0</b></div>
+      <input type="range" min="0" max="10" step="1" id="painL">
+    </div>
+    <div class="slider-row">
+      <div class="slider-head"><span>Knieschmerz rechts</span><b id="v-painR">0</b></div>
+      <input type="range" min="0" max="10" step="1" id="painR">
+      <div class="scale"><span>0 frei</span><span>3 grenze</span><span>10 max</span></div>
+    </div>
+    <div class="chips">
+      <button class="chip" data-flag="stiff" aria-pressed="false">Steifigkeit</button>
+      <button class="chip" data-flag="swell" aria-pressed="false">Erguss</button>
+      <button class="chip" data-flag="sting" aria-pressed="false">Stechend</button>
     </div>
   </div>
-</div>
 
-<div class="day-tabs">
-  <button class="day-tab active" data-day="A" onclick="switchDay('A')">TAG A · QUAD</button>
-  <button class="day-tab" data-day="B" onclick="switchDay('B')">TAG B · HÜFTE</button>
-</div>
+  <h2 class="eyebrow">Morgens</h2>
+  <div class="card"><ul class="check" id="list-morning"></ul></div>
 
-<div class="content">
-  <div class="week-overview">
-    <div class="wo-title">12-Wochen Reha-Block</div>
-    <div class="wo-grid" id="wo-grid"></div>
+  <div id="preWrap" hidden>
+    <h2 class="eyebrow">Vor der Einheit</h2>
+    <div class="card"><ul class="check" id="list-pre"></ul></div>
   </div>
 
-  <div id="banner-zone"></div>
+  <h2 class="eyebrow"><span id="eveLabel">Abends</span></h2>
+  <div class="card"><ul class="check" id="list-evening"></ul></div>
 
-  <div class="day-panel active" id="panel-A"></div>
-  <div class="day-panel" id="panel-B"></div>
-</div>
-
-<div class="bottom-nav">
-  <button class="nav-btn hi" onclick="openGate()">Freigabe</button>
-  <button class="nav-btn" onclick="exportMd()">Bericht</button>
-  <button class="nav-btn" onclick="exportData()">Export</button>
-  <button class="nav-btn" onclick="importTrigger()">Import</button>
-</div>
-<input type="file" id="importFile" accept="application/json,.json" style="display:none" onchange="importData(event)">
-
-<div class="toast" id="toast"></div>
-
-<div class="modal-overlay" id="modal-gate">
-  <div class="modal">
-    <h3>FREIGABE PHASE 2</h3>
-    <div class="modal-sub">Alle fünf Kriterien müssen erfüllt sein. Das Kalenderdatum ist irrelevant — ohne Freigabe bleibt Phase 1 aktiv, auch ab Woche 5.</div>
-    <div id="crit-list"></div>
-    <button class="modal-btn go" onclick="closeModals()">Übernehmen</button>
-    <button class="modal-btn warnb" onclick="resetAll()">Alle Daten löschen</button>
+  <div id="bikeWrap" hidden>
+    <h2 class="eyebrow">Rad</h2>
+    <div class="card">
+      <p class="hint tight" id="bikeTarget"></p>
+      <div class="grid2">
+        <div class="field"><label for="watt">Ø Watt</label><input type="number" id="watt" inputmode="numeric"></div>
+        <div class="field"><label for="rpm">Ø rpm</label><input type="number" id="rpm" inputmode="numeric"></div>
+        <div class="field"><label for="mins">Dauer min</label><input type="number" id="mins" inputmode="numeric"></div>
+        <div class="field"><label for="hr">Ø HF</label><input type="number" id="hr" inputmode="numeric"></div>
+      </div>
+      <div class="chips"><button class="chip" data-flag="salbu" aria-pressed="false">Salbutamol</button></div>
+    </div>
   </div>
+
+  <h2 class="eyebrow">Belastung heute</h2>
+  <div class="card">
+    <div class="slider-row" style="margin-top:0">
+      <div class="slider-head"><span>Höchster Schmerz während Belastung</span><b id="v-sess">0</b></div>
+      <input type="range" min="0" max="10" step="1" id="sessionPain">
+      <div class="scale"><span>0</span><span>3 = Obergrenze</span><span>10</span></div>
+    </div>
+    <div class="field" style="margin-top:14px">
+      <label for="note">Notiz</label>
+      <textarea id="note" placeholder="Was fiel auf?"></textarea>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTS ══ -->
+<section id="tab-tests" hidden>
+  <div class="signal sig-none" id="testPlan" style="margin-top:16px">
+    <div class="lbl">Nächste Messungen</div>
+    <div class="verdict" id="tp-verdict">—</div>
+    <p id="tp-text"></p>
+  </div>
+
+  <h2 class="eyebrow">Y-Balance <span class="tag" id="tag-yb">—</span></h2>
+  <div class="card">
+    <h3 class="cardtitle">Posteromedialer Reach · cm · alle 14 Tage</h3>
+    <p class="hint tight">Einbeinstand, gegenüberliegender Fuß schiebt schräg nach hinten-innen. Bester von 3 Versuchen. Standbein bleibt unter 30° Beugung. Ziel: steigend, Seitendifferenz &lt; 4 cm.</p>
+    <p class="hint"><strong>Der anteriore Reach wird in Phase 1 nicht getestet</strong> — er lädt das Standbein durch die 30–60°-Impaktzone.</p>
+    <div class="grid2">
+      <div class="field"><label for="ybL">Standbein links cm</label><input type="number" step="0.5" id="ybL" inputmode="decimal"></div>
+      <div class="field"><label for="ybR">Standbein rechts cm</label><input type="number" step="0.5" id="ybR" inputmode="decimal"></div>
+    </div>
+  </div>
+
+  <h2 class="eyebrow">Einbeinstand <span class="tag" id="tag-sls">—</span></h2>
+  <div class="card">
+    <h3 class="cardtitle">Augen zu · Sekunden · alle 14 Tage</h3>
+    <p class="hint tight">Flacher Fuß, Zeit bis zum ersten Ausweichschritt oder Beckenabsinken. Abbruch bei 60 s. Ziel &gt; 30 s — zugleich Freigabekriterium für Phase 2.</p>
+    <div class="grid2">
+      <div class="field"><label for="slsL">Links s</label><input type="number" step="1" id="slsL" inputmode="numeric"></div>
+      <div class="field"><label for="slsR">Rechts s</label><input type="number" step="1" id="slsR" inputmode="numeric"></div>
+    </div>
+    <p class="hint">Werte werden auf das im Heute-Tab gewählte Datum gebucht.</p>
+  </div>
+
+  <h2 class="eyebrow">Verlauf</h2>
+  <div class="sparkhead"><h4>Y-Balance posteromedial</h4><span id="d-yb">—</span></div>
+  <svg class="chart" id="sp-yb" viewBox="0 0 320 80" role="img" aria-label="Verlauf Y-Balance"></svg>
+  <div class="sparkhead"><h4>Einbeinstand Augen zu</h4><span id="d-sls">—</span></div>
+  <svg class="chart" id="sp-sls" viewBox="0 0 320 80" role="img" aria-label="Verlauf Einbeinstand"></svg>
+  <div class="legend"><span><i style="background:#A93326"></i>links</span><span><i style="background:#16645F"></i>rechts</span></div>
+
+  <div class="card" style="margin-top:16px;padding:0 15px"><table id="testTable"></table></div>
+</section>
+
+<!-- ══ PLAN ══ -->
+<section id="tab-plan" hidden>
+  <h2 class="eyebrow">Wochenraster</h2>
+  <div class="card" style="padding:0 15px">
+    <table id="weekTable"></table>
+  </div>
+  <p class="hint">Der Vollblock liegt auf Di, Do und Sa — jeweils mit 48–72 h Abstand und nie am selben Tag wie ein Unterkörper-Gymtag.</p>
+
+  <h2 class="eyebrow">Frequenzlogik</h2>
+  <div class="card">
+    <table>
+      <tr><th>Kategorie</th><th>Frequenz</th></tr>
+      <tr><td>Isometrie, Patella-/Plica-Mobilisation, Short Foot</td><td class="n">täglich</td></tr>
+      <tr><td>Mobility + Stabilisation (Vollblock)</td><td class="n">3×/Woche</td></tr>
+      <tr><td>Belastet: TKE, Y-Balance</td><td class="n">3×/Woche, ≥48 h</td></tr>
+      <tr><td>Gym Unterkörper A/B</td><td class="n">2×/Woche, ≥72 h</td></tr>
+    </table>
+    <p class="hint">Frequenz ist keine Progressionsvariable. Sie bleibt konstant — progrediert wird über Last, ROM und Schwierigkeit, immer nur eine Variable pro Schritt.</p>
+  </div>
+
+  <h2 class="eyebrow">Die fünf Grundregeln</h2>
+  <div class="rule-box"><b>R1 · Winkelregel</b><p>Belastete Wiederholungen nie in 30–60° Flexion. Geschlossene Kette 0–40°, offene Kette 90–60°. Unbelastete Mobility ausgenommen.</p></div>
+  <div class="rule-box"><b>R2 · 24-Stunden-Regel</b><p>Schmerz ≤ 3/10 während der Einheit und am Folgemorgen nicht schlechter.</p></div>
+  <div class="rule-box"><b>R3 · Kriterien schlagen Kalender</b><p>Phasenwechsel über die Freigabekriterien, nicht über ein Datum.</p></div>
+  <div class="rule-box"><b>R4 · Knorpel braucht Bewegung</b><p>Vollentlastung schadet. Ziel: niedrig, hochfrequent, schmerzfrei.</p></div>
+  <div class="rule-box"><b>R5 · Reizschwellen-Check</b><p>Was im Gym mit Widerstand läuft, bringt zu Hause ohne Widerstand nichts. Zu Hause nur, was das Gym nicht abdeckt.</p></div>
+
+  <h2 class="eyebrow">Freigabe Phase 2</h2>
+  <div class="card">
+    <ul class="check" id="list-criteria"></ul>
+    <div class="signal sig-none" id="gate" style="margin-bottom:0">
+      <div class="lbl">Status</div>
+      <div class="verdict" id="gate-verdict">Phase 1 läuft</div>
+      <p id="gate-text"></p>
+    </div>
+  </div>
+
+  <h2 class="eyebrow">Rad-Zielwerte</h2>
+  <div class="card">
+    <table>
+      <tr><th>Parameter</th><th>Reizphase</th><th>Danach</th></tr>
+      <tr><td>Watt</td><td class="n">95–105</td><td class="n">132–138</td></tr>
+      <tr><td>Kadenz</td><td class="n">95–105</td><td class="n">95–105</td></tr>
+    </table>
+    <p class="hint">Sattel auf Ausgangshöhe. Kein Wiegetritt, keine Widerstandsintervalle. Bei Stechen während des Tretens sofort abbrechen.</p>
+  </div>
+
+  <h2 class="eyebrow">Warnzeichen — Arzt kontaktieren</h2>
+  <div class="card">
+    <table>
+      <tr><td>Stechender Schmerz nach 10 Tagen Deload unverändert</td></tr>
+      <tr><td>Knie blockiert, hakt oder knickt weg</td></tr>
+      <tr><td>Neue oder zunehmende Schwellung</td></tr>
+      <tr><td>Nacht- oder Ruheschmerz</td></tr>
+      <tr><td>Schmerz breitet sich aus statt sich zu lokalisieren</td></tr>
+    </table>
+    <p class="hint">Offen: Plica-Test beidseits · MRT-Indikation rechtes Knie.</p>
+  </div>
+</section>
+
+<!-- ══ VERLAUF ══ -->
+<section id="tab-verlauf" hidden>
+  <h2 class="eyebrow">Kennzahlen</h2>
+  <div class="stat-grid" id="stats"></div>
+  <h2 class="eyebrow">Schmerzverlauf · 28 Tage</h2>
+  <svg class="chart" id="chart" viewBox="0 0 320 150" role="img" aria-label="Schmerzverlauf"></svg>
+  <div class="legend"><span><i style="background:#A93326"></i>morgens (max L/R)</span><span><i style="background:#16645F"></i>unter Belastung</span></div>
+  <h2 class="eyebrow">Adhärenz · 28 Tage</h2>
+  <svg class="chart" id="bars" viewBox="0 0 320 90" role="img" aria-label="Adhärenz"></svg>
+  <p class="hint">Gerechnet gegen das, was an dem Tag tatsächlich vorgesehen war.</p>
+  <h2 class="eyebrow">Letzte Einträge</h2>
+  <div class="card" style="padding:0 15px"><table id="recent"></table></div>
+</section>
+
+<!-- ══ EXPORT ══ -->
+<section id="tab-export" hidden>
+  <h2 class="eyebrow">Für die Coaching-Analyse</h2>
+  <div class="card">
+    <h3 class="cardtitle">Bericht als Markdown</h3>
+    <p class="hint tight">Kennzahlen, Testverlauf, Tagesverlauf, Notizen.</p>
+    <button class="btn" id="btnCopyMd">In Zwischenablage kopieren</button>
+    <button class="btn ghost" id="btnDlMd">Als .md herunterladen</button>
+    <pre class="out" id="mdPreview">—</pre>
+  </div>
+  <h2 class="eyebrow">Sicherung</h2>
+  <div class="card">
+    <button class="btn ghost" id="btnDlJson">Backup als .json</button>
+    <label class="btn ghost" for="fileIn" style="margin-top:10px">JSON importieren</label>
+    <input type="file" id="fileIn" accept="application/json,.json" hidden>
+  </div>
+  <h2 class="eyebrow">Einstellungen</h2>
+  <div class="card">
+    <div class="field"><label for="startDate">Blockstart</label><input type="date" id="startDate"></div>
+    <button class="btn ghost" id="btnFlareSwitch" style="margin-top:16px">Reizphase starten</button>
+    <p class="hint">In der Reizphase entfallen TKE, Y-Balance und Copenhagen.</p>
+    <button class="btn warn" id="btnReset" style="margin-top:16px">Alle Daten löschen</button>
+  </div>
+</section>
+
+</main>
+<footer>Daten liegen lokal in diesem Browser · v4.0</footer>
+
+<div class="savebar">
+  <div class="saved" id="savedNote"></div>
+  <button class="btn" id="btnSave">Tag speichern</button>
 </div>
 
 <script>
 "use strict";
+const KEY="nw-knee-rehab-v3";
 
-/* ═══════════════════════════════════════════════════════════
-   ÜBUNGEN
-   Beine wechseln mit der Phase. Arme laufen durchgehend.
-   ═══════════════════════════════════════════════════════════ */
-
-const LEGS = {
-  1:{
-    A:[
-      {id:'A1a',num:'01',name:'BFR Beinstrecker',sub:'30-15-15-15 · 20–30 % 1RM · 30 s Pause · Endanschlag setzen',sets:4,reps:'30-15-15-15',color:'a',bfr:true,rom:true,romHint:'90–60°'},
-      {id:'A2a',num:'02',name:'Abduktoren-Maschine',sub:'Rumpf aufrecht · kein Ausweichen über den Oberkörper',sets:3,reps:'3 × 20',color:'a'},
-      {id:'A3a',num:'03',name:'Adduktoren-Maschine',sub:'Medialer Zugvektor',sets:3,reps:'3 × 20',color:'a'},
-      {id:'A4a',num:'04',name:'Wadenheben stehend',sub:'Knie fast gestreckt · voller ROM',sets:3,reps:'3 × 15',color:'a'}
-    ],
-    B:[
-      {id:'B1a',num:'01',name:'BFR Beinpresse',sub:'30-15-15-15 · 20–30 % 1RM · Schlitten-Anschlag setzen',sets:4,reps:'30-15-15-15',color:'b',bfr:true,rom:true,romHint:'0–40°'},
-      {id:'B2a',num:'02',name:'Abduktoren-Maschine',sub:'Rumpf aufrecht · kein Ausweichen · alt.: Cable Hip Abduction im Stand',sets:3,reps:'3 × 20',color:'b'},
-      {id:'B3a',num:'03',name:'Beinbeuger liegend',sub:'Leicht · Sehnenqualität, nicht Maximalkraft',sets:3,reps:'3 × 20',color:'b'},
-      {id:'B4a',num:'04',name:'Wadenheben sitzend',sub:'Voller ROM · Pause unten',sets:3,reps:'3 × 15',color:'b'}
-    ]
-  },
-  2:{
-    A:[
-      {id:'A1b',num:'01',name:'Beinpresse, Füße hoch & breit',sub:'Tempo 3-0-1 · RPE 7–8 · ROM alle 2 Wochen +5° wenn schmerzfrei',sets:4,reps:'4 × 15–20',color:'a',rom:true,romHint:'ab 0–40°'},
-      {id:'A2b',num:'02',name:'Beinstrecker',sub:'Endanschlag begrenzen · niemals in die Impaktzone',sets:3,reps:'3 × 15–20',color:'a',rom:true,romHint:'ab 90–60°'},
-      {id:'A3b',num:'03',name:'Split Squat statisch',sub:'Schienbein senkrecht · Knie hinter den Zehen · Tiefe begrenzt',sets:3,reps:'3 × 12/S',color:'a',rom:true,romHint:'Tiefe in °'},
-      {id:'A4b',num:'04',name:'Adduktoren-Maschine',sub:'Medialer Zugvektor',sets:3,reps:'3 × 15–20',color:'a'}
-    ],
-    B:[
-      {id:'B1b',num:'01',name:'45°-Rückenstrecker, Glute-Bias',sub:'Oberer Rücken rund · Füße auswärts · Ende neutral, keine Hyperextension',sets:4,reps:'4 × 12–15',color:'b'},
-      {id:'B2b',num:'02',name:'Rumänisches Kreuzheben, leicht',sub:'~50 % Altgewicht · Knie fixiert · NIE in Dehnschmerz (Hamstring-Sehne)',sets:3,reps:'3 × 12',color:'b'},
-      {id:'B3b',num:'03',name:'Beinbeuger sitzend',sub:'Hohe Wdh., niedrige Last',sets:3,reps:'3 × 15–20',color:'b'},
-      {id:'B4b',num:'04',name:'Cable Hip Abduction',sub:'Rumpf aufrecht · kein Ausweichen · alt.: Abduktoren-Maschine',sets:3,reps:'3 × 15–20',color:'b'}
-    ]
-  }
-};
-
-/* Arme — unverändert aus dem Lift Tracker übernommen */
-const ARMS = {
-  A:[
-    {id:'A5',num:'05',name:'Trizeps-Pushdown',sub:'1 Warmup · Top all-out · Backoff –12 %',sets:2,reps:'Top 8–10',color:'c'},
-    {id:'A6',num:'06',name:'Single-Arm Overhead Extension (Kabel)',sub:'1 Warmup · langer Kopf in Dehnung · bei Ulnaris-Zwicken sofort raus',sets:2,reps:'Top 10–12/S',color:'c'},
-    {id:'A7',num:'07',name:'Kabel-Seitheben (einseitig)',sub:'1 Warmup · Top all-out · Backoff –10 %',sets:2,reps:'Top 12–15',color:'c'}
-  ],
-  B:[
-    {id:'B5',num:'05',name:'EZ-Bar Curl',sub:'1 Warmup · Top all-out · Backoff –12 %',sets:2,reps:'Top 6–8',color:'c'},
-    {id:'B6',num:'06',name:'Incline Dumbbell Curl',sub:'1 Warmup · 45° · Stretch-Mediated · Top all-out',sets:2,reps:'Top 6–8',color:'c'},
-    {id:'B7',num:'07',name:'Landmine Press (einseitig)',sub:'1 Warmup · frontale Schulter · Top all-out',sets:2,reps:'Top 8–10/S',color:'c'}
-  ]
-};
-
-/* ═══ 12-Wochen-Modell ═══
-   Phase 1: keine Lastprogression — BFR, ROM fix.
-   Phase 2: Last und ROM alternieren. Nie beide in derselben Woche (R5). */
-const WEEKS=[
-  {w:1, ph:1, mode:'fix',    label:'Start\nROM fix'},
-  {w:2, ph:1, mode:'fix',    label:'BFR\nStart'},
-  {w:3, ph:1, mode:'reps',   label:'Wdh\n+'},
-  {w:4, ph:1, mode:'reps',   label:'Wdh\n+'},
-  {w:5, ph:2, mode:'base',   label:'Gate\nBaseline'},
-  {w:6, ph:2, mode:'load',   label:'Last\n+2.5%'},
-  {w:7, ph:2, mode:'rom',    label:'ROM\n+5°'},
-  {w:8, ph:2, mode:'load',   label:'Last\n+2.5%'},
-  {w:9, ph:2, mode:'rom',    label:'ROM\n+5°'},
-  {w:10,ph:2, mode:'load',   label:'Last\n+2.5%'},
-  {w:11,ph:2, mode:'rom',    label:'ROM\n+5°'},
-  {w:12,ph:2, mode:'deload', label:'Deload\nRe-Test'}
+/* ── Übungen ───────────────────────────────────── */
+const MORNING=[
+  {k:"MO1",n:"Isometrie Beinbeuger 45°",d:"5 × 45 s @ 70 %"},
+  {k:"MO2",n:"Isometrie Quadrizeps 20–30°",d:"5 × 45 s @ 70 % · Rücken an Wand, nicht tiefer"},
+  {k:"MO3",n:"Einbeinstand Zähneputzen, Ballen",d:"3 × 30 s/Seite · Becken waagrecht"}
 ];
-const TOTAL_WEEKS=12;
+const DAILY_EVE=[
+  {k:"E1",n:"Patella-Mobilisation kranial + lateral",d:"2 × 30 s/Seite · NICHT nach medial"},
+  {k:"E2",n:"Plica-Ausstreichen",d:"60 s/Seite · Knie gestreckt, quer zum Strang, nicht in den Schmerz"},
+  {k:"E3",n:"Short Foot",d:"3 × 10 × 5 s"}
+];
+const BLOCK=[
+  {k:"B2",n:"Hüftbeuger halbkniend, Knie ≤ 90°",d:"2 × 45 s/Seite · dickes Kissen unter dem Knie"},
+  {k:"B3",n:"Einbeinstand mit Beckenkontrolle",d:"3 × 30 s/Seite · Fuß flach, Beckenkamm waagrecht"}
+];
+const LOADED=[
+  {k:"L1",n:"TKE mit Band",d:"2 × 15/Seite · geschlossene Kette 0–30°"},
+  {k:"L2",n:"Y-Balance posteromedial + posterolateral",d:"3 × 5/Richtung · Standbein unter 30°"}
+];
+const COP={k:"C1",n:"Copenhagen Plank, kurzer Hebel",d:"2 × 20 s/Seite"};
+const ROLL={k:"R1",n:"Vastus lateralis + TFL ausrollen",d:"60–90 s/Seite · Muskelbauch, nicht der ITB-Strang"};
+
+/* Wochenraster: 0=So … 6=Sa */
+const WEEK={
+  1:{t:"Gym Unterkörper A",sub:"+ Schulter/Arme → Rad kurz 25 min",bike:1,pre:1},
+  2:{t:"Rad lang GA1",sub:"Vollblock abends",bike:1,pre:1,block:1,cop:1},
+  3:{t:"Gym Oberkörper",sub:"Push/Pull — Beine frei",pre:0},
+  4:{t:"Rad lang GA1",sub:"Vollblock abends",bike:1,pre:1,block:1},
+  5:{t:"Gym Unterkörper B",sub:"+ Schulter/Arme → Rad kurz 25 min",bike:1,pre:1},
+  6:{t:"Frei",sub:"Spaziergang mit Bandage · Vollblock abends",block:1,cop:1},
+  0:{t:"Frei",sub:"nur Tagesbasis",}
+};
+const WD=["So","Mo","Di","Mi","Do","Fr","Sa"];
 
 const CRITERIA=[
-  'Einbeinige Kniebeuge bis 45° schmerzfrei (≤ 2/10)',
-  'Treppe abwärts schmerzfrei',
-  'Kein Nachschmerz > 24 h nach der intensivsten Radeinheit',
-  'Einbeinstand mit geschlossenen Augen 30 s stabil, Becken waagrecht',
-  'Kein Erguss- oder Spannungsgefühl morgens'
+  "Einbeinige Kniebeuge bis 45° schmerzfrei (≤ 2/10)",
+  "Treppe abwärts schmerzfrei",
+  "Kein Nachschmerz > 24 h nach der intensivsten Radeinheit",
+  "Einbeinstand mit geschlossenen Augen 30 s stabil",
+  "Kein Erguss- oder Spannungsgefühl morgens"
+];
+const TESTS=[
+  {k:"yb", n:"Y-Balance",    unit:"cm",every:14,tag:"tag-yb", sp:"sp-yb", dl:"d-yb"},
+  {k:"sls",n:"Einbeinstand", unit:"s", every:14,tag:"tag-sls",sp:"sp-sls",dl:"d-sls"}
 ];
 
-/* ═══ State ═══ */
-let currentWeek=1, currentDay='A', gate=CRITERIA.map(()=>false);
-const timers={};
-const P='rhb_';
-function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
-function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
-function dKey(w,id){return P+'w'+w+'_'+id}
-function sKey(w,d){return P+'sess_w'+w+'_'+d}
+const blank=d=>({d,painL:0,painR:0,stiff:false,swell:false,sting:false,salbu:false,
+  checks:{},sessionPain:0,watt:"",rpm:"",mins:"",hr:"",note:"",tests:{}});
 
-function gateOpen(){return gate.every(Boolean)}
-function phaseFor(w){const def=WEEKS[w-1].ph;return (def===2&&!gateOpen())?1:def;}
-function modeFor(w){return phaseFor(w)===1?(WEEKS[w-1].ph===2?'hold':WEEKS[w-1].mode):WEEKS[w-1].mode;}
-function exFor(day){return LEGS[phaseFor(currentWeek)][day].concat(ARMS[day]);}
-function allIds(){const s=[];[1,2].forEach(p=>['A','B'].forEach(d=>LEGS[p][d].forEach(e=>s.push(e))));
-  ['A','B'].forEach(d=>ARMS[d].forEach(e=>s.push(e)));return s;}
-function exById(id){return allIds().find(e=>e.id===id);}
-function round25(v){return Math.round(v/2.5)*2.5}
+let state={v:3,startDate:"2026-08-18",flare:true,flareStart:"2026-08-19",
+  entries:{},criteria:CRITERIA.map(()=>false)};
+let cur=todayISO();
 
-/* ═══ Init ═══ */
-window.addEventListener('DOMContentLoaded',()=>{
-  currentWeek=parseInt(lsGet(P+'week')||'1');
-  const g=lsGet(P+'gate'); if(g){try{const a=JSON.parse(g);if(a.length===5)gate=a;}catch(e){}}
-  buildCrit(); refreshAll();
-});
+/* ── Helfer ────────────────────────────────────── */
+function todayISO(){const t=new Date();t.setMinutes(t.getMinutes()-t.getTimezoneOffset());return t.toISOString().slice(0,10);}
+function shift(i,n){const t=new Date(i+"T12:00:00");t.setDate(t.getDate()+n);return t.toISOString().slice(0,10);}
+function dd(a,b){return Math.round((new Date(a+"T12:00:00")-new Date(b+"T12:00:00"))/864e5);}
+function dayNr(i){return dd(i,state.startDate)+1;}
+function weekNr(i){return Math.max(1,Math.ceil(Math.max(1,dayNr(i))/7));}
+function phaseNr(){return state.criteria.every(Boolean)?2:1;}
+function wd(i){return new Date(i+"T12:00:00").getDay();}
+function de(i){return new Date(i+"T12:00:00").toLocaleDateString("de-DE",{weekday:"short",day:"2-digit",month:"2-digit",year:"numeric"});}
+function shortDate(i){return i.slice(8)+"."+i.slice(5,7)+".";}
+function entry(i){if(!state.entries[i])state.entries[i]=blank(i);return state.entries[i];}
+function has(i){return !!state.entries[i];}
+function $(s){return document.querySelector(s);}
+function num(v){const n=parseFloat(v);return isFinite(n)?n:null;}
 
-/* ═══ Render ═══ */
-function refreshAll(){ updateHeader(); buildOverview(); buildBanners(); buildDay('A'); buildDay('B'); }
-
-function updateHeader(){
-  const ph=phaseFor(currentWeek);
-  const b=document.getElementById('phase-badge');
-  b.textContent='PHASE '+ph; b.className='block-badge'+(ph===2?' ph2':'');
-  const dl=WEEKS[currentWeek-1].mode==='deload'&&ph===2;
-  document.getElementById('wk-label').innerHTML='WK <span class="wnum">'+currentWeek+'</span>'+(dl?' <span class="dl">DL</span>':'');
-}
-
-function buildOverview(){
-  const g=document.getElementById('wo-grid'); g.innerHTML='';
-  WEEKS.forEach(wk=>{
-    const ph=phaseFor(wk.w);
-    let cls='wo-wk '+(ph===1?'p1':'p2');
-    if(wk.w===5)cls+=' gate';
-    if(wk.mode==='deload')cls+=' deload-wk';
-    if(wk.w===currentWeek)cls+=' current';
-    const lbl=(ph===1&&wk.ph===2)?'Phase 1\nhalten':wk.label;
-    const d=document.createElement('div'); d.className=cls;
-    d.innerHTML='<div class="wo-wk-num">W'+wk.w+'</div><div class="wo-wk-focus">'+lbl.replace('\n','<br>')+'</div>';
-    g.appendChild(d);
-  });
-}
-
-function buildBanners(){
-  const z=document.getElementById('banner-zone'); z.innerHTML='';
-  const wk=WEEKS[currentWeek-1], ph=phaseFor(currentWeek);
-  if(wk.ph===2&&ph===1){
-    z.innerHTML+='<div class="banner warn"><span class="bt">Freigabe fehlt</span>Woche '+currentWeek+' wäre Phase 2 — aber '+gate.filter(Boolean).length+' von 5 Kriterien sind erfüllt. Das Programm bleibt auf <b>Phase 1</b>. Kriterien schlagen Kalender.</div>';
-  }
-  if(currentWeek===5&&ph===2){
-    z.innerHTML+='<div class="banner gate"><span class="bt">Baseline-Woche</span>Arbeitsgewichte neu finden. Bewusst konservativ starten — die Progression beginnt erst in W6. ROM auf Startwert festnageln: geschlossene Kette 0–40°, offene Kette 90–60°.</div>';
-  }
-  const m=modeFor(currentWeek);
-  const txt={
-    fix:'Keine Lastprogression. BFR läuft bei 20–30 % 1RM, ROM bleibt fix. Progrediert wird in dieser Phase gar nicht — es geht um Gewebetoleranz.',
-    reps:'Progression ausschließlich über <b>Wiederholungen</b>. Last und ROM bleiben unverändert.',
-    hold:'Phase 1 wird gehalten. Keine Progression, bis die Freigabe steht.',
-    base:'',
-    load:'Diese Woche progrediert <b>nur die Last</b>: +2.5 % auf den TOP-Satz der Vorwoche. ROM bleibt exakt gleich.',
-    rom:'Diese Woche progrediert <b>nur der ROM</b>: +5° gegenüber der Vorwoche, wenn die letzten zwei Einheiten schmerzfrei waren. Die Last bleibt exakt gleich.',
-    deload:'Deload auf 80 % und Re-Test aller drei Messgrößen. Danach entscheidet sich, ob Block 2 startet.'
-  }[m];
-  if(txt) z.innerHTML+='<div class="banner rule"><span class="bt">Woche '+currentWeek+'</span>'+txt+'</div>';
-  z.innerHTML+='<div class="banner rule"><span class="bt">R1 · Winkelregel</span>Belastete Wiederholungen nie in <b>30–60°</b> Flexion. Geschlossene Kette <b>0–40°</b>, offene Kette <b>90–60°</b>. Kein Muskelversagen bei knielastigen Übungen — 2–3 Wdh. in Reserve.</div>';
-}
-
-function buildDay(day){
-  const panel=document.getElementById('panel-'+day);
-  const legs=LEGS[phaseFor(currentWeek)][day], arms=ARMS[day];
-  const legTitle=day==='A'?'Beine · Quadrizeps-dominant':'Beine · Hüfte / posterior';
-  const armTitle=day==='A'?'Trizeps & Schulter (seitlich)':'Bizeps & Schulter (frontal)';
-  let h='<div class="blk-label"><div class="blk-bar '+(day==='A'?'a':'b')+'"></div><span class="blk-txt">'+legTitle+'</span></div>';
-  legs.forEach(e=>h+=card(e));
-  h+='<div class="blk-label"><div class="blk-bar c"></div><span class="blk-txt">'+armTitle+'</span></div>';
-  arms.forEach(e=>h+=card(e));
-  h+=sessionCard(day);
-  panel.innerHTML=h;
-  legs.concat(arms).forEach(e=>{renderSets(e);renderTarget(e);renderPrev(e);});
-  renderSession(day);
-}
-
-function card(ex){
-  const romBadge=ex.rom?'<div class="rom-badge">ROM '+ex.romHint+'</div>':'';
-  return '<div class="ex-card" id="card-'+ex.id+'">'+
-    '<div class="ex-header" onclick="toggleCard(\''+ex.id+'\')">'+
-      '<div><div class="ex-num">'+ex.num+'</div><div class="ex-name">'+ex.name+'</div><div class="ex-sub">'+ex.sub+'</div></div>'+
-      '<div class="ex-header-right"><div class="sets-badge '+ex.color+'">'+ex.reps+'</div>'+romBadge+
-      '<div class="target-line" id="tgt-'+ex.id+'">SOLL <span class="tv '+ex.color+'">–</span></div>'+
-      '<div class="chevron">▼</div></div></div>'+
-    '<div class="ex-log"><div class="log-week-label"><span>Woche '+currentWeek+'</span><span class="autosave-dot" id="dot-'+ex.id+'"></span></div>'+
-      '<div class="input-labels"><div class="input-label"></div><div class="input-label">kg</div><div class="input-label">wdh</div></div>'+
-      '<div class="sets-grid" id="sets-'+ex.id+'"></div>'+
-      (ex.rom?'<div class="rom-row"><div class="set-num">ROM</div><input class="set-input" type="number" inputmode="numeric" placeholder="Grad" id="rom-'+ex.id+'" oninput="sched(\''+ex.id+'\')"></div>':'')+
-      '<div class="prev-log" id="prev-'+ex.id+'"></div>'+
-    '</div></div>';
-}
-
-function sessionCard(day){
-  return '<div class="session-card">'+
-    '<div class="session-title">Einheit '+day+' · Auswertung</div>'+
-    '<div class="session-sub">Der Morgenwert am Folgetag ist die eigentliche Auswertungsgröße. Der Schmerz während der Einheit allein sagt wenig.</div>'+
-    '<div class="sess-grid">'+
-      '<div class="sess-f"><label>Schmerz während</label><input type="number" min="0" max="10" inputmode="numeric" id="sp-'+day+'" oninput="schedSess(\''+day+'\')"></div>'+
-      '<div class="sess-f"><label>Morgen danach</label><input type="number" min="0" max="10" inputmode="numeric" id="mp-'+day+'" oninput="schedSess(\''+day+'\')"></div>'+
-    '</div>'+
-    '<div class="sess-note"><textarea id="nt-'+day+'" placeholder="Auffälligkeiten, Ausweichbewegungen, Gerätespezifisches…" oninput="schedSess(\''+day+'\')"></textarea></div>'+
-    '<div class="flag24" id="flag-'+day+'">24-Stunden-Regel: beide Werte eintragen.</div>'+
-  '</div>';
-}
-
-function renderSets(ex){
-  const c=document.getElementById('sets-'+ex.id); if(!c)return;
-  const saved=load(currentWeek,ex.id); c.innerHTML='';
-  for(let i=1;i<=ex.sets;i++){
-    const sd=saved[i]||{}, isTop=(ex.sets===2&&i===1);
-    let lab;
-    if(ex.bfr) lab=['30','15','15','15'][i-1];
-    else if(ex.sets===2) lab=(i===1?'TOP':'BO');
-    else lab='S'+i;
-    c.innerHTML+='<div class="set-row'+(isTop?' top-row':'')+'">'+
-      '<div class="set-num '+ex.color+'">'+lab+'</div>'+
-      '<input class="set-input" type="number" inputmode="decimal" placeholder="kg" id="kg-'+ex.id+'-'+i+'" value="'+(sd.kg||'')+'" oninput="sched(\''+ex.id+'\')">'+
-      '<input class="set-input" type="number" inputmode="numeric" placeholder="reps" id="rp-'+ex.id+'-'+i+'" value="'+(sd.reps||'')+'" oninput="sched(\''+ex.id+'\')">'+
-    '</div>';
-  }
-  const r=document.getElementById('rom-'+ex.id);
-  if(r) r.value=saved.rom||'';
-}
-
-function renderTarget(ex){
-  const el=document.getElementById('tgt-'+ex.id); if(!el)return;
-  const set=(v,c)=>{el.innerHTML='SOLL <span class="tv '+(c||ex.color)+'">'+v+'</span>';};
-  const mode=modeFor(currentWeek);
-  const isArm=ex.id.length===2;
-
-  if(ex.bfr){ set('20–30 %','r'); return; }
-  if(!isArm && (mode==='fix'||mode==='reps'||mode==='hold')){ set(mode==='reps'?'Wdh +':'Last fix'); return; }
-  if(mode==='base' && !isArm){ set('Baseline'); return; }
-
-  const prev=load(currentWeek-1,ex.id);
-  const top=parseFloat(prev[1]&&prev[1].kg);
-  if(currentWeek===1||isNaN(top)||top<=0){ set('– VW fehlt','c'); return; }
-
-  if(mode==='deload'){ set(round25(top*0.8)+' kg','deload'); return; }
-  if(mode==='rom'&&!isArm){
-    const pr=parseFloat(prev.rom);
-    set(round25(top)+' kg'+(isFinite(pr)?' · '+(pr+5)+'°':''),'r');
-    return;
-  }
-  set(round25(top*1.025)+' kg');
-}
-
-function renderPrev(ex){
-  const c=document.getElementById('prev-'+ex.id); if(!c)return;
-  let rows=[];
-  for(let w=1;w<=TOTAL_WEEKS;w++){
-    if(w===currentWeek)continue;
-    const s=load(w,ex.id); if(!Object.keys(s).length)continue;
-    let sum=[];
-    for(let i=1;i<=ex.sets;i++){const x=s[i]||{};if(x.reps)sum.push(x.kg?(x.kg+'×'+x.reps):x.reps);}
-    if(s.rom)sum.push(s.rom+'°');
-    if(!sum.length)continue;
-    rows.push('<div class="prev-entry"><span>W'+w+'</span><span class="pw">'+sum.join(' · ')+'</span></div>');
-  }
-  c.innerHTML=rows.length?('<div class="prev-log-title">Verlauf · 12-Wochen-Block</div>'+rows.join('')):'';
-}
-
-function renderSession(day){
-  const raw=lsGet(sKey(currentWeek,day)); const d=raw?JSON.parse(raw):{};
-  const sp=document.getElementById('sp-'+day), mp=document.getElementById('mp-'+day), nt=document.getElementById('nt-'+day);
-  if(sp)sp.value=d.sp||''; if(mp)mp.value=d.mp||''; if(nt)nt.value=d.nt||'';
-  flag24(day);
-}
-function flag24(day){
-  const el=document.getElementById('flag-'+day); if(!el)return;
-  const raw=lsGet(sKey(currentWeek,day)); const d=raw?JSON.parse(raw):{};
-  const s=parseFloat(d.sp), m=parseFloat(d.mp);
-  const prevRaw=lsGet(sKey(currentWeek-1,day)); const pd=prevRaw?JSON.parse(prevRaw):{};
-  const pm=parseFloat(pd.mp);
-  if(isNaN(s)||isNaN(m)){el.className='flag24';el.textContent='24-Stunden-Regel: beide Werte eintragen.';return;}
-  const worse=isFinite(pm)&&m>pm;
-  if(s>3||worse){
-    el.className='flag24 bad';
-    el.textContent='Verstoß: '+(s>3?'Belastungsschmerz '+s+'/10 über der Grenze von 3. ':'')+(worse?'Morgenwert schlechter als in der Vorwoche. ':'')+'Letzte Progression zurücknehmen — ROM oder Last, nicht die Übung streichen.';
-  }else{
-    el.className='flag24 ok';
-    el.textContent='Innerhalb der Grenzen. Progression in der Folgewoche zulässig.';
-  }
-}
-
-/* ═══ Speichern ═══ */
-function sched(id){clearTimeout(timers[id]);timers[id]=setTimeout(()=>doSave(id),550);}
-function doSave(id){
-  const ex=exById(id); if(!ex)return;
-  const data={};
-  for(let i=1;i<=ex.sets;i++){
-    data[i]={kg:(document.getElementById('kg-'+id+'-'+i)||{}).value||'',
-             reps:(document.getElementById('rp-'+id+'-'+i)||{}).value||''};
-  }
-  const r=document.getElementById('rom-'+id); if(r&&r.value)data.rom=r.value;
-  lsSet(dKey(currentWeek,id),JSON.stringify(data));
-  renderTarget(ex); renderPrev(ex);
-  const dot=document.getElementById('dot-'+id);
-  if(dot){dot.classList.add('on');setTimeout(()=>dot.classList.remove('on'),1100);}
-}
-function schedSess(day){clearTimeout(timers['s'+day]);timers['s'+day]=setTimeout(()=>{
-  lsSet(sKey(currentWeek,day),JSON.stringify({
-    sp:(document.getElementById('sp-'+day)||{}).value||'',
-    mp:(document.getElementById('mp-'+day)||{}).value||'',
-    nt:(document.getElementById('nt-'+day)||{}).value||''}));
-  flag24(day);
-},550);}
-function load(w,id){const r=lsGet(dKey(w,id));return r?JSON.parse(r):{};}
-
-/* ═══ Navigation ═══ */
-function changeWeek(d){
-  const n=currentWeek+d; if(n<1||n>TOTAL_WEEKS)return;
-  currentWeek=n; lsSet(P+'week',n); refreshAll();
-  toast('WOCHE '+n+' · PHASE '+phaseFor(n));
-}
-function switchDay(d){
-  currentDay=d;
-  document.querySelectorAll('.day-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.day-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelector('[data-day="'+d+'"]').classList.add('active');
-  document.getElementById('panel-'+d).classList.add('active');
-}
-function toggleCard(id){const c=document.getElementById('card-'+id);if(c)c.classList.toggle('open');}
-
-/* ═══ Freigabe ═══ */
-function buildCrit(){
-  const c=document.getElementById('crit-list'); c.innerHTML='';
-  CRITERIA.forEach((t,i)=>{
-    const row=document.createElement('div'); row.className='crit-row';
-    row.innerHTML='<input type="checkbox"'+(gate[i]?' checked':'')+'><span>'+t+'</span>';
-    row.querySelector('input').addEventListener('change',e=>{
-      gate[i]=e.target.checked; lsSet(P+'gate',JSON.stringify(gate)); refreshAll();
-    });
-    c.appendChild(row);
-  });
-}
-function openGate(){document.getElementById('modal-gate').classList.add('show');}
-function closeModals(){document.querySelectorAll('.modal-overlay').forEach(m=>m.classList.remove('show'));}
-function resetAll(){
-  if(!confirm('Alle Trainingsdaten dieses Trackers löschen? Nicht rückgängig zu machen.'))return;
-  const del=[]; for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith(P))del.push(k);}
-  del.forEach(k=>{try{localStorage.removeItem(k)}catch(e){}});
-  currentWeek=1; gate=CRITERIA.map(()=>false);
-  buildCrit(); closeModals(); refreshAll(); toast('ZURÜCKGESETZT');
-}
-
-/* ═══ Export ═══ */
-function exportData(){
-  const d={}; for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith(P))d[k]=lsGet(k);}
-  dl('rehabgym_'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify(d,null,2),'application/json');
-  toast('EXPORT GESPEICHERT');
-}
-function exportMd(){
-  let m='# Reha-Gym Bericht — 12-Wochen-Block\n\n**Export:** '+new Date().toLocaleDateString('de-DE');
-  m+=' · **Aktuell:** Woche '+currentWeek+', Phase '+phaseFor(currentWeek)+'\n\n## Freigabe Phase 2\n\n';
-  CRITERIA.forEach((c,i)=>{m+='- ['+(gate[i]?'x':' ')+'] '+c+'\n';});
-  ['A','B'].forEach(day=>{
-    m+='\n## Tag '+day+'\n';
-    [1,2].forEach(ph=>{
-      const list=LEGS[ph][day];
-      let any=false;
-      let t='\n### Beine · Phase '+ph+'\n\n| Übung | Woche | Sätze | ROM |\n|---|---|---|---|\n';
-      list.forEach(ex=>{
-        for(let w=1;w<=TOTAL_WEEKS;w++){
-          const s=load(w,ex.id); if(!Object.keys(s).length)continue;
-          let sum=[]; for(let i=1;i<=ex.sets;i++){const x=s[i]||{};if(x.reps)sum.push((x.kg||'BW')+'×'+x.reps);}
-          if(!sum.length&&!s.rom)continue;
-          any=true; t+='| '+ex.name+' | W'+w+' | '+(sum.join(' · ')||'—')+' | '+(s.rom?s.rom+'°':'—')+' |\n';
-        }
-      });
-      if(any)m+=t;
-    });
-    let at='\n### Arme\n\n| Übung | Woche | Sätze |\n|---|---|---|\n', anyA=false;
-    ARMS[day].forEach(ex=>{
-      for(let w=1;w<=TOTAL_WEEKS;w++){
-        const s=load(w,ex.id); if(!Object.keys(s).length)continue;
-        let sum=[]; for(let i=1;i<=ex.sets;i++){const x=s[i]||{};if(x.reps)sum.push((x.kg||'BW')+'×'+x.reps);}
-        if(!sum.length)continue; anyA=true;
-        at+='| '+ex.name+' | W'+w+' | '+sum.join(' · ')+' |\n';
-      }
-    });
-    if(anyA)m+=at;
-    let st='\n### Schmerzprotokoll Tag '+day+'\n\n| Woche | Während | Morgen danach | Notiz |\n|---|---|---|---|\n', anyS=false;
-    for(let w=1;w<=TOTAL_WEEKS;w++){
-      const raw=lsGet(sKey(w,day)); if(!raw)continue; const d=JSON.parse(raw);
-      if(!d.sp&&!d.mp&&!d.nt)continue; anyS=true;
-      st+='| W'+w+' | '+(d.sp||'–')+' | '+(d.mp||'–')+' | '+(d.nt||'—').replace(/\|/g,'/')+' |\n';
+function planFor(iso){
+  const w=WEEK[wd(iso)]||{}, out={morning:MORNING,pre:[],evening:DAILY_EVE.slice(),
+    label:"Abends · Tagesbasis",dayTitle:w.t||"Frei",daySub:w.sub||"",bike:!!w.bike};
+  if(w.pre) out.pre=[ROLL];
+  if(w.block){
+    out.evening=out.evening.concat(BLOCK);
+    if(!state.flare){
+      out.evening=out.evening.concat(LOADED);
+      if(w.cop) out.evening.push(COP);
     }
-    if(anyS)m+=st;
+    out.label = state.flare ? "Abends · Vollblock (reduziert)" : "Abends · Vollblock";
+  }
+  return out;
+}
+function requiredKeys(iso){const p=planFor(iso);return p.morning.concat(p.pre,p.evening).map(x=>x.k);}
+
+/* ── Tests ─────────────────────────────────────── */
+function testDates(k){return Object.keys(state.entries).sort().filter(d=>{
+  const t=state.entries[d].tests||{};return num(t[k+"L"])!==null||num(t[k+"R"])!==null;});}
+function testStatus(T){
+  const ds=testDates(T.k);
+  if(!ds.length) return {due:true,age:null,next:todayISO(),txt:"Baseline fehlt"};
+  const last=ds[ds.length-1], age=dd(todayISO(),last), next=shift(last,T.every);
+  return {due:age>=T.every,age,next,last,txt:age>=T.every?("fällig · "+age+" T"):("in "+(T.every-age)+" T")};
+}
+
+/* ── Persistenz ────────────────────────────────── */
+function load(){try{const r=localStorage.getItem(KEY);if(r){const p=JSON.parse(r);
+  ["startDate","flare","flareStart"].forEach(f=>{if(p[f]!==undefined)state[f]=p[f];});
+  state.entries=p.entries||{};
+  if(p.criteria&&p.criteria.length===CRITERIA.length)state.criteria=p.criteria;
+}}catch(e){console.warn("Daten nicht lesbar:",e);}}
+function save(silent){try{localStorage.setItem(KEY,JSON.stringify(state));
+  if(!silent){const n=$("#savedNote");n.textContent="Gespeichert · "+new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"});setTimeout(()=>{n.textContent="";},2500);}
+}catch(e){$("#savedNote").textContent="Speichern blockiert";}}
+
+/* ── Listen ────────────────────────────────────── */
+function buildChecks(el,items){
+  el.innerHTML="";
+  if(!items.length){el.innerHTML='<li><label><span class="ex-name" style="color:var(--muted)">Heute nichts vorgesehen.</span></label></li>';return;}
+  const e=entry(cur);
+  items.forEach(it=>{
+    const li=document.createElement("li");
+    li.innerHTML='<label><input type="checkbox"><span class="ex-name">'+it.n+'<span class="ex-dose">'+it.d+'</span></span></label>';
+    const cb=li.querySelector("input");
+    cb.checked=!!e.checks[it.k];
+    li.classList.toggle("done",cb.checked);
+    cb.addEventListener("change",()=>{entry(cur).checks[it.k]=cb.checked;li.classList.toggle("done",cb.checked);save(true);renderStats();});
+    el.appendChild(li);
   });
-  m+='\n---\n*Bitte prüfen: ROM-Progression vs. Lastprogression (nie beide in derselben Woche), 24-h-Regel-Verstöße, Seitendifferenzen.*\n';
-  dl('rehabgym-bericht-'+new Date().toISOString().slice(0,10)+'.md',m,'text/markdown');
-  toast('BERICHT GESPEICHERT');
 }
-function dl(n,t,ty){const b=new Blob([t],{type:ty}),a=document.createElement('a');
+function buildCriteria(){
+  const el=$("#list-criteria");el.innerHTML="";
+  CRITERIA.forEach((c,i)=>{
+    const li=document.createElement("li");
+    li.innerHTML='<label><input type="checkbox"><span class="ex-name">'+c+'</span></label>';
+    const cb=li.querySelector("input");cb.checked=state.criteria[i];li.classList.toggle("done",cb.checked);
+    cb.addEventListener("change",()=>{state.criteria[i]=cb.checked;li.classList.toggle("done",cb.checked);save(true);renderGate();renderHeader();});
+    el.appendChild(li);
+  });
+}
+
+/* ── Rendering ─────────────────────────────────── */
+function renderHeader(){
+  $("#hdr-date").textContent=de(cur);
+  $("#m-day").textContent=Math.max(1,dayNr(cur));
+  $("#m-week").textContent=weekNr(cur);
+  $("#m-phase").textContent=phaseNr();
+  $("#m-mode").textContent=state.flare?"Reizphase":(phaseNr()===1?"Entlastung":"Wiederaufbau");
+  const b=$("#phaseband");b.innerHTML="";
+  const w=weekNr(cur);
+  for(let i=1;i<=12;i++){const s=document.createElement("i");if(i<w)s.className="on";if(i===w)s.className="now";b.appendChild(s);}
+}
+function renderDayPlan(){
+  const p=planFor(cur);
+  $("#dp-weekday").textContent=WD[wd(cur)]+" · Woche "+weekNr(cur);
+  $("#dp-title").textContent=p.dayTitle;
+  $("#dp-sub").textContent=p.daySub||"—";
+  $("#eveLabel").textContent=p.label;
+  $("#preWrap").hidden=!p.pre.length;
+  $("#bikeWrap").hidden=!p.bike;
+  if(p.bike) $("#bikeTarget").textContent=state.flare
+    ? "Reizphase: 95–105 W bei 95–105 rpm. Bei Stechen sofort abbrechen."
+    : "GA1 132–138 W bei 95–105 rpm.";
+  buildChecks($("#list-morning"),p.morning);
+  buildChecks($("#list-pre"),p.pre);
+  buildChecks($("#list-evening"),p.evening);
+}
+function renderTestBanner(){
+  const due=TESTS.filter(T=>testStatus(T).due);
+  const box=$("#testBox");
+  if(!due.length){box.hidden=true;return;}
+  box.hidden=false;
+  $("#test-verdict").textContent=due.length===1?"1 Messung fällig":due.length+" Messungen fällig";
+  $("#test-text").textContent=due.map(T=>T.n).join(" · ")+". Vor dem Abendblock messen, nicht danach — Ermüdung verfälscht beide Balancetests.";
+}
+function renderFlare(){
+  const box=$("#flareBox"),sw=$("#btnFlareSwitch");
+  if(state.flare){
+    const d=state.flareStart?dd(todayISO(),state.flareStart):0;
+    box.hidden=false;
+    $("#flare-verdict").textContent="Reizphase · Tag "+(d+1);
+    $("#flare-text").textContent=(d>=5)
+      ? "Ab jetzt beenden, sobald der Morgenwert an zwei aufeinanderfolgenden Tagen schmerzfrei war. Danach startet der Vollblock direkt mit 3×/Woche — kein Aufbau von unten."
+      : "TKE, Y-Balance und Copenhagen ausgesetzt, Rad bei 95–105 W. Frühestens ab Tag 6 beenden, und nur nach zwei schmerzfreien Morgen.";
+    if(sw)sw.textContent="Reizphase beenden";
+  }else{box.hidden=true;if(sw)sw.textContent="Reizphase starten";}
+}
+function renderSignal(){
+  const y=state.entries[shift(cur,-1)],t=state.entries[cur],box=$("#signal");
+  box.className="signal sig-none";
+  if(!y){$("#sig-verdict").textContent="Basiswert";$("#sig-text").textContent="Für die Auswertung fehlt der Vortag.";return;}
+  const tM=t?Math.max(t.painL,t.painR):0,yM=Math.max(y.painL,y.painR);
+  if(tM>yM||(t&&(t.swell||t.sting))){
+    box.className="signal sig-stop";$("#sig-verdict").textContent="Zurücknehmen";
+    $("#sig-text").textContent="Morgenwert schlechter als gestern"+((t&&t.sting)?" bzw. stechender Schmerz":"")+". Letzte Progression rückgängig machen — ROM oder Last, nicht die Übung streichen. Heute nur Tagesbasis.";
+  }else if(y.sessionPain>3){
+    box.className="signal sig-hold";$("#sig-verdict").textContent="Halten";
+    $("#sig-text").textContent="Gestern Belastungsschmerz "+y.sessionPain+"/10, über der Grenze von 3. Morgenwert stabil. Heute nichts steigern.";
+  }else{
+    box.className="signal sig-go";$("#sig-verdict").textContent="Freigegeben";
+    $("#sig-text").textContent="Morgenwert stabil, gestrige Belastung innerhalb der Grenze. Plan wie vorgesehen.";
+  }
+}
+function renderEntry(){
+  const e=entry(cur);
+  $("#dateSel").value=cur;
+  $("#painL").value=e.painL;$("#v-painL").textContent=e.painL;
+  $("#painR").value=e.painR;$("#v-painR").textContent=e.painR;
+  $("#sessionPain").value=e.sessionPain;$("#v-sess").textContent=e.sessionPain;
+  $("#note").value=e.note;
+  ["watt","rpm","mins","hr"].forEach(k=>{$("#"+k).value=e[k];});
+  document.querySelectorAll("[data-flag]").forEach(b=>b.setAttribute("aria-pressed",e[b.dataset.flag]?"true":"false"));
+  renderHeader();renderFlare();renderDayPlan();renderTestBanner();renderSignal();renderTests();renderStats();
+}
+function renderGate(){
+  const n=state.criteria.filter(Boolean).length;
+  const g=$("#gate");
+  if(n===5){g.className="signal sig-go";$("#gate-verdict").textContent="Phase 2 offen";
+    $("#gate-text").textContent="Alle Kriterien erfüllt. Gym wechselt auf Phase 2, TKE entfällt.";}
+  else{g.className="signal sig-none";$("#gate-verdict").textContent="Phase 1 läuft";
+    $("#gate-text").textContent=n+" von 5 Kriterien erfüllt. Ohne alle fünf bleibt Phase 1 aktiv — auch nach Woche 4.";}
+}
+function renderWeekTable(){
+  let s='<tr><th>Tag</th><th>Einheit</th><th>Abends</th></tr>';
+  [1,2,3,4,5,6,0].forEach(d=>{
+    const w=WEEK[d]||{};
+    const eve=w.block?(state.flare?"Vollblock (red.)":"Vollblock"+(w.cop?" + Copenhagen":"")):"Tagesbasis";
+    s+='<tr'+(d===wd(cur)?' class="today"':'')+'><td class="n">'+WD[d]+'</td><td>'+(w.t||"Frei")+'</td><td class="n">'+eve+'</td></tr>';
+  });
+  $("#weekTable").innerHTML=s;
+}
+function renderTests(){
+  const t=entry(cur).tests||{};
+  ["ybL","ybR","slsL","slsR"].forEach(f=>{$("#"+f).value=(t[f]!==undefined?t[f]:"");});
+  const lines=[];
+  TESTS.forEach(T=>{
+    const st=testStatus(T),tag=$("#"+T.tag);
+    tag.textContent=st.txt;tag.className=st.due?"tag due":"tag";
+    lines.push(T.n+": "+(st.due?"jetzt":shortDate(st.next)));
+  });
+  const due=TESTS.filter(T=>testStatus(T).due);
+  const tp=$("#testPlan");
+  tp.className=due.length?"signal sig-test":"signal sig-none";
+  $("#tp-verdict").textContent=due.length?(due.length+" fällig"):"Alles aktuell";
+  $("#tp-text").textContent=lines.join(" · ");
+  drawSparks();
+}
+function drawSparks(){
+  TESTS.forEach(T=>{
+    const ds=testDates(T.k);
+    const L=ds.map(d=>num(state.entries[d].tests[T.k+"L"])),R=ds.map(d=>num(state.entries[d].tests[T.k+"R"]));
+    const all=L.concat(R).filter(v=>v!==null);
+    const el=$("#"+T.sp),dl=$("#"+T.dl);
+    if(!all.length){el.innerHTML='<text x="10" y="44">Noch keine Messung.</text>';dl.textContent="—";return;}
+    const mn=Math.min.apply(null,all),mx=Math.max.apply(null,all),sp=(mx-mn)||2;
+    const lo=mn-sp*0.25,hi=mx+sp*0.25,W=320,H=80,pl=30,pr=10,pt=10,pb=16;
+    const x=i=>ds.length===1?(pl+(W-pl-pr)/2):pl+i*(W-pl-pr)/(ds.length-1);
+    const y=v=>pt+(hi-v)*(H-pt-pb)/(hi-lo);
+    let s='<line class="gl" x1="'+pl+'" y1="'+(H-pb)+'" x2="'+(W-pr)+'" y2="'+(H-pb)+'"/>';
+    s+='<text x="3" y="'+(pt+6)+'">'+hi.toFixed(0)+'</text><text x="3" y="'+(H-pb)+'">'+lo.toFixed(0)+'</text>';
+    const path=(a,c)=>{let d="",o=false,p="";a.forEach((v,i)=>{if(v===null){o=false;return;}
+      d+=(o?" L ":" M ")+x(i).toFixed(1)+" "+y(v).toFixed(1);o=true;
+      p+='<circle cx="'+x(i).toFixed(1)+'" cy="'+y(v).toFixed(1)+'" r="2.5" fill="'+c+'"/>';});
+      return (d?'<path class="lp" stroke="'+c+'" d="'+d+'"/>':"")+p;};
+    s+=path(L,"#A93326")+path(R,"#16645F");
+    s+='<text x="'+pl+'" y="'+(H-4)+'">'+shortDate(ds[0])+'</text>';
+    s+='<text x="'+(W-pr)+'" y="'+(H-4)+'" text-anchor="end">'+shortDate(ds[ds.length-1])+'</text>';
+    el.innerHTML=s;
+    const fL=L.find(v=>v!==null),fR=R.find(v=>v!==null),lL=L[L.length-1],lR=R[R.length-1];
+    const g=(f,l)=>(f===undefined||l===null)?"—":((l-f>0?"+":"")+(l-f).toFixed(1));
+    const diff=(lL!==null&&lR!==null)?Math.abs(lL-lR).toFixed(1):"—";
+    dl.textContent="Δ L "+g(fL,lL)+" · Δ R "+g(fR,lR)+" · Diff "+diff+" "+T.unit;
+  });
+  renderTestTable();
+}
+function renderTestTable(){
+  const ds=Array.from(new Set(TESTS.reduce((a,T)=>a.concat(testDates(T.k)),[]))).sort().reverse();
+  if(!ds.length){$("#testTable").innerHTML='<tr><td>Noch keine Messwerte.</td></tr>';return;}
+  let s='<tr><th>Datum</th><th>YB L/R</th><th>SLS L/R</th></tr>';
+  ds.forEach(d=>{const t=state.entries[d].tests||{},c=k=>((t[k+"L"]||"–")+"/"+(t[k+"R"]||"–"));
+    s+='<tr><td class="n">'+shortDate(d)+'</td><td class="n">'+c("yb")+'</td><td class="n">'+c("sls")+'</td></tr>';});
+  $("#testTable").innerHTML=s;
+}
+
+/* ── Kennzahlen ────────────────────────────────── */
+function lastDays(n){const a=[];for(let i=n-1;i>=0;i--)a.push(shift(todayISO(),-i));return a;}
+function adherence(iso){if(!has(iso))return null;
+  const e=state.entries[iso],r=requiredKeys(iso);
+  return Math.round(r.filter(k=>e.checks[k]).length/r.length*100);}
+function stat(v,l){return '<div class="stat"><b>'+v+'</b><span>'+l+'</span></div>';}
+function renderStats(){
+  const days=lastDays(28).filter(has);
+  const adh=days.map(adherence),pains=days.map(d=>Math.max(state.entries[d].painL,state.entries[d].painR));
+  const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
+  const f7=pains.slice(0,7),l7=pains.slice(-7);
+  const trend=(f7.length&&l7.length)?(avg(l7)-avg(f7)):0;
+  let streak=0,d=todayISO();while(has(d)&&adherence(d)>=70){streak++;d=shift(d,-1);}
+  $("#stats").innerHTML=stat(streak,"Streak ≥70 %")+stat(Math.round(avg(adh))+"%","Ø Adhärenz")+
+    stat(pains.length?avg(pains).toFixed(1):"—","Ø Schmerz")+stat((trend>0?"+":"")+trend.toFixed(1),"Trend 28 T")+
+    stat(days.filter(x=>state.entries[x].sessionPain>3).length,"Tage > 3/10")+stat(Object.keys(state.entries).length,"Einträge");
+  drawChart();drawBars();renderRecent();renderWeekTable();
+}
+function drawChart(){
+  const days=lastDays(28),W=320,H=150,pl=22,pr=8,pt=10,pb=18;
+  const x=i=>pl+i*(W-pl-pr)/(days.length-1),y=v=>pt+(10-v)*(H-pt-pb)/10;
+  let s="";
+  for(let g=0;g<=10;g+=2)s+='<line class="gl" x1="'+pl+'" y1="'+y(g)+'" x2="'+(W-pr)+'" y2="'+y(g)+'"/><text x="4" y="'+(y(g)+3)+'">'+g+'</text>';
+  const line=(m,c)=>{let d="",o=false;days.forEach((dd2,i)=>{const e=state.entries[dd2];if(!e){o=false;return;}
+    const v=m==="m"?Math.max(e.painL,e.painR):e.sessionPain;
+    d+=(o?" L ":" M ")+x(i).toFixed(1)+" "+y(v).toFixed(1);o=true;});
+    return d?'<path class="lp" stroke="'+c+'" d="'+d+'"/>':"";};
+  s+=line("m","#A93326")+line("s","#16645F");
+  s+='<line class="gl" x1="'+pl+'" y1="'+y(3)+'" x2="'+(W-pr)+'" y2="'+y(3)+'" stroke-dasharray="3 3" stroke="#8A6600"/>';
+  s+='<text x="'+(W-pr)+'" y="'+(y(3)-3)+'" text-anchor="end" fill="#8A6600">Grenze 3</text>';
+  s+='<text x="'+pl+'" y="'+(H-5)+'">'+shortDate(days[0])+'</text><text x="'+(W-pr)+'" y="'+(H-5)+'" text-anchor="end">heute</text>';
+  $("#chart").innerHTML=s;
+}
+function drawBars(){
+  const days=lastDays(28),W=320,H=90,pl=22,pr=8,pt=8,pb=16,bw=(W-pl-pr)/days.length;
+  let s='<line class="gl" x1="'+pl+'" y1="'+(H-pb)+'" x2="'+(W-pr)+'" y2="'+(H-pb)+'"/>';
+  s+='<text x="4" y="'+(pt+6)+'">100</text><text x="4" y="'+(H-pb)+'">0</text>';
+  days.forEach((d,i)=>{const a=adherence(d);if(a===null)return;const h=(a/100)*(H-pt-pb);
+    s+='<rect x="'+(pl+i*bw+.7).toFixed(1)+'" y="'+(H-pb-h).toFixed(1)+'" width="'+(bw-1.4).toFixed(1)+'" height="'+h.toFixed(1)+'" fill="'+(a>=70?"#16645F":"#C7CDC5")+'"/>';});
+  $("#bars").innerHTML=s;
+}
+function renderRecent(){
+  const days=lastDays(28).filter(has).reverse().slice(0,10);
+  if(!days.length){$("#recent").innerHTML='<tr><td>Noch keine Einträge.</td></tr>';return;}
+  let s='<tr><th>Datum</th><th>Schmerz</th><th>Bel.</th><th>Adh.</th><th>Tag</th></tr>';
+  days.forEach(d=>{const e=state.entries[d];
+    s+='<tr><td class="n">'+shortDate(d)+'</td><td class="n">'+e.painL+"/"+e.painR+'</td><td class="n">'+e.sessionPain+'</td><td class="n">'+adherence(d)+'%</td><td class="n">'+WD[wd(d)]+'</td></tr>';});
+  $("#recent").innerHTML=s;
+}
+
+/* ── Export ────────────────────────────────────── */
+function buildMarkdown(){
+  const keys=Object.keys(state.entries).sort();
+  if(!keys.length)return "# Reha-Bericht\n\nNoch keine Einträge.";
+  let m="# Reha-Bericht — Knie\n\n**Export:** "+de(todayISO())+"\n";
+  m+="**Blockstart:** "+de(state.startDate)+" · Tag "+dayNr(todayISO())+", Woche "+weekNr(todayISO())+", Phase "+phaseNr();
+  m+=state.flare?" · **Reizphase aktiv**\n\n":"\n\n";
+  m+="## Freigabekriterien Phase 2\n\n";
+  CRITERIA.forEach((c,i)=>{m+="- ["+(state.criteria[i]?"x":" ")+"] "+c+"\n";});
+  const pains=keys.map(k=>Math.max(state.entries[k].painL,state.entries[k].painR));
+  const adhs=keys.map(adherence),avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
+  m+="\n## Kennzahlen\n\n| Kennzahl | Wert |\n|---|---|\n";
+  m+="| Erfasste Tage | "+keys.length+" |\n| Ø Morgenschmerz | "+avg(pains).toFixed(1)+" |\n";
+  m+="| Ø Adhärenz | "+Math.round(avg(adhs))+" % |\n";
+  m+="| Tage Belastungsschmerz > 3 | "+keys.filter(k=>state.entries[k].sessionPain>3).length+" |\n";
+  m+="| Tage mit Erguss | "+keys.filter(k=>state.entries[k].swell).length+" |\n";
+  m+="| Tage mit stechendem Schmerz | "+keys.filter(k=>state.entries[k].sting).length+" |\n";
+  const td=Array.from(new Set(TESTS.reduce((a,T)=>a.concat(testDates(T.k)),[]))).sort();
+  if(td.length){m+="\n## Messwerte\n\n| Datum | Y-Balance postmed. L/R (cm) | Einbeinstand L/R (s) |\n|---|---|---|\n";
+    td.forEach(d=>{const t=state.entries[d].tests||{},c=k=>((t[k+"L"]||"–")+" / "+(t[k+"R"]||"–"));
+      m+="| "+d+" | "+c("yb")+" | "+c("sls")+" |\n";});}
+  m+="\n## Tagesverlauf\n\n| Datum | Tag | Wo | Schmerz L/R | Bel. | Flags | Adh. | Rad W/rpm/min/HF |\n|---|---|---|---|---|---|---|---|\n";
+  keys.forEach(k=>{const e=state.entries[k];
+    const fl=[e.stiff?"steif":"",e.swell?"Erguss":"",e.sting?"stechend":"",e.salbu?"Salb.":""].filter(Boolean).join(", ")||"—";
+    const bk=(e.watt||e.rpm||e.mins||e.hr)?[e.watt||"–",e.rpm||"–",e.mins||"–",e.hr||"–"].join("/"):"—";
+    m+="| "+k+" | "+WD[wd(k)]+" | "+weekNr(k)+" | "+e.painL+"/"+e.painR+" | "+e.sessionPain+" | "+fl+" | "+adherence(k)+" % | "+bk+" |\n";});
+  const nt=keys.filter(k=>state.entries[k].note);
+  if(nt.length){m+="\n## Notizen\n\n";nt.forEach(k=>{m+="**"+k+"** — "+state.entries[k].note+"\n\n";});}
+  m+="\n---\n*Bitte prüfen: Schmerztrend, Testverlauf und Seitendifferenzen, 24-h-Regel-Verstöße, Adhärenz gegen das jeweilige Tagesprogramm.*\n";
+  return m;
+}
+function download(n,t,ty){const b=new Blob([t],{type:ty}),a=document.createElement("a");
   a.href=URL.createObjectURL(b);a.download=n;document.body.appendChild(a);a.click();
-  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},400);}
-function importTrigger(){document.getElementById('importFile').click();}
-function importData(e){
-  const f=e.target.files[0]; if(!f)return;
-  const r=new FileReader();
-  r.onload=ev=>{try{const d=JSON.parse(ev.target.result);
-    Object.keys(d).forEach(k=>{if(k.startsWith(P))lsSet(k,d[k]);});
-    currentWeek=parseInt(lsGet(P+'week')||'1');
-    const g=lsGet(P+'gate'); if(g){const a=JSON.parse(g);if(a.length===5)gate=a;}
-    buildCrit(); refreshAll(); toast('IMPORT ERFOLGREICH');
-  }catch(err){toast('FEHLER BEIM IMPORT')} e.target.value='';};
-  r.readAsText(f);
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},400);}
+
+/* ── Events ────────────────────────────────────── */
+function bind(){
+  const tabs=["heute","tests","plan","verlauf","export"];
+  document.querySelectorAll("nav button").forEach(b=>{
+    b.addEventListener("click",()=>{
+      document.querySelectorAll("nav button").forEach(o=>o.setAttribute("aria-selected",o===b?"true":"false"));
+      tabs.forEach(t=>{$("#tab-"+t).hidden=(t!==b.dataset.tab);});
+      if(b.dataset.tab==="verlauf")renderStats();
+      if(b.dataset.tab==="tests")renderTests();
+      if(b.dataset.tab==="plan"){renderWeekTable();renderGate();}
+      if(b.dataset.tab==="export")$("#mdPreview").textContent=buildMarkdown();
+      window.scrollTo(0,0);
+    });
+  });
+  $("#dateSel").addEventListener("change",e=>{cur=e.target.value||todayISO();renderEntry();});
+  $("#prevDay").addEventListener("click",()=>{cur=shift(cur,-1);renderEntry();});
+  $("#nextDay").addEventListener("click",()=>{cur=shift(cur,1);renderEntry();});
+  [["painL","v-painL"],["painR","v-painR"],["sessionPain","v-sess"]].forEach(([id,o])=>{
+    $("#"+id).addEventListener("input",e=>{entry(cur)[id]=+e.target.value;$("#"+o).textContent=e.target.value;
+      if(id!=="sessionPain")renderSignal();save(true);});});
+  $("#note").addEventListener("input",e=>{entry(cur).note=e.target.value;save(true);});
+  ["watt","rpm","mins","hr"].forEach(k=>{$("#"+k).addEventListener("input",e=>{entry(cur)[k]=e.target.value;save(true);});});
+  ["ybL","ybR","slsL","slsR"].forEach(k=>{
+    $("#"+k).addEventListener("input",e=>{const en=entry(cur);if(!en.tests)en.tests={};
+      if(e.target.value==="")delete en.tests[k];else en.tests[k]=e.target.value;save(true);});
+    $("#"+k).addEventListener("change",()=>{renderTests();renderTestBanner();});});
+  document.querySelectorAll("[data-flag]").forEach(b=>{
+    b.addEventListener("click",()=>{const e=entry(cur),f=b.dataset.flag;e[f]=!e[f];
+      b.setAttribute("aria-pressed",e[f]?"true":"false");renderSignal();save(true);});});
+  $("#btnSave").addEventListener("click",()=>{save(false);renderStats();});
+  const tf=()=>{
+    if(state.flare){if(!confirm("Reizphase beenden? Nur wenn der Morgenwert an zwei aufeinanderfolgenden Tagen schmerzfrei war."))return;
+      state.flare=false;state.flareStart=null;}
+    else{state.flare=true;state.flareStart=todayISO();}
+    save(false);renderEntry();};
+  $("#btnFlare").addEventListener("click",tf);
+  $("#btnFlareSwitch").addEventListener("click",tf);
+  $("#btnCopyMd").addEventListener("click",async()=>{const md=buildMarkdown();$("#mdPreview").textContent=md;
+    try{await navigator.clipboard.writeText(md);$("#btnCopyMd").textContent="Kopiert";}
+    catch(err){$("#btnCopyMd").textContent="Kopieren blockiert — Text unten markieren";}
+    setTimeout(()=>{$("#btnCopyMd").textContent="In Zwischenablage kopieren";},2500);});
+  $("#btnDlMd").addEventListener("click",()=>download("reha-bericht-"+todayISO()+".md",buildMarkdown(),"text/markdown"));
+  $("#btnDlJson").addEventListener("click",()=>download("reha-backup-"+todayISO()+".json",JSON.stringify(state,null,2),"application/json"));
+  $("#fileIn").addEventListener("change",ev=>{const f=ev.target.files[0];if(!f)return;const r=new FileReader();
+    r.onload=()=>{try{const p=JSON.parse(r.result);if(!p.entries)throw new Error("Feld 'entries' fehlt");
+      ["startDate","flare","flareStart"].forEach(k=>{if(p[k]!==undefined)state[k]=p[k];});
+      state.entries=p.entries;
+      if(p.criteria&&p.criteria.length===CRITERIA.length)state.criteria=p.criteria;
+      save(false);buildCriteria();renderGate();renderEntry();
+      $("#savedNote").textContent="Import übernommen · "+Object.keys(state.entries).length+" Tage";
+    }catch(err){$("#savedNote").textContent="Datei nicht lesbar: "+err.message;}ev.target.value="";};
+    r.readAsText(f);});
+  $("#btnReset").addEventListener("click",()=>{
+    if(!confirm("Alle Einträge auf diesem Gerät löschen?"))return;
+    state={v:3,startDate:state.startDate,flare:state.flare,flareStart:state.flareStart,entries:{},criteria:CRITERIA.map(()=>false)};
+    save(false);buildCriteria();renderGate();renderEntry();});
+  $("#startDate").addEventListener("change",e=>{state.startDate=e.target.value||state.startDate;save(false);renderEntry();});
 }
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1700);}
+
+load();buildCriteria();bind();
+$("#startDate").value=state.startDate;
+renderGate();renderEntry();
 </script>
 </body>
 </html>
