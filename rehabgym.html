@@ -213,20 +213,6 @@ footer{padding:28px var(--gut) 10px;font-family:var(--mono);font-size:10px;lette
   <h2 class="eyebrow"><span id="eveLabel">Abends</span></h2>
   <div class="card"><ul class="check" id="list-evening"></ul></div>
 
-  <div id="bikeWrap" hidden>
-    <h2 class="eyebrow">Rad</h2>
-    <div class="card">
-      <p class="hint tight" id="bikeTarget"></p>
-      <div class="grid2">
-        <div class="field"><label for="watt">Ø Watt</label><input type="number" id="watt" inputmode="numeric"></div>
-        <div class="field"><label for="rpm">Ø rpm</label><input type="number" id="rpm" inputmode="numeric"></div>
-        <div class="field"><label for="mins">Dauer min</label><input type="number" id="mins" inputmode="numeric"></div>
-        <div class="field"><label for="hr">Ø HF</label><input type="number" id="hr" inputmode="numeric"></div>
-      </div>
-      <div class="chips"><button class="chip" data-flag="salbu" aria-pressed="false">Salbutamol</button></div>
-    </div>
-  </div>
-
   <h2 class="eyebrow">Belastung heute</h2>
   <div class="card">
     <div class="slider-row" style="margin-top:0">
@@ -315,16 +301,6 @@ footer{padding:28px var(--gut) 10px;font-family:var(--mono);font-size:10px;lette
       <div class="verdict" id="gate-verdict">Phase 1 läuft</div>
       <p id="gate-text"></p>
     </div>
-  </div>
-
-  <h2 class="eyebrow">Rad-Zielwerte</h2>
-  <div class="card">
-    <table>
-      <tr><th>Parameter</th><th>Reizphase</th><th>Danach</th></tr>
-      <tr><td>Watt</td><td class="n">95–105</td><td class="n">132–138</td></tr>
-      <tr><td>Kadenz</td><td class="n">95–105</td><td class="n">95–105</td></tr>
-    </table>
-    <p class="hint">Sattel auf Ausgangshöhe. Kein Wiegetritt, keine Widerstandsintervalle. Bei Stechen während des Tretens sofort abbrechen.</p>
   </div>
 
   <h2 class="eyebrow">Warnzeichen — Arzt kontaktieren</h2>
@@ -436,8 +412,8 @@ const TESTS=[
   {k:"sls",n:"Einbeinstand", unit:"s", every:14,tag:"tag-sls",sp:"sp-sls",dl:"d-sls"}
 ];
 
-const blank=d=>({d,painL:0,painR:0,stiff:false,swell:false,sting:false,salbu:false,
-  checks:{},sessionPain:0,watt:"",rpm:"",mins:"",hr:"",note:"",tests:{}});
+const blank=d=>({d,painL:0,painR:0,stiff:false,swell:false,sting:false,
+  checks:{},sessionPain:0,note:"",tests:{}});
 
 let state={v:3,startDate:"2026-08-18",flare:true,flareStart:"2026-08-19",
   entries:{},criteria:CRITERIA.map(()=>false)};
@@ -460,7 +436,7 @@ function num(v){const n=parseFloat(v);return isFinite(n)?n:null;}
 
 function planFor(iso){
   const w=WEEK[wd(iso)]||{}, out={morning:MORNING,evening:DAILY_EVE.slice(),
-    label:"Abends · Tagesbasis",dayTitle:"Tagesbasis",daySub:"Morgens + Abendbasis",bike:true};
+    label:"Abends · Tagesbasis",dayTitle:"Tagesbasis",daySub:"Morgens + Abendbasis"};
   if(w.block){
     out.dayTitle="Vollblock";
     out.daySub=state.flare?"Mobility + Stabilisation, reduziert":"Mobility + Stabilisation"+(w.cop?" + Copenhagen":"");
@@ -538,10 +514,6 @@ function renderDayPlan(){
   $("#dp-title").textContent=p.dayTitle;
   $("#dp-sub").textContent=p.daySub||"—";
   $("#eveLabel").textContent=p.label;
-  $("#bikeWrap").hidden=false;
-  if(p.bike) $("#bikeTarget").textContent=state.flare
-    ? "Reizphase: 95–105 W bei 95–105 rpm. Bei Stechen sofort abbrechen."
-    : "GA1 132–138 W bei 95–105 rpm.";
   buildChecks($("#list-morning"),p.morning);
   buildChecks($("#list-evening"),p.evening);
 }
@@ -561,7 +533,7 @@ function renderFlare(){
     $("#flare-verdict").textContent="Reizphase · Tag "+(d+1);
     $("#flare-text").textContent=(d>=5)
       ? "Ab jetzt beenden, sobald der Morgenwert an zwei aufeinanderfolgenden Tagen schmerzfrei war. Danach startet der Vollblock direkt mit 3×/Woche — kein Aufbau von unten."
-      : "TKE, Y-Balance und Copenhagen ausgesetzt, Rad bei 95–105 W. Frühestens ab Tag 6 beenden, und nur nach zwei schmerzfreien Morgen.";
+      : "TKE, Y-Balance und Copenhagen ausgesetzt. Frühestens ab Tag 6 beenden, und nur nach zwei schmerzfreien Morgen.";
     if(sw)sw.textContent="Reizphase beenden";
   }else{box.hidden=true;if(sw)sw.textContent="Reizphase starten";}
 }
@@ -588,7 +560,6 @@ function renderEntry(){
   $("#painR").value=e.painR;$("#v-painR").textContent=e.painR;
   $("#sessionPain").value=e.sessionPain;$("#v-sess").textContent=e.sessionPain;
   $("#note").value=e.note;
-  ["watt","rpm","mins","hr"].forEach(k=>{$("#"+k).value=e[k];});
   document.querySelectorAll("[data-flag]").forEach(b=>b.setAttribute("aria-pressed",e[b.dataset.flag]?"true":"false"));
   renderHeader();renderFlare();renderDayPlan();renderTestBanner();renderSignal();renderTests();renderStats();
 }
@@ -733,11 +704,10 @@ function buildMarkdown(){
   if(td.length){m+="\n## Messwerte\n\n| Datum | Y-Balance postmed. L/R (cm) | Einbeinstand L/R (s) |\n|---|---|---|\n";
     td.forEach(d=>{const t=state.entries[d].tests||{},c=k=>((t[k+"L"]||"–")+" / "+(t[k+"R"]||"–"));
       m+="| "+d+" | "+c("yb")+" | "+c("sls")+" |\n";});}
-  m+="\n## Tagesverlauf\n\n| Datum | Tag | Wo | Schmerz L/R | Bel. | Flags | Adh. | Rad W/rpm/min/HF |\n|---|---|---|---|---|---|---|---|\n";
+  m+="\n## Tagesverlauf\n\n| Datum | Tag | Wo | Schmerz L/R | Bel. | Flags | Adh. |\n|---|---|---|---|---|---|---|\n";
   keys.forEach(k=>{const e=state.entries[k];
-    const fl=[e.stiff?"steif":"",e.swell?"Erguss":"",e.sting?"stechend":"",e.salbu?"Salb.":""].filter(Boolean).join(", ")||"—";
-    const bk=(e.watt||e.rpm||e.mins||e.hr)?[e.watt||"–",e.rpm||"–",e.mins||"–",e.hr||"–"].join("/"):"—";
-    m+="| "+k+" | "+WD[wd(k)]+" | "+weekNr(k)+" | "+e.painL+"/"+e.painR+" | "+e.sessionPain+" | "+fl+" | "+adherence(k)+" % | "+bk+" |\n";});
+    const fl=[e.stiff?"steif":"",e.swell?"Erguss":"",e.sting?"stechend":""].filter(Boolean).join(", ")||"—";
+    m+="| "+k+" | "+WD[wd(k)]+" | "+weekNr(k)+" | "+e.painL+"/"+e.painR+" | "+e.sessionPain+" | "+fl+" | "+adherence(k)+" % |\n";});
   const nt=keys.filter(k=>state.entries[k].note);
   if(nt.length){m+="\n## Notizen\n\n";nt.forEach(k=>{m+="**"+k+"** — "+state.entries[k].note+"\n\n";});}
   m+="\n---\n*Bitte prüfen: Schmerztrend, Testverlauf und Seitendifferenzen, 24-h-Regel-Verstöße, Adhärenz gegen das jeweilige Tagesprogramm.*\n";
@@ -768,7 +738,6 @@ function bind(){
     $("#"+id).addEventListener("input",e=>{entry(cur)[id]=+e.target.value;$("#"+o).textContent=e.target.value;
       if(id!=="sessionPain")renderSignal();save(true);});});
   $("#note").addEventListener("input",e=>{entry(cur).note=e.target.value;save(true);});
-  ["watt","rpm","mins","hr"].forEach(k=>{$("#"+k).addEventListener("input",e=>{entry(cur)[k]=e.target.value;save(true);});});
   ["ybL","ybR","slsL","slsR"].forEach(k=>{
     $("#"+k).addEventListener("input",e=>{const en=entry(cur);if(!en.tests)en.tests={};
       if(e.target.value==="")delete en.tests[k];else en.tests[k]=e.target.value;save(true);});
