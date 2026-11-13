@@ -59,12 +59,12 @@ button{cursor:pointer}
 .chip .bar{width:100%;height:3px;border-radius:2px;background:var(--soft);overflow:hidden}
 .chip .bar i{display:block;height:100%;background:var(--muted)}
 .weeks .chip{flex:1 1 0;min-width:0;padding-inline:2px}
-.days .chip{flex:1 1 0}
+.days .chip{flex:1 1 0;min-width:0;padding-inline:4px}
 .chip.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 .chip.on .s{color:var(--bg);opacity:.75}
 .chip.on .bar{background:color-mix(in srgb,var(--bg) 25%,transparent)}
 .chip.on .bar i{background:var(--bg)}
-.chip.done:not(.on) .bar i{background:var(--plate-d)}
+.chip.done:not(.on) .bar i{background:var(--ink)}
 .day-chip .plate{width:10px;height:10px;border-radius:50%;background:var(--pc)}
 .day-chip.on{background:var(--pc);border-color:var(--pc);color:var(--onpc)}
 .day-chip.on .s{color:var(--onpc)}
@@ -84,7 +84,7 @@ button{cursor:pointer}
 .seg i.f{background:var(--day)}
 .count{font-size:14px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--muted);white-space:nowrap}
 
-.note{margin-top:14px;padding:10px 12px;border-radius:10px;background:color-mix(in srgb,var(--plate-d) 14%,var(--surface));border:1px solid color-mix(in srgb,var(--plate-d) 40%,var(--line));font-size:14px}
+.note{margin-top:14px;padding:10px 12px;border-radius:10px;background:color-mix(in srgb,var(--day) 12%,var(--surface));border:1px solid color-mix(in srgb,var(--day) 40%,var(--line));font-size:14px}
 .note b{font-weight:600}
 
 .slots{list-style:none;margin:14px 0 0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:14px}
@@ -92,7 +92,7 @@ button{cursor:pointer}
 .slot+.slot{border-top:1px solid var(--line)}
 .slot-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
 .mg{margin:0;font:700 21px/1.05 var(--display);text-transform:uppercase;letter-spacing:.02em;min-width:0}
-.mg .tick{display:inline-block;width:16px;height:16px;margin-left:6px;vertical-align:-1px;color:var(--plate-d)}
+.mg .tick{display:inline-block;width:16px;height:16px;margin-left:6px;vertical-align:-1px;color:var(--day)}
 .scheme{font-size:15px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
 .scheme b{color:var(--ink);font-weight:600}
 .sets{display:flex;gap:10px;flex-wrap:wrap;margin-top:2px}
@@ -118,7 +118,7 @@ button{cursor:pointer}
 .hist li{display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--line)}
 .hist li:first-child{border-top:0}
 textarea{width:100%;min-height:90px;border:1px solid var(--line);border-radius:10px;background:var(--bg);padding:10px;font:12px/1.4 ui-monospace,Menlo,monospace}
-.msg{font-size:13px;color:var(--plate-d);min-height:1em}
+.msg{font-size:13px;color:var(--muted);min-height:1em}
 @media (prefers-reduced-motion:reduce){.set{transition:none}}
 </style>
 
@@ -187,11 +187,18 @@ const DAY_TYPES={
     {id:'c6',mg:'Waden – Soleus',sets:3,reps:'10–15'},
     {id:'c7',mg:'Bizeps – frei',sets:3,reps:'8–12'},
     {id:'c8',mg:'Trizeps – Overhead / gedehnt',sets:3,reps:'10–15'},
-    {id:'c9',mg:'Vordere Schulter',sets:3,reps:'10–15'}]}
+    {id:'c9',mg:'Vordere Schulter',sets:3,reps:'10–15'}]},
+  D:{name:'Beine – Hüfte',plate:'d',slots:[
+    {id:'d1',mg:'Beine – unilateral',sets:3,reps:'10–12'},
+    {id:'d2',mg:'Hamstrings – Hüftstreckung',sets:2,reps:'8–10'},
+    {id:'d3',mg:'Unterer Rücken',sets:2,reps:'10–15'},
+    {id:'d4',mg:'Hüftabduktoren',sets:2,reps:'10–12'},
+    {id:'d5',mg:'Core',sets:2,reps:'10–15'}]}
 };
-const DAYS=[{id:'OK1',type:'A'},{id:'UK',type:'C'},{id:'OK2',type:'B'}];
-const DL=9; // Runde 1–8, dann Deload
-const WEEKS=[1,2,3,4,5,6,7,8,9];
+const DAYS=[{id:'OK1',type:'A'},{id:'UK2',label:'UK1',type:'D'},{id:'OK2',type:'B'},{id:'UK',label:'UK2',type:'C'}];
+const lbl=d=>d.label||d.id;
+const DL=7; // Runde 1–6, dann Deload
+const WEEKS=[1,2,3,4,5,6,7];
 const wLabel=w=>w===DL?'DL':String(w);
 const wLong=w=>w===DL?'Deload':'Runde '+w;
 const CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
@@ -224,7 +231,7 @@ function renderHeader(){
   $('weeks').innerHTML=WEEKS.map(w=>{const p=weekProg(S.block,w);const on=w===view.w;
     return '<button class="chip'+(on?' on':'')+(p.tot&&p.done===p.tot?' done':'')+'" data-w="'+w+'" aria-pressed="'+on+'"><span class="l">'+wLabel(w)+'</span><span class="bar"><i style="width:'+pct(p)+'%"></i></span></button>'}).join('');
   $('days').innerHTML=DAYS.map(d=>{const t=DAY_TYPES[d.type];const p=dayProg(S.block,view.w,d.id);const on=d.id===view.d;
-    return '<button class="chip day-chip'+(on?' on':'')+(p.tot&&p.done===p.tot?' done':'')+'" style="--pc:var(--plate-'+t.plate+');--onpc:var(--on-'+t.plate+')" data-d="'+d.id+'" aria-pressed="'+on+'"><span class="row"><span class="plate"></span><span class="l">'+d.id+'</span></span><span class="s">'+p.done+'/'+p.tot+'</span></button>'}).join('');
+    return '<button class="chip day-chip'+(on?' on':'')+(p.tot&&p.done===p.tot?' done':'')+'" style="--pc:var(--plate-'+t.plate+');--onpc:var(--on-'+t.plate+')" data-d="'+d.id+'" aria-pressed="'+on+'"><span class="row"><span class="plate"></span><span class="l">'+lbl(d)+'</span></span><span class="s">'+p.done+'/'+p.tot+'</span></button>'}).join('');
   const aw=$('weeks').querySelector('.on'),ad=$('days').querySelector('.on');
   [aw,ad].forEach(el=>{if(el&&el.scrollIntoView)try{el.scrollIntoView({block:'nearest',inline:'nearest'})}catch(e){}});
 }
@@ -243,7 +250,7 @@ function renderDay(){
   const p=dayProg(S.block,view.w,d.id);
   let segs='';t.slots.forEach(s=>{getChecks(S.block,view.w,d.id,s).forEach(v=>{segs+='<i'+(v?' class="f"':'')+'></i>'})});
   let h='<section class="dayhead"><div class="eyebrow">Block '+S.block+' · '+wLong(view.w)+'</div>'+
-    '<h1><span class="tag" aria-hidden="true"></span>'+d.id+' <span class="sub">'+t.name+'</span></h1>'+
+    '<h1><span class="tag" aria-hidden="true"></span>'+lbl(d)+' <span class="sub">'+t.name+'</span></h1>'+
     '<div class="prog"><div class="seg" aria-hidden="true">'+segs+'</div><div class="count">'+p.done+' / '+p.tot+' Sätze</div></div>';
   if(view.w===DL)h+='<div class="note"><b>Deload:</b> Sätze halbiert, Wiederholungsbereich bleibt, Last etwa 10–20 % runter.</div>';
   h+='</section><ol class="slots">';
@@ -254,7 +261,7 @@ function renderDay(){
   h+='</ol><div class="foot">';
   const nd=nextDay();
   if(p.tot&&p.done===p.tot&&nd){const n=DAYS.find(x=>x.id===nd.d);
-    h+='<button class="btn go" id="nextBtn">Weiter: '+(nd.w!==view.w?wLong(nd.w)+' · ':'')+n.id+' →</button>'}
+    h+='<button class="btn go" id="nextBtn">Weiter: '+(nd.w!==view.w?wLong(nd.w)+' · ':'')+lbl(n)+' →</button>'}
   if(view.w===DL)h+=finishPanel();
   h+='</div>';
   main.innerHTML=h;
@@ -305,7 +312,7 @@ document.addEventListener('click',e=>{
 });
 
 function pickView(){
-  if(S.last&&S.last.b===S.block&&DAYS.some(d=>d.id===S.last.d))view={w:S.last.w,d:S.last.d};else view={w:1,d:DAYS[0].id};
+  if(S.last&&S.last.b===S.block&&DAYS.some(d=>d.id===S.last.d))view={w:Math.min(S.last.w,DL),d:S.last.d};else view={w:1,d:DAYS[0].id};
 }
 load();pickView();render();
 })();
